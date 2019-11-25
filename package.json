@@ -1,10 +1,11 @@
 {
   "name": "laxton-web-react",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "React front end component",
-  "main": "dist/index.js",
+  "main": "dist\\index.js",
   "scripts": {
-    "build": "webpack --env.NODE_ENV=production",
+    "dev": "webpack --mode development --config webpack/webpack.dev.config.js",
+    "build": "webpack --mode production --config webpack/webpack.prod.config.js",
     "start": "webpack-dev-server --hot --open"
   },
   "files": [
@@ -25,19 +26,23 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "tslint": "^5.20.1",
     "tslint-react": "^4.1.0",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "3.9.0"
   },
   "dependencies": {
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }

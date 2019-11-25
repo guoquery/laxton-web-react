@@ -1,41 +1,58 @@
-const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-
+var fs = require("fs");
+var path = require("path");
+var webpack = require("webpack");
+const {
+  CheckerPlugin
+} = require("awesome-typescript-loader");
+var ROOT = path.resolve(__dirname);
 module.exports = {
-  mode: 'development',
-  entry: './src/app.js',
+  entry: "./src/index.tsx",
+  devtool: "source-map",
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.join(__dirname, '../publish/dist'),
+    filename: "[name].bundle.js",
+    sourceMapFilename: "[name].bundle.map.js"
   },
   module: {
     rules: [{
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        test: /\.ts[x]?$/,
+        loader: "awesome-typescript-loader"
       },
       {
-        test: /\.(le|c)ss$/,
-        use: [
-          'style-loader',
-          'css-loader',
+        enforce: "pre",
+        test: /\.ts[x]$/,
+        loader: "source-map-loader"
+      },
+      {
+        test: /\.less$/,
+        include: ROOT + "/src",
+        use: [{
+            loader: "style-loader"
+          },
           {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true
-            }
+            loader: "css-loader"
+          },
+          {
+            loader: "less-loader"
           }
         ]
+      },
+      {
+        test: /\.png/,
+        use: [{
+          loader: "url-loader",
+          options: {
+            limit: 1024 * 20
+          }
+        }]
       }
     ]
   },
-  devServer: {
-    contentBase: './dist',
-    port: 8888
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json", ".png"],
+    alias: {
+      "@": ROOT + "/src"
+    }
   },
-  plugins: [
-    new htmlWebpackPlugin({
-      template: 'public/index.html'
-    })
-  ]
+  plugins: [new CheckerPlugin()]
 };
