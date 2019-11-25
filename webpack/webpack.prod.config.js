@@ -10,8 +10,8 @@ module.exports = {
   entry: "./src/index.tsx",
   devtool: "source-map",
   output: {
-    path: path.join(__dirname, '../publish/dist'),
-    filename: "[name].bundle.js",
+    path: path.join(__dirname, '../dist'),
+    filename: "index.js",
     // sourceMapFilename: "[name].bundle.map.js"
   },
   module: {
