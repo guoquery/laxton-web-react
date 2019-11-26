@@ -2,7 +2,9 @@ var fs = require("fs");
 var path = require("path");
 var webpack = require("webpack");
 const htmlWebpackPlugin = require("html-webpack-plugin");
-const { CheckerPlugin } = require("awesome-typescript-loader");
+const {
+  CheckerPlugin
+} = require("awesome-typescript-loader");
 var ROOT = path.resolve(__dirname);
 module.exports = {
   entry: "./demo/app.tsx",
@@ -13,8 +15,7 @@ module.exports = {
     // sourceMapFilename: "[name].bundle.map.js"
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.ts[x]?$/,
         loader: "awesome-typescript-loader"
       },
@@ -25,9 +26,8 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        include: ROOT + "/src",
-        use: [
-          {
+        // include: ROOT + "/src",
+        use: [{
             loader: "style-loader"
           },
           {
@@ -40,25 +40,23 @@ module.exports = {
       },
       {
         test: /\.png/,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 1024 * 20
-            }
+        use: [{
+          loader: "url-loader",
+          options: {
+            limit: 1024 * 20
           }
-        ]
+        }]
       }
     ]
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json", ".png"],
+    extensions: [".ts", ".tsx", ".js", ".json", ".png", ],
     alias: {
       "@": ROOT + "/src"
     }
   },
   devServer: {
-    contentBase: "./dist",
+    contentBase: path.join(__dirname, "../dist"),
     port: 8888
   },
   plugins: [

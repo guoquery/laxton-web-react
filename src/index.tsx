@@ -1,2 +1,2 @@
-export { default as table } from './table/Table';
+export { default as RTable } from './table/Table';
 

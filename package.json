@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development --config webpack/webpack.dev.config.js",
     "build": "webpack --mode production --config webpack/webpack.prod.config.js",
-    "start": "webpack-dev-server --hot --open"
+    "start": "webpack-dev-server --mode development --config webpack/webpack.dev.config.js --hot --open"
   },
   "files": [
     "dist"
