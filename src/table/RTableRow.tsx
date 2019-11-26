@@ -21,7 +21,7 @@ interface TableRowProps {
 
 }
 
-const TableRow = (props: TableRowProps) => {
+const RTableRow = (props: TableRowProps) => {
 
   const componentWillUnmount = () => {
     props.onDestroy(props.record);
@@ -97,4 +97,4 @@ const TableRow = (props: TableRowProps) => {
     <tr onClick={onRowClick ? onRowClick.bind(null, record, index) : null} className={`${prefixCls} ${props.className}`} style={{ display: props.visible ? '' : 'none' }}>{cells}</tr>);
 };
 
-export default TableRow;
+export default RTableRow;
