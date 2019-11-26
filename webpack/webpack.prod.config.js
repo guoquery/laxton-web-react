@@ -8,7 +8,7 @@ var ROOT = path.resolve(__dirname);
 
 module.exports = {
   entry: "./src/index.tsx",
-  devtool: "source-map",
+  // devtool: "source-map",
   output: {
     path: path.join(__dirname, '../dist'),
     filename: "index.js",

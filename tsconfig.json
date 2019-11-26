@@ -10,7 +10,7 @@
             "es2015.promise"
         ],
         "jsx": "react",
-        "sourceMap": true,
+        // "sourceMap": true,
         "strict": true,
         "noImplicitAny": true,
         "baseUrl": "src",

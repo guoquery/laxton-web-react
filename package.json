@@ -1,8 +1,8 @@
 {
   "name": "laxton-web-react",
-  "version": "0.0.3",
+  "version": "0.0.0.1",
   "description": "React front end component",
-  "main": "dist\\index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "webpack --mode development --config webpack/webpack.dev.config.js",
     "build": "webpack --mode production --config webpack/webpack.prod.config.js",
