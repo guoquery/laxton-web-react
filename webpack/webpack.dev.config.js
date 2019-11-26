@@ -1,20 +1,20 @@
 var fs = require("fs");
 var path = require("path");
 var webpack = require("webpack");
-const {
-  CheckerPlugin
-} = require("awesome-typescript-loader");
+const htmlWebpackPlugin = require("html-webpack-plugin");
+const { CheckerPlugin } = require("awesome-typescript-loader");
 var ROOT = path.resolve(__dirname);
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./demo/app.tsx",
   // devtool: "source-map",
   output: {
-    path: path.join(__dirname, '../dist'),
-    filename: "index.js",
+    path: path.join(__dirname, "../dist"),
+    filename: "index.js"
     // sourceMapFilename: "[name].bundle.map.js"
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.ts[x]?$/,
         loader: "awesome-typescript-loader"
       },
@@ -26,7 +26,8 @@ module.exports = {
       {
         test: /\.less$/,
         include: ROOT + "/src",
-        use: [{
+        use: [
+          {
             loader: "style-loader"
           },
           {
@@ -39,12 +40,14 @@ module.exports = {
       },
       {
         test: /\.png/,
-        use: [{
-          loader: "url-loader",
-          options: {
-            limit: 1024 * 20
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 1024 * 20
+            }
           }
-        }]
+        ]
       }
     ]
   },
@@ -54,5 +57,13 @@ module.exports = {
       "@": ROOT + "/src"
     }
   },
-  plugins: [new CheckerPlugin()]
+  devServer: {
+    contentBase: "./dist",
+    port: 8888
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: "./public/index.html"
+    })
+  ]
 };
