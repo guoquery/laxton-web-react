@@ -1,15 +1,20 @@
 {
   "name": "laxton-web-react",
-  "version": "0.0.7",
+  "version": "0.0.12",
   "description": "React front end component",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "dev": "webpack --mode development --config webpack/webpack.dev.config.js",
     "build": "webpack --mode production --config webpack/webpack.prod.config.js",
-    "start": "webpack-dev-server --mode development --config webpack/webpack.dev.config.js --hot --open"
+    "start": "webpack-dev-server --mode development --config webpack/webpack.dev.config.js --hot --open",
+    "tsc": "tsc"
   },
   "files": [
-    "dist"
+    "dist",
+    "lib",
+    "es"
   ],
   "repository": {
     "type": "git",
@@ -47,6 +52,7 @@
     "@types/react-dom": "^16.9.4",
     "classnames": "^2.2.6",
     "deep-eql": "^4.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { RTable } from '../lib/index';
 import "../src/assets/table.less";
-import { RTable } from '../src/index';
 
 var columns2 = [
   { title: '表头1', dataIndex: 'a', colSpan: 1, key: 'a', width: 100 },
@@ -32,47 +32,47 @@ var data2 = [{ a: '123', key: '1' }, {
   children: [
     {
       key: 11,
-      name: 'John Brown',
-      age: 42,
+      a: 'John Brown',
+      b: 42,
       address: 'New York No. 2 Lake Park',
     },
     {
       key: 12,
-      name: 'John Brown jr.',
-      age: 30,
-      address: 'New York No. 3 Lake Park',
+      a: 'John Brown jr.',
+      b: 30,
+      c: 'New York No. 3 Lake Park',
       children: [
         {
           key: 121,
-          name: 'Jimmy Brown',
-          age: 16,
-          address: 'New York No. 3 Lake Park',
+          a: 'Jimmy Brown',
+          b: 16,
+          c: 'New York No. 3 Lake Park',
         },
       ],
     },
     {
       key: 13,
-      name: 'Jim Green sr.',
-      age: 72,
-      address: 'London No. 1 Lake Park',
+      a: 'Jim Green sr.',
+      b: 72,
+      c: 'London No. 1 Lake Park',
       children: [
         {
           key: 131,
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 2 Lake Park',
+          a: 'Jim Green',
+          b: 42,
+          c: 'London No. 2 Lake Park',
           children: [
             {
               key: 1311,
-              name: 'Jim Green jr.',
-              age: 25,
-              address: 'London No. 3 Lake Park',
+              a: 'Jim Green jr.',
+              b: 25,
+              c: 'London No. 3 Lake Park',
             },
             {
               key: 1312,
-              name: 'Jimmy Green sr.',
-              age: 18,
-              address: 'London No. 4 Lake Park',
+              a: 'Jimmy Green sr.',
+              b: 18,
+              c: 'London No. 4 Lake Park',
             },
           ],
         },

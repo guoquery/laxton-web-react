@@ -80,12 +80,12 @@ const RTable = (props: TableProps) => {
 
   const onExpandedRowsChange = (keys: []) => {
     console.log('getExpandedRows', getExpandedRows(), expandedRowKeys, keys)
-    if (expandedRowKeys.length < 1) {
-      setExpandedRowKeys(keys)
-      console.log('getExpandedRows', getExpandedRows(), expandedRowKeys, keys)
-    } else {
-      setExpandedRowKeys([])
-    }
+    // if (expandedRowKeys.length < 1) {
+    setExpandedRowKeys(keys)
+    console.log('getExpandedRows', getExpandedRows(), expandedRowKeys, keys)
+    // } else {
+    //   setExpandedRowKeys([])
+    // }
     getRows()
     if (props.onExpandedRowsChange) {
       props.onExpandedRowsChange(keys);
