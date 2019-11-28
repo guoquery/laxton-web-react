@@ -44,7 +44,7 @@ const RTableRow = (props: TableRowProps) => {
     const col = columns[i];
     const colClassName = col.className || '';
     const render = col.render;
-    let text = record[col.dataIndex];
+    let text = record[col.key];
 
     let expandIcon = null;
     let tdProps;
@@ -69,7 +69,9 @@ const RTableRow = (props: TableRowProps) => {
     }
 
     if (render) {
-      text = render(text, record, index) || {};
+      // console.log(render, "render>>>>>>>")
+      text = render({ text, record, index }) || {};
+      // console.log(render, "render>>>>>>>", text)
       tdProps = text.props || {};
 
       if (typeof text !== 'string' && !React.isValidElement(text) && 'children' in text) {
@@ -86,7 +88,8 @@ const RTableRow = (props: TableRowProps) => {
     indentText = i === 0 ? (<span style={{ paddingLeft: indentSize * indent + 'px' }} className={`${prefixCls}-indent indent-level-${indent}`}></span>) : null;
 
     if (!notRender) {
-      cells.push(<td key={col.key || col.Id} colSpan={colSpan} rowSpan={rowSpan} className={`${colClassName}`}>
+      console.log('key', col)
+      cells.push(<td key={`${col.key}${index}`} colSpan={colSpan} rowSpan={rowSpan} className={`${colClassName}`}>
         {indentText}
         {expandIcon}
         {text}

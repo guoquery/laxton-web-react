@@ -130,9 +130,9 @@ const RTable = (props: TableProps) => {
       });
     }
     ths = ths.concat(getCurrentColumns());
-    return ths.map((c: any) => {
+    return ths.map((c: any, index: number) => {
       if (c.colSpan !== 0) {
-        return <th key={c.key || c.Id} colSpan={c.colSpan} className={c.className || ''}>{c.title}</th>;
+        return <th key={`${c.key}${index}`} colSpan={c.colSpan} className={c.className || ''}>{c.title}</th>;
       }
     });
   }
@@ -225,6 +225,7 @@ const RTable = (props: TableProps) => {
     if (!columnsPageRange || columnsPageRange[0] > columnsPageRange[1]) {
       return columns;
     }
+    console.log('columns>>>>>>', columns)
     return columns.map((column: any, i: number) => {
       let newColumn = Object.assign({}, column);
       if (i >= columnsPageRange[0] && i <= columnsPageRange[1]) {

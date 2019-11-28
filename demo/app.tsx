@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import '../src/assets/table.less';
-// import "../dist/index";
-// import { Rt, RTable } from '../lib/index';
-import { Rt, RTable } from '../src/index';
+import "../dist/index";
+import { Rt } from '../lib/index';
+// import '../src/assets/table.less';
+// import { Rt } from '../src/index';
 import { api } from './api.service';
 
 var columns2 = [
@@ -86,14 +86,14 @@ var data2 = [{ a: '123', Id: '1' }, {
 
 var columns = [
   {
-    title: 'Role Name', dataIndex: 'Name', width: 100
+    title: 'Role Name', key: 'Name', width: 100
   },
   {
-    title: 'Description', dataIndex: 'Description', width: 100
+    title: 'Description', key: 'Description', width: 100
   },
   {
-    title: 'Action', dataIndex: '', key: 'Id', render: function () {
-      return <span>action</span>
+    title: 'Action', render: function (props: any) {
+      return <span onClick={() => console.log(props, 'sese>55666>>>>>>>>')}>action</span>
     }
   }
 ];
@@ -120,9 +120,9 @@ const App = (props: any) => {
   return (
     <div>
       demo
-      <RTable columns={columns2}
-        data={data2}
-        className="RTable"></RTable>
+      {/* <RTable columns={columns}
+        data={data}
+        className="RTable"></RTable> */}
       <Rt columns={columns}
         dataSource={data}
         className="RTable"></Rt>
