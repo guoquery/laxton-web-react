@@ -1,9 +1,12 @@
 /* eslint-disable prefer-spread */
 // import RcTable, { INTERNAL_COL_DEFINE } from 'rc-table';
 import * as React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 // import SelectionBox from './SelectionBox';
 // import SelectionCheckboxAll from './SelectionCheckboxAll';
 // import { flatArray, flatFilter, normalizeColumns, treeMap } from './util';
+
 import { useState } from "react";
 import { RTable } from ".";
 // import { TableProps } from './interface';
@@ -134,7 +137,7 @@ interface TableProps {
   childrenColumnName?: string;
   onExpandedRowsChange?: (value: any) => void;
   indentSize?: number;
-  onRow?: (record: any, index?: number) => any;
+  onRow?: (record: any, index: number) => any;
   columnsPageRange?: any;
   columnsPageSize?: number;
   expandedRowRender?: any;
@@ -188,11 +191,22 @@ const Table = (props: TableProps) => {
         <span>{`1 -${props.dataSource.length} of ${props.pagination.total}`}</span>
       );
     } else {
-      return "分页器";
+      return <FontAwesomeIcon icon={faCoffee} />;
+    }
+  };
+  const renderLoadMore = () => {
+    if (!props.pagination) {
+      return;
+    }
+    if (props.dataSource.length < props.pagination.total) {
+      return (
+        <div className="more" onClick={() => LoadMore()}>
+          load more
+        </div>
+      );
     }
   };
   const LoadMore = () => {
-    console.log("aaaa bbbbbb");
     // setPagination({ page: 1, pageSize: 10, action: "add" });
     if (props.onChange) {
       props.onChange({ type: "pagination", action: "add" });
@@ -202,9 +216,7 @@ const Table = (props: TableProps) => {
     <div className="RTableBox">
       {title}
       {table}
-      <div className="more" onClick={() => LoadMore()}>
-        load more
-      </div>
+      {renderLoadMore()}
       <div className={"pagination"}>{renderPagination()}</div>
     </div>
   );
