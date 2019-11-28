@@ -15,7 +15,7 @@ interface TableProps {
     childrenColumnName?: string;
     onExpandedRowsChange?: (value: any) => void;
     indentSize?: number;
-    onRowClick?: (value: any) => void;
+    onRowClick?: (record: any, index: number) => any;
     columnsPageRange?: any;
     columnsPageSize?: number;
     expandedRowRender?: any;

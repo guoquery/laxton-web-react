@@ -1,8 +1,18 @@
-/// <reference types="react" />
+import * as React from "react";
 export interface TableStateFilters {
     [key: string]: string[];
 }
+export interface TableEventListeners {
+    onClick?: (arg: React.MouseEvent) => void;
+    onDoubleClick?: (arg: React.MouseEvent) => void;
+    onContextMenu?: (arg: React.MouseEvent) => void;
+    onMouseEnter?: (arg: React.MouseEvent) => void;
+    onMouseLeave?: (arg: React.MouseEvent) => void;
+    [name: string]: any;
+}
 interface TableProps {
+    title?: any;
+    pagination?: any;
     dataSource: any[];
     columns: any[];
     expandIconAsCell?: boolean;
@@ -18,12 +28,13 @@ interface TableProps {
     childrenColumnName?: string;
     onExpandedRowsChange?: (value: any) => void;
     indentSize?: number;
-    onRowClick?: (value: any) => void;
+    onRow?: (record: any, index?: number) => any;
     columnsPageRange?: any;
     columnsPageSize?: number;
     expandedRowRender?: any;
     className?: string;
     showHeader?: boolean;
+    onChange?: (value: any) => any;
 }
 declare const Table: (props: TableProps) => JSX.Element;
 export default Table;

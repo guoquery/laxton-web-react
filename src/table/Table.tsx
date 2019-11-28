@@ -1,15 +1,14 @@
 /* eslint-disable prefer-spread */
 // import RcTable, { INTERNAL_COL_DEFINE } from 'rc-table';
-import * as React from 'react';
+import * as React from "react";
 // import SelectionBox from './SelectionBox';
 // import SelectionCheckboxAll from './SelectionCheckboxAll';
 // import { flatArray, flatFilter, normalizeColumns, treeMap } from './util';
-import { useState } from 'react';
-import { RTable } from '.';
+import { useState } from "react";
+import { RTable } from ".";
 // import { TableProps } from './interface';
 
-
-function noop() { }
+function noop() {}
 
 function stopPropagation(e: React.SyntheticEvent<any>) {
   e.stopPropagation();
@@ -94,7 +93,6 @@ const emptyObject = {};
 //   return Object.keys(filters).some(columnKey => filters[columnKey] !== state.filters[columnKey]);
 // }
 
-
 export interface TableStateFilters {
   [key: string]: string[];
 }
@@ -109,53 +107,109 @@ export interface TableStateFilters {
 //   components: TableComponents;
 //   columns: ColumnProps<T>[];
 // }
+export interface TableEventListeners {
+  onClick?: (arg: React.MouseEvent) => void;
+  onDoubleClick?: (arg: React.MouseEvent) => void;
+  onContextMenu?: (arg: React.MouseEvent) => void;
+  onMouseEnter?: (arg: React.MouseEvent) => void;
+  onMouseLeave?: (arg: React.MouseEvent) => void;
+  [name: string]: any; // https://github.com/ant-design/ant-design/issues/17245#issuecomment-504807714
+}
 
 interface TableProps {
-  dataSource: any[],
-  columns: any[],
-  expandIconAsCell?: boolean,
-  expandedRowKeys?: any[],
-  defaultExpandedRowKeys?: any[],
-  useFixedHeader?: boolean,
-  prefixCls?: string,
-  bodyStyle?: any,
-  style?: any,
-  rowKey?: (value: any, i?: any) => string,
-  rowClassName?: (value: any, i?: any) => void,
-  expandedRowClassName?: (value: any, i?: any) => any,
-  childrenColumnName?: string,
-  onExpandedRowsChange?: (value: any) => void,
-  indentSize?: number,
-  onRowClick?: (value: any) => void,
-  columnsPageRange?: any,
-  columnsPageSize?: number,
-  expandedRowRender?: any,
-  className?: string
-  showHeader?: boolean
+  title?: any;
+  pagination?: any;
+  dataSource: any[];
+  columns: any[];
+  expandIconAsCell?: boolean;
+  expandedRowKeys?: any[];
+  defaultExpandedRowKeys?: any[];
+  useFixedHeader?: boolean;
+  prefixCls?: string;
+  bodyStyle?: any;
+  style?: any;
+  rowKey?: (value: any, i?: any) => string;
+  rowClassName?: (value: any, i?: any) => void;
+  expandedRowClassName?: (value: any, i?: any) => any;
+  childrenColumnName?: string;
+  onExpandedRowsChange?: (value: any) => void;
+  indentSize?: number;
+  onRow?: (record: any, index?: number) => any;
+  columnsPageRange?: any;
+  columnsPageSize?: number;
+  expandedRowRender?: any;
+  className?: string;
+  showHeader?: boolean;
+  onChange?: (value: any) => any;
 }
 const Table = (props: TableProps) => {
+  console.log(props.pagination);
+  const { title } = props;
+
   // const Table =<T extends {}>(props: TableProps<T>)=> {
-  const [showHeader] = useState(true)
+  const [showHeader] = useState(true);
+  const defaultPagination = {
+    total: 0,
+    current: 1,
+    pageSize: 10
+  };
+  // const [pagination, setPagination] = useState(props.pagination);
+  // if (props.pagination) {
+  //   setPagination({ ...pagination, ...props.pagination });
+  // }
+  // console.log(props.pagination, pagination, "se>>>>>");
   const { dataSource, columns, ...restTableProps } = props;
-  const table = <RTable
-    // ref={this.setTableRef}
-    key="table"
-    // expandIcon={this.renderExpandIcon(prefixCls)}
-    // {...restProps}
-    // onRow={(record: T, index: number) => this.onRow(prefixCls, record, index)}
-    // components={this.state.components}
-    // prefixCls={prefixCls}
-    data={props.dataSource}
-    columns={columns}
-  // showHeader={showHeader}
-  // className={classString}
-  // expandIconColumnIndex={expandIconColumnIndex}
-  // expandIconAsCell={expandIconAsCell}
-  // emptyText={mergedLocale.emptyText}
-  />
-  return table;
-}
-export default Table
+  const OnRowClick = (record: any, index: number) => {
+    console.log(record, index, "onrowclick");
+    const { onRow } = props;
+    const custom = onRow ? onRow(record, index) : {};
+  };
+  const table = (
+    <RTable
+      // ref={this.setTableRef}
+      key="table"
+      // expandIcon={this.renderExpandIcon(prefixCls)}
+      // {...restProps}
+      onRowClick={(record: any, index: number) => OnRowClick(record, index)}
+      // components={this.state.components}
+      // prefixCls={prefixCls}
+      data={props.dataSource}
+      columns={columns}
+      // showHeader={showHeader}
+      // className={classString}
+      // expandIconColumnIndex={expandIconColumnIndex}
+      // expandIconAsCell={expandIconAsCell}
+      // emptyText={mergedLocale.emptyText}
+    />
+  );
+  const renderPagination = () => {
+    if (props.pagination) {
+      return (
+        <span>{`1 -${props.dataSource.length} of ${props.pagination.total}`}</span>
+      );
+    } else {
+      return "分页器";
+    }
+  };
+  const LoadMore = () => {
+    console.log("aaaa bbbbbb");
+    // setPagination({ page: 1, pageSize: 10, action: "add" });
+    if (props.onChange) {
+      props.onChange({ type: "pagination", action: "add" });
+    }
+  };
+  return (
+    <div className="RTableBox">
+      {title}
+      {table}
+      <div className="more" onClick={() => LoadMore()}>
+        load more
+      </div>
+      <div className={"pagination"}>{renderPagination()}</div>
+    </div>
+  );
+};
+export default Table;
 // class Table1<T> extends React.Component<TableProps<T>, TableState<T>> {
 //   static propTypes = {
 //     dataSource: PropTypes.array,
