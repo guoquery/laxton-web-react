@@ -1,5 +1,5 @@
 
-export { default as RTable } from './Table';
+export { Rt, RTable } from './Table';
 
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'

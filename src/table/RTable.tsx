@@ -26,19 +26,20 @@ interface TableProps {
 
 const RTable = (props: TableProps) => {
   const [currentColumnsPage, setCurrentColumnsPage] = useState(0)
-  const [data, setData] = useState(props.data)
+  // const [data, setData] = useState(props.data)
+  const data = props.data;
   const [expandedRowKeys, setExpandedRowKeys] = useState([])
   const [columnsPageSize, setColumnsPageSize] = useState(5)
   const [indentSize] = useState(props.indentSize || 15)
   const [childrenColumnName, setChildrenColumnName] = useState('children' || props.childrenColumnName)
-  const [useFixedHeader] = useState(false || props.useFixedHeader)
+  const [useFixedHeader] = useState(props.useFixedHeader ? props.useFixedHeader : false)
   const [expandIconAsCell] = useState(false || props.expandIconAsCell)
   // const [columns] = useState([] || props.columns)
   const [defaultExpandedRowKeys] = useState([] || props.defaultExpandedRowKeys)
   const [prefixCls] = useState(props.prefixCls || 'RTable')
   const [columnsPageRange] = useState(0 || props.columnsPageRange)
-  const rowKey = (o: { key: any; }, i?: any) => {
-    return o.key;
+  const rowKey = (o: { key: any; Id: any }, i?: any) => {
+    return o.key || o.Id;
   }
 
   const keyFn = rowKey || rowKey
@@ -128,12 +129,10 @@ const RTable = (props: TableProps) => {
         title: '',
       });
     }
-    console.log(ths, props.columns, '>>>>>>>>>>>>>>>>D')
     ths = ths.concat(getCurrentColumns());
-    console.log(ths, columns, '>>>>>>>>>>>>>>>>D')
     return ths.map((c: any) => {
       if (c.colSpan !== 0) {
-        return <th key={c.key} colSpan={c.colSpan} className={c.className || ''}>{c.title}</th>;
+        return <th key={c.key || c.Id} colSpan={c.colSpan} className={c.className || ''}>{c.title}</th>;
       }
     });
   }
@@ -159,14 +158,16 @@ const RTable = (props: TableProps) => {
     const expandedRowClassName = props.expandedRowClassName;
     const needIndentSpaced = props.data.some(record => { if (childrenColumnName) { return record[childrenColumnName] && record[childrenColumnName].length > 0 } });
     const onRowClick = props.onRowClick;
-    console.log(data, 'data.>>....')
+    // console.log(data, 'data.>>....')
     for (let i = 0; i < data.length; i++) {
       const record = data[i];
-      const key: string | number | undefined = keyFn(record, i);
+      const key: string | number | undefined = record.Id
+      console.log('rescord,key', key, record)
+      // const key: string | number | undefined = keyFn(record, i);
       const childrenColumn = data[i].children;
       // const childrenColumn = childrenColumnName ? record[childrenColumnName] : '';
       const isRowExpanded: any = RowExpanded(record);
-      console.log(isRowExpanded, 'isRowExpanded》》》》》》》》》》》改')
+      // console.log(isRowExpanded, 'isRowExpanded》》》》》》》》》》》改')
       let expandedRowContent;
       if (expandedRowRender && isRowExpanded) {
         expandedRowContent = expandedRowRender(record, i);
@@ -200,7 +201,7 @@ const RTable = (props: TableProps) => {
         rst = rst.concat(getRowsByData(childrenColumn, subVisible, indent + 1));
       }
     }
-    console.log(rst, ">>>>>>>>>>>>>>>>>>>>LLLL")
+    // console.log(rst, ">>>>>>>>>>>>>>>>>>>>LLLL")
     return rst;
   }
 
@@ -213,7 +214,7 @@ const RTable = (props: TableProps) => {
       cols.push(<col className={`${prefixCls}-expand-icon-col`} key="rc-table-expand-icon-col"></col>);
     }
     cols = cols.concat(props.columns.map((c) => {
-      return <col key={c.key} style={{ width: c.width }}></col>;
+      return <col key={c.key || c.Id} style={{ width: c.width }}></col>;
     }));
     return <colgroup>{cols}</colgroup>;
   }
@@ -319,7 +320,7 @@ const RTable = (props: TableProps) => {
       {columns}
     </tr>
   </thead>);
-  if (props.useFixedHeader) {
+  if (useFixedHeader) {
     headerTable = (<div className={`${prefixCls}-header`}>
       <table>
         {getColGroup()}
@@ -330,7 +331,7 @@ const RTable = (props: TableProps) => {
   }
   return (
     <div className={className} style={props.style}>
-      {/* {headerTable} */}
+      {headerTable}
       <div className={`${prefixCls}-body`} style={props.bodyStyle}>
         <table>
           {/* {getColGroup()} */}

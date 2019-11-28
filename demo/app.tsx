@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { RTable } from '../lib/index';
-import "../src/assets/table.less";
+import '../src/assets/table.less';
+// import "../dist/index";
+// import { Rt, RTable } from '../lib/index';
+import { Rt, RTable } from '../src/index';
+import { api } from './api.service';
 
 var columns2 = [
-  { title: '表头1', dataIndex: 'a', colSpan: 1, key: 'a', width: 100 },
+  { title: '表头1', dataIndex: 'a', colSpan: 1, Id: 'a', width: 100 },
   {
-    id: '123', title: '表头2', dataIndex: 'b', colSpan: 1, key: 'b', width: 100, render: function (o: any, row: any, index: number) {
+    id: '123', title: '表头2', dataIndex: 'b', colSpan: 1, Id: 'b', width: 100, render: function (o: any, row: any, index: number) {
       let obj: any = {
         children: o,
         props: {}
@@ -20,30 +23,30 @@ var columns2 = [
       return obj;
     }
   },
-  { title: '表头3', dataIndex: 'c', key: 'c', width: 200, },
+  { title: '表头3', dataIndex: 'c', Id: 'c', width: 200, },
   {
-    title: '操作', dataIndex: '', key: 'd', render: function () {
+    title: '操作', dataIndex: '', Id: 'd', render: function () {
       return <a href="#">操作</a>
     }
   }
 ];
-var data2 = [{ a: '123', key: '1' }, {
-  a: 'cdd', b: 'edd', key: '2',
+var data2 = [{ a: '123', Id: '1' }, {
+  a: 'cdd', b: 'edd', Id: '2',
   children: [
     {
-      key: 11,
+      Id: 11,
       a: 'John Brown',
       b: 42,
       address: 'New York No. 2 Lake Park',
     },
     {
-      key: 12,
+      Id: 12,
       a: 'John Brown jr.',
       b: 30,
       c: 'New York No. 3 Lake Park',
       children: [
         {
-          key: 121,
+          Id: 121,
           a: 'Jimmy Brown',
           b: 16,
           c: 'New York No. 3 Lake Park',
@@ -51,25 +54,25 @@ var data2 = [{ a: '123', key: '1' }, {
       ],
     },
     {
-      key: 13,
+      Id: 13,
       a: 'Jim Green sr.',
       b: 72,
       c: 'London No. 1 Lake Park',
       children: [
         {
-          key: 131,
+          Id: 131,
           a: 'Jim Green',
           b: 42,
           c: 'London No. 2 Lake Park',
           children: [
             {
-              key: 1311,
+              Id: 1311,
               a: 'Jim Green jr.',
               b: 25,
               c: 'London No. 3 Lake Park',
             },
             {
-              key: 1312,
+              Id: 1312,
               a: 'Jimmy Green sr.',
               b: 18,
               c: 'London No. 4 Lake Park',
@@ -79,20 +82,76 @@ var data2 = [{ a: '123', key: '1' }, {
       ],
     },
   ],
-}, { a: '1333', c: 'eee', d: 2, key: '3' }];
-class App extends React.Component {
+}, { a: '1333', c: 'eee', d: 2, Id: '3' }];
 
-  render() {
-    return (
-      <div>
-        demo
-        <RTable columns={columns2}
-          data={data2}
-          className="RTable"></RTable>
-      </div>
-    );
+var columns = [
+  {
+    title: 'Role Name', dataIndex: 'Name', width: 100
+  },
+  {
+    title: 'Description', dataIndex: 'Description', width: 100
+  },
+  {
+    title: 'Action', dataIndex: '', key: 'Id', render: function () {
+      return <span>action</span>
+    }
   }
+];
+const App = (props: any) => {
 
+  const [data, setData] = useState([])
+  const q = {
+    CurrentPage: 1,
+    Filters: { Name: null },
+    PageSize: 10
+  };
+  const getPageList = async () => {
+    const res = await api.post(`api/Role/GetPageList`, q);
+    if (res.Result) {
+      setData(res.Data.Items);
+    }
+  }
+  useEffect(() => {
+    getPageList();
+    return () => {
+
+    };
+  }, [])
+  return (
+    <div>
+      demo
+      <RTable columns={columns2}
+        data={data2}
+        className="RTable"></RTable>
+      <Rt columns={columns}
+        dataSource={data}
+        className="RTable"></Rt>
+    </div>
+  );
 }
+// class App2 extends React.Component {
+
+//   async componentDidMount() {
+//     const res = await api.post(`api/Role/GetPageList`, q);
+//     if (res.Result) {
+//       setData(res.Data.Items);
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         demo
+//         <RTable columns={columns2}
+//           data={data2}
+//           className="RTable"></RTable>
+//         <Rt columns={columns2}
+//           dataSource={data2}
+//           className="RTable"></Rt>
+//       </div>
+//     );
+//   }
+
+// }
 
 ReactDOM.render(<App />, document.getElementById('root')); //app即为挂载点，在模板html中

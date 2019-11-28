@@ -86,7 +86,7 @@ const RTableRow = (props: TableRowProps) => {
     indentText = i === 0 ? (<span style={{ paddingLeft: indentSize * indent + 'px' }} className={`${prefixCls}-indent indent-level-${indent}`}></span>) : null;
 
     if (!notRender) {
-      cells.push(<td key={col.key} colSpan={colSpan} rowSpan={rowSpan} className={`${colClassName}`}>
+      cells.push(<td key={col.key || col.Id} colSpan={colSpan} rowSpan={rowSpan} className={`${colClassName}`}>
         {indentText}
         {expandIcon}
         {text}
