@@ -5,7 +5,6 @@ coverage.html
 .DS_Store
 node_modules
 publish
-public
 .idea
 .vscode
 *.sock
