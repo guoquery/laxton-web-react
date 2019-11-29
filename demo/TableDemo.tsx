@@ -89,7 +89,7 @@ export const TableDemo = (props: any) => {
   };
 
   return (
-    <div>
+    <div style={{ height: "500px", overflowY: "scroll" }} data-testid="main">
       {/* <RTable columns={columns}
         data={data}
         className="RTable"></RTable> */}
@@ -98,7 +98,7 @@ export const TableDemo = (props: any) => {
         dataSource={data}
         className="RTable"
         pagination={pagination}
-        onChange={e => OnTableChange(e)}
+        onChange={(e: any) => OnTableChange(e)}
         onRow={(record: any, index?: number) => OnRow(record, index)}
       ></Rt>
     </div>
