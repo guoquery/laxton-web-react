@@ -2,7 +2,7 @@
 // import RcTable, { INTERNAL_COL_DEFINE } from 'rc-table';
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 // import SelectionBox from './SelectionBox';
 // import SelectionCheckboxAll from './SelectionCheckboxAll';
 // import { flatArray, flatFilter, normalizeColumns, treeMap } from './util';
@@ -122,6 +122,7 @@ export interface TableEventListeners {
 interface TableProps {
   title?: any;
   pagination?: any;
+  paginationType?: "scroll" | "common";
   dataSource: any[];
   columns: any[];
   expandIconAsCell?: boolean;
@@ -151,6 +152,7 @@ const Table = (props: TableProps) => {
 
   // const Table =<T extends {}>(props: TableProps<T>)=> {
   const [showHeader] = useState(true);
+  const [paginationType] = useState(props.paginationType || "scroll");
   const defaultPagination = {
     total: 0,
     current: 1,
@@ -186,12 +188,15 @@ const Table = (props: TableProps) => {
     />
   );
   const renderPagination = () => {
-    if (props.pagination) {
+    if (!props.pagination) {
+      return;
+    }
+    if (paginationType === "scroll") {
       return (
         <span>{`1 -${props.dataSource.length} of ${props.pagination.total}`}</span>
       );
     } else {
-      return <FontAwesomeIcon icon={faCoffee} />;
+      return <FontAwesomeIcon icon={faAngleDoubleDown} />;
     }
   };
   const renderLoadMore = () => {
@@ -201,7 +206,7 @@ const Table = (props: TableProps) => {
     if (props.dataSource.length < props.pagination.total) {
       return (
         <div className="more" onClick={() => LoadMore()}>
-          load more
+          <FontAwesomeIcon icon={faAngleDoubleDown} size="lg" />
         </div>
       );
     }

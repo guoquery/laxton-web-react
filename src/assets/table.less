@@ -6,6 +6,8 @@
 @table-head-background-color: #f3f3f3;
 
 .@{tablePrefixCls} {
+    width: 100%;
+    max-width: 100%;
     font-size: @font-size-base;
     color: @text-color;
     border-radius: 6px;
@@ -137,10 +139,14 @@
     color: @text-color;
     padding: 20px;
     border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 
     .more {
         margin-top: 20px;
-        width: 100%;
+        width: 100px;
         text-align: center;
     }
 

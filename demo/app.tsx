@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-// import "../dist/index";
-// import { Rt } from "../lib/index";
-import "../src/assets/table.less";
-import { Rt } from "../src/index";
+import "../dist/index";
+import { Rt } from "../lib/index";
+// import "../src/assets/table.less";
+// import { Rt } from "../src/index";
 import { api } from "./api.service";
 
 var columns = [
