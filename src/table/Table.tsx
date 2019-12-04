@@ -1,11 +1,7 @@
 /* eslint-disable prefer-spread */
-// import RcTable, { INTERNAL_COL_DEFINE } from 'rc-table';
 import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
-// import SelectionBox from './SelectionBox';
-// import SelectionCheckboxAll from './SelectionCheckboxAll';
-// import { flatArray, flatFilter, normalizeColumns, treeMap } from './util';
 import { useState } from "react";
 import { RTable } from ".";
 import { Pagination } from "../Pagination/Pagination";
@@ -17,84 +13,6 @@ function stopPropagation(e: React.SyntheticEvent<any>) {
   e.stopPropagation();
 }
 
-// function getRowSelection<T>(props: TableProps<T>): TableRowSelection<T> {
-//   return props.rowSelection || {};
-// }
-
-// function getColumnKey<T>(column: ColumnProps<T>, index?: number) {
-//   return column.key || column.dataIndex || index;
-// }
-
-// function isSameColumn<T>(a: ColumnProps<T> | null, b: ColumnProps<T> | null) {
-//   if (a && b && a.key && a.key === b.key) {
-//     return true;
-//   }
-//   return (
-//     a === b ||
-//     shallowEqual(a, b, (value: any, other: any) => {
-//       if (typeof value === 'function' && typeof other === 'function') {
-//         return value === other || value.toString() === other.toString();
-//       }
-//     })
-//   );
-// }
-
-// const defaultPagination = {
-//   onChange: noop,
-//   onShowSizeChange: noop,
-// };
-
-/**
- * Avoid creating new object, so that parent component's shouldComponentUpdate
- * can works appropriately。
- */
-const emptyObject = {};
-
-// const createComponents = (components: TableComponents = {}) => {
-//   const bodyRow = components && components.body && components.body.row;
-//   return {
-//     ...components,
-//     body: {
-//       ...components.body,
-//       row: createBodyRow(bodyRow),
-//     },
-//   };
-// };
-
-// function isTheSameComponents(components1: TableComponents = {}, components2: TableComponents = {}) {
-//   return (
-//     components1 === components2 ||
-//     ['table', 'header', 'body'].every((key: keyof TableComponents) =>
-//       shallowEqual(components1[key], components2[key]),
-//     )
-//   );
-// }
-
-// function getFilteredValueColumns<T>(state: TableState<T>, columns?: ColumnProps<T>[]) {
-//   return flatFilter(
-//     columns || (state || {}).columns || [],
-//     (column: ColumnProps<T>) => typeof column.filteredValue !== 'undefined',
-//   );
-// }
-
-// function getFiltersFromColumns<T>(
-//   state: TableState<T> = {} as TableState<T>,
-//   columns?: ColumnProps<T>[],
-// ) {
-//   const filters: any = {};
-//   getFilteredValueColumns<T>(state, columns).forEach((col: ColumnProps<T>) => {
-//     const colKey = getColumnKey(col) as string;
-//     filters[colKey] = col.filteredValue;
-//   });
-//   return filters;
-// }
-
-// function isFiltersChanged<T>(state: TableState<T>, filters: TableStateFilters): boolean {
-//   if (Object.keys(filters).length !== Object.keys(state.filters).length) {
-//     return true;
-//   }
-//   return Object.keys(filters).some(columnKey => filters[columnKey] !== state.filters[columnKey]);
-// }
 
 export interface TableStateFilters {
   [key: string]: string[];
@@ -116,7 +34,7 @@ export interface TableEventListeners {
   onContextMenu?: (arg: React.MouseEvent) => void;
   onMouseEnter?: (arg: React.MouseEvent) => void;
   onMouseLeave?: (arg: React.MouseEvent) => void;
-  [name: string]: any; // https://github.com/ant-design/ant-design/issues/17245#issuecomment-504807714
+  [name: string]: any;
 }
 
 interface TableProps {
@@ -149,24 +67,19 @@ interface TableProps {
 const Table = (props: TableProps) => {
   // console.log(props.pagination, "分页器");
   const { title } = props;
-
-  // const Table =<T extends {}>(props: TableProps<T>)=> {
   const [showHeader] = useState(true);
   const [MousewheelLimit, setMousewheelLimit] = useState(false);
   const [paginationType] = useState(props.paginationType || "scroll");
   const defaultPagination = {
     total: 0,
     current: 1,
-    pageSize: 10
+    pageSize: 10,
   };
-  const [pagination] = useState({ ...defaultPagination, ...props.pagination });
-  const [current, setCurrent] = useState(pagination.current);
-  const [pageSize] = useState(pagination.pageSize);
-  // const [pagination, setPagination] = useState(props.pagination);
-  // if (props.pagination) {
-  //   setPagination({ ...pagination, ...props.pagination });
-  // }
-  // console.log(props.pagination, pagination, "se>>>>>");
+  // const [pagination] = useState({ ...defaultPagination, ...props.pagination });
+  const pagination = props.pagination ? { ...defaultPagination, ...props.pagination } : defaultPagination
+  const current = pagination.current;
+  const pageSize = pagination.pageSize;
+
   const { dataSource, columns, ...restTableProps } = props;
   const OnRowClick = (record: any, index: number) => {
     console.log(record, index, "onrowclick");
@@ -200,7 +113,6 @@ const Table = (props: TableProps) => {
         <span>{`1 -${props.dataSource.length} of ${props.pagination.total}`}</span>
       );
     } else {
-      const pageSize = props.pagination.pageSize ? props.pagination.pageSize : defaultPagination.pageSize
       return <Pagination total={500 || props.pagination.total} pageSize={pageSize} onChange={OnPaginationChange} ></Pagination >
     }
   };
@@ -223,12 +135,10 @@ const Table = (props: TableProps) => {
     }
   }
   const LoadMore = () => {
-    // console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))
-    // setPagination({ page: 1, pageSize: 10, action: "add" });
-    if (current > Math.ceil(props.pagination.total / pageSize)) { return }
+    console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))
+    if (current >= Math.ceil(props.pagination.total / pageSize)) { return }
     if (props.onChange) {
       props.onChange({ type: "scroll", data: { page: current + 1, pageSize: pageSize } });
-      setCurrent(current + 1)
     }
   };
 

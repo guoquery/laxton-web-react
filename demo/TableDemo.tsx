@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import "../src/assets/index";
 import { Rt, Pagination, Search } from "../src/index";
 import { api } from "./api.service";
-
 var columns = [
   {
     title: "Role Name",
@@ -30,18 +29,17 @@ var columns = [
 export const TableDemo = (props: any) => {
   let dataType: any[] = [];
   const [data, setData] = useState(dataType);
-  const [loadMoreType, setLoadMoreType] = useState('concat');
-  const [pagination, setPagination] = useState();
+  const [loadMoreType, setLoadMoreType] = useState('replace');
+  const [pagination, setPagination] = useState({
+    total: 0,
+    current: 1,
+    pageSize: 10
+  });
   const [q, setQ] = useState({
     CurrentPage: 1,
     Filters: { Name: null },
     PageSize: 10
   });
-  // const q = {
-  //   CurrentPage: 1,
-  //   Filters: { Name: null },
-  //   PageSize: 10
-  // };
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -51,13 +49,9 @@ export const TableDemo = (props: any) => {
         setData(Data);
       } else {
         setData([...data, ...Data]);
+
       }
-      // if (Data.length < q.PageSize) {
-      //   if (action === 'concat') {
-      //     setMoreData(false);
-      //   }
-      // }
-      setPagination({ total: res.Data.TotalRecord, pageSize: q.PageSize });
+      setPagination({ total: res.Data.TotalRecord, pageSize: q.PageSize, current: q.CurrentPage });
     }
   };
   useEffect(() => {
@@ -72,14 +66,15 @@ export const TableDemo = (props: any) => {
       case 'pagination':
         setQ({
           CurrentPage,
-          Filters: { Name: null },
+          Filters: q.Filters,
           PageSize: e.data.pageSize
         });
         break;
       case 'scroll':
+        setLoadMoreType('concat')
         setQ({
           CurrentPage,
-          Filters: { Name: null },
+          Filters: q.Filters,
           PageSize: e.data.pageSize
         });
         break;
@@ -106,13 +101,37 @@ export const TableDemo = (props: any) => {
         break;
     }
     setLoadMoreType('replace')
-    setQ({ ...q, ...{ Filters: e.data } })
+    setQ({ ...q, ...{ CurrentPage: 1, Filters: e.data } })
   }
 
   const searchConfig: object[] = [
     {
-      label: 'Fullname',
-      value: 'userName'
+      label: ' Role Name',
+      value: 'Name'
+    },
+    {
+      label: 'Status',
+      value: 'Status'
+    },
+    {
+      label: ' Role Name',
+      value: 'Name'
+    },
+    {
+      label: 'Status',
+      value: 'Status'
+    },
+    {
+      label: ' Role Name',
+      value: 'Name'
+    },
+    {
+      label: 'Status',
+      value: 'Status'
+    },
+    {
+      label: ' Role Name',
+      value: 'Name'
     },
     {
       label: 'Status',

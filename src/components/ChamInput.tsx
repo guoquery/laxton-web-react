@@ -170,8 +170,8 @@ export const ChamInput = (props: ChamInputProps) => {
 
   return (
     <div className={layOut === 'row' ? 'chamInput' : "chamInput"}>
-      {layOut === 'column' && <div style={styles.label}><text style={styles.require}>{item.require ? "*" : ""}</text><text id={`lbl${item.value}`}>{item.label}</text></div>}
-      {layOut === 'row' && <div id={`lbl${item.value}`}>{item.label} :  </div>}
+      {layOut === 'column' && <div className={'chamInputLabel'} style={styles.label}><text style={styles.require}>{item.require ? "*" : ""}</text><text id={`lbl${item.value}`}>{item.label}</text></div>}
+      {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}>{item.label} :  </div>}
       {inputControl}
     </div>
   );
