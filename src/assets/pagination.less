@@ -1,0 +1,69 @@
+@import './common.less';
+@borderActiveColor: #1890ff;
+
+.pageMain {
+    width: 100%;
+    margin: 10px 0;
+    .flex(row, flex-end, center);
+
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+    margin-left: 10px;
+
+    li {
+        float: left;
+        width: 30px;
+        height: 30px;
+        .border();
+        text-align: center;
+        line-height: 30px;
+        color: #333;
+        cursor: pointer;
+        margin: 0 6px;
+        border-radius: 4px;
+
+
+        &:hover {
+            color: @borderActiveColor;
+            border-color: @borderActiveColor;
+            transition: all .3s ease;
+        }
+
+        &:first-of-type,
+        &:last-of-type {
+            width: auto;
+            padding: 0 5px;
+        }
+
+        &:first-of-type {
+            margin-right: 10px;
+        }
+
+        &:last-of-type {
+            margin-left: 10px;
+        }
+
+        &::selection {
+            background-color: transparent;
+        }
+    }
+
+    li.pagination-disabled {
+        cursor: not-allowed;
+        color: #b5b5b5 !important;
+
+        &:hover {
+            border-color: @defaultBorderColor  !important;
+        }
+    }
+
+    >.active {
+        color: @borderActiveColor;
+        // background: #54b0bd;
+        border-color: @borderActiveColor;
+        transition: color 10s ease;
+    }
+}

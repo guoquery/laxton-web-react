@@ -1,9 +1,7 @@
+@import './common.less';
 @tablePrefixCls: RTable;
 @tableBox: RTableBox;
-@text-color : #666;
-@font-size-base : 12px;
-@table-border-color: #e9e9e9;
-@table-head-background-color: #f3f3f3;
+
 
 .@{tablePrefixCls} {
     width: 100%;
@@ -138,11 +136,12 @@
     font-size: @font-size-base;
     color: @text-color;
     padding: 20px;
-    border: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    .border();
+    .flex-c();
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    // align-items: center;
 
     .more {
         margin-top: 20px;
@@ -150,7 +149,7 @@
         text-align: center;
     }
 
-    .pagination {
+    .paginationBox {
         width: 100%;
         margin-top: 10px;
         text-align: right;

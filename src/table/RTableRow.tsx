@@ -41,7 +41,7 @@ const RTableRow = (props: TableRowProps) => {
     const col = columns[i];
     const colClassName = col.className || "";
     const render = col.render;
-    let text = record[col.key];
+    let text = record[col.dataIndex];
 
     let expandIcon = null;
     let tdProps;
@@ -110,7 +110,7 @@ const RTableRow = (props: TableRowProps) => {
       // console.log('key', col)
       cells.push(
         <td
-          key={`${col.key}${index}`}
+          key={`${col.dataIndex}${index}`}
           colSpan={colSpan}
           rowSpan={rowSpan}
           className={`${colClassName}`}

@@ -1,17 +1,17 @@
 /* eslint-disable prefer-spread */
 // import RcTable, { INTERNAL_COL_DEFINE } from 'rc-table';
-import * as React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as React from "react";
 // import SelectionBox from './SelectionBox';
 // import SelectionCheckboxAll from './SelectionCheckboxAll';
 // import { flatArray, flatFilter, normalizeColumns, treeMap } from './util';
-
 import { useState } from "react";
 import { RTable } from ".";
+import { Pagination } from "../Pagination/Pagination";
 // import { TableProps } from './interface';
 
-function noop() {}
+function noop() { }
 
 function stopPropagation(e: React.SyntheticEvent<any>) {
   e.stopPropagation();
@@ -147,7 +147,7 @@ interface TableProps {
   onChange?: (value: any) => any;
 }
 const Table = (props: TableProps) => {
-  console.log(props.pagination);
+  // console.log(props.pagination, "分页器");
   const { title } = props;
 
   // const Table =<T extends {}>(props: TableProps<T>)=> {
@@ -159,6 +159,9 @@ const Table = (props: TableProps) => {
     current: 1,
     pageSize: 10
   };
+  const [pagination] = useState({ ...defaultPagination, ...props.pagination });
+  const [current, setCurrent] = useState(pagination.current);
+  const [pageSize] = useState(pagination.pageSize);
   // const [pagination, setPagination] = useState(props.pagination);
   // if (props.pagination) {
   //   setPagination({ ...pagination, ...props.pagination });
@@ -181,11 +184,11 @@ const Table = (props: TableProps) => {
       // prefixCls={prefixCls}
       data={props.dataSource}
       columns={columns}
-      // showHeader={showHeader}
-      // className={classString}
-      // expandIconColumnIndex={expandIconColumnIndex}
-      // expandIconAsCell={expandIconAsCell}
-      // emptyText={mergedLocale.emptyText}
+    // showHeader={showHeader}
+    // className={classString}
+    // expandIconColumnIndex={expandIconColumnIndex}
+    // expandIconAsCell={expandIconAsCell}
+    // emptyText={mergedLocale.emptyText}
     />
   );
   const renderPagination = () => {
@@ -197,11 +200,12 @@ const Table = (props: TableProps) => {
         <span>{`1 -${props.dataSource.length} of ${props.pagination.total}`}</span>
       );
     } else {
-      return <FontAwesomeIcon icon={faAngleDoubleDown} />;
+      const pageSize = props.pagination.pageSize ? props.pagination.pageSize : defaultPagination.pageSize
+      return <Pagination total={500 || props.pagination.total} pageSize={pageSize} onChange={OnPaginationChange} ></Pagination >
     }
   };
   const renderLoadMore = () => {
-    if (!props.pagination) {
+    if (!props.pagination || paginationType === 'common') {
       return;
     }
     if (props.dataSource.length < props.pagination.total) {
@@ -212,34 +216,35 @@ const Table = (props: TableProps) => {
       );
     }
   };
-  const LoadMore = () => {
-    // setPagination({ page: 1, pageSize: 10, action: "add" });
+  const OnPaginationChange = (params: any) => {
+    console.log(params, current, 'OnPaginationChange')
     if (props.onChange) {
-      props.onChange({ type: "pagination", action: "add" });
+      props.onChange({ type: "pagination", data: params });
+    }
+  }
+  const LoadMore = () => {
+    // console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))
+    // setPagination({ page: 1, pageSize: 10, action: "add" });
+    if (current > Math.ceil(props.pagination.total / pageSize)) { return }
+    if (props.onChange) {
+      props.onChange({ type: "scroll", data: { page: current + 1, pageSize: pageSize } });
+      setCurrent(current + 1)
     }
   };
 
   const onMousewheel = (e: any) => {
+    if (paginationType === 'common') { return }
     const event = e["nativeEvent"];
     if (props.dataSource.length < 10) {
       return;
     }
-    const scrollDiv = document.querySelectorAll('[data-testid="main"]')[0];
+    const scrollDiv = document.querySelectorAll('[data-testid="scrollMain"]')[0];
     if (!scrollDiv) {
       return;
     }
     if (event["wheelDelta"] > 0) {
       return;
     }
-    // console.log(
-    //   scrollDiv,
-    //   scrollDiv.scrollTop,
-    //   scrollDiv.clientHeight,
-    //   scrollDiv.scrollHeight,
-    //   window.scrollY,
-    //   // Math.ceil(window.scrollY),
-    //   window.innerHeight
-    // );
     const whetherLoadMore = (precision: number, ...arr: any): boolean => {
       const [a, b, c] = arr;
       const result = Math.abs(a - b - Math.ceil(c));
@@ -253,19 +258,7 @@ const Table = (props: TableProps) => {
         scrollDiv.scrollTop
       )
     ) {
-      // const scrollDiv = document.querySelectorAll('[data-testid="main"]')[0];
-
-      // const scrollDiv = document.getElementsByClassName("ant-table-body")[0];
-      console.log(
-        "22222onMousewheel222",
-        scrollDiv.scrollHeight,
-        scrollDiv.scrollTop,
-        scrollDiv.clientHeight
-      );
-      if (
-        scrollDiv.scrollHeight ===
-        scrollDiv.scrollTop + scrollDiv.clientHeight
-      ) {
+      if (scrollDiv.scrollHeight === scrollDiv.scrollTop + scrollDiv.clientHeight) {
         if (!MousewheelLimit) {
           setMousewheelLimit(true);
         } else {
@@ -274,7 +267,6 @@ const Table = (props: TableProps) => {
         setTimeout(() => {
           setMousewheelLimit(false);
         }, 1000);
-        // this.changeEmit("scroll", e);
         LoadMore();
       }
     }
@@ -285,7 +277,7 @@ const Table = (props: TableProps) => {
       {title}
       {table}
       {renderLoadMore()}
-      <div className={"pagination"}>{renderPagination()}</div>
+      <div className={"paginationBox"}>{renderPagination()}</div>
     </div>
   );
 };

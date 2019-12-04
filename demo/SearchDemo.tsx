@@ -1,8 +1,8 @@
 import React from "react";
 import "../dist/index";
-// import { Search } from '../lib/';
-import "../src/assets/index";
-import { Search } from './../src/';
+import { Search } from '../lib/';
+// import "../src/assets/index";
+// import { Search } from './../src/';
 
 
 var columns = [
@@ -33,7 +33,17 @@ export const SearchDemo = (props: any) => {
     console.log(e, 'type>>>>>>>>')
   }
 
+  const searchConfig: object[] = [
+    {
+      label: 'Fullname',
+      value: 'userName'
+    },
+    {
+      label: 'Status',
+      value: 'Status'
+    }
+  ]
   return (
-    <Search onChange={(e: any) => OnChange(e)}> test</Search>
+    <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig}></Search>
   );
 };

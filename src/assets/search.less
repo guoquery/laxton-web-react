@@ -1,0 +1,25 @@
+@import './common.less';
+@searchPrefixCls: search;
+
+.@{searchPrefixCls} {
+    .font();
+    box-sizing: border-box;
+    width: 100%;
+    .flex-c();
+    // background: red;
+    padding: 20px;
+    .border();
+    margin-bottom: 20px;
+
+    >.searchBtn {
+        align-self: flex-end;
+    }
+
+    >.searchMixin {
+        width: 100%;
+        align-self: flex-start;
+        .flex();
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}

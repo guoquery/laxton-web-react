@@ -1,0 +1,31 @@
+@text-color : #666;
+@font-size-base : 12px;
+@table-border-color: #e9e9e9;
+@table-head-background-color: #f3f3f3;
+@defaultBorderColor: #ddd;
+
+div {
+    box-sizing: border-box;
+}
+
+.font(@fontSize: @font-size-base) {
+    font-size: @fontSize;
+}
+
+.border(@borderWidth: 1px, @borderColor: @defaultBorderColor) {
+    border: @borderWidth solid @borderColor;
+}
+
+.flex-c(@direction: column, @justify: flex-start, @align: center) {
+    display: flex;
+    flex-direction: @direction;
+    justify-content: @justify;
+    align-items: @align;
+}
+
+.flex(@direction: row, @justify: space-between, @align: center) {
+    display: flex;
+    flex-direction: @direction;
+    justify-content: @justify;
+    align-items: @align;
+}

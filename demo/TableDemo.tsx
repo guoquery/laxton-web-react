@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import "../dist/index";
-import { Rt } from "../lib/index";
-// import "../src/assets/table.less";
-// import { Rt } from "../src/index";
+// import "../dist/index";
+// import { Rt, Pagination ,Search} from "../lib/index";
+import "../src/assets/index";
+import { Rt, Pagination, Search } from "../src/index";
 import { api } from "./api.service";
 
 var columns = [
   {
     title: "Role Name",
-    key: "Name",
+    dataIndex: "Name",
     width: 100
   },
   {
     title: "Description",
-    key: "Description",
+    dataIndex: "Description",
     width: 100
   },
   {
     title: "Action",
-    render: function(props: any) {
+    render: function (props: any) {
       return (
         <span onClick={() => console.log(props, "sese>55666>>>>>>>>")}>
           action
@@ -31,7 +30,7 @@ var columns = [
 export const TableDemo = (props: any) => {
   let dataType: any[] = [];
   const [data, setData] = useState(dataType);
-  const [haveMoreData, setMoreData] = useState(true);
+  const [loadMoreType, setLoadMoreType] = useState('concat');
   const [pagination, setPagination] = useState();
   const [q, setQ] = useState({
     CurrentPage: 1,
@@ -43,7 +42,7 @@ export const TableDemo = (props: any) => {
   //   Filters: { Name: null },
   //   PageSize: 10
   // };
-  const getPageList = async (action: "concat" | "replace" = "concat") => {
+  const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
@@ -53,29 +52,39 @@ export const TableDemo = (props: any) => {
       } else {
         setData([...data, ...Data]);
       }
-      if (Data.length < q.PageSize) {
-        setMoreData(false);
-      }
-      setPagination({ total: res.Data.TotalRecord });
+      // if (Data.length < q.PageSize) {
+      //   if (action === 'concat') {
+      //     setMoreData(false);
+      //   }
+      // }
+      setPagination({ total: res.Data.TotalRecord, pageSize: q.PageSize });
     }
   };
   useEffect(() => {
-    getPageList();
-    return () => {};
+    getPageList((loadMoreType as ('concat' | 'replace')));
+    return () => { };
   }, [q]);
 
   const OnTableChange = (e: any) => {
     console.log(e, "e>>>>>>>>>", q.CurrentPage);
-    if (haveMoreData) {
-      const CurrentPage = q.CurrentPage + 1;
-      setQ({
-        CurrentPage,
-        Filters: { Name: null },
-        PageSize: 10
-      });
-      // getPageList("concat");
-      setTimeout(() => {}, 2000);
+    const CurrentPage = e.data.page;
+    switch (e.type) {
+      case 'pagination':
+        setQ({
+          CurrentPage,
+          Filters: { Name: null },
+          PageSize: e.data.pageSize
+        });
+        break;
+      case 'scroll':
+        setQ({
+          CurrentPage,
+          Filters: { Name: null },
+          PageSize: e.data.pageSize
+        });
+        break;
     }
+
   };
   const OnRow = (record: any, index?: number) => {
     console.log(record, index, "demo....");
@@ -87,17 +96,46 @@ export const TableDemo = (props: any) => {
     //   onMouseLeave: event => {}
     // };
   };
+  const OnChange = (e: any) => {
+    switch (e.type) {
+      case 'reset':
+        // setLoadMoreType('replace')
+        break;
+      case 'search':
+
+        break;
+    }
+    setLoadMoreType('replace')
+    setQ({ ...q, ...{ Filters: e.data } })
+  }
+
+  const searchConfig: object[] = [
+    {
+      label: 'Fullname',
+      value: 'userName'
+    },
+    {
+      label: 'Status',
+      value: 'Status'
+    }
+  ]
 
   return (
-    <div style={{ height: "500px", overflowY: "scroll" }} data-testid="main">
+    <div
+      style={{ height: "500px", overflowY: "scroll" }}
+      data-testid="scrollMain"
+    >
       {/* <RTable columns={columns}
         data={data}
         className="RTable"></RTable> */}
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig}></Search>
+
       <Rt
         columns={columns}
         dataSource={data}
         className="RTable"
         pagination={pagination}
+        // paginationType={"common"}
         onChange={(e: any) => OnTableChange(e)}
         onRow={(record: any, index?: number) => OnRow(record, index)}
       ></Rt>

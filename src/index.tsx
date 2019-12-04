@@ -1,6 +1,7 @@
 
+export { Search, ChamInput } from "./components";
 export { Rt, RTable } from './Table';
-
+export { Pagination } from './Pagination/Pagination';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
