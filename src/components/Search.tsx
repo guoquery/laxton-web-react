@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChamInput } from ".";
+import { ChamInput, Button } from "../index";
 
 
 interface SearchProps {
@@ -47,7 +47,7 @@ export const Search = (props: SearchProps) => {
       if (!expandIndex || (index < expandIndex)) {
         searchItem.push(
           <ChamInput
-            key={item.value}
+            key={item.value + index}
             item={item}
             value={Filters[item.value] || ''}
             onChange={OnTextChange}
@@ -60,16 +60,13 @@ export const Search = (props: SearchProps) => {
     return searchItem;
   }
   return (
-    <div
-      // style={}
-      className="search"
-      data-testid=""
-    >
+    <div className="search" id="search">
       <div className="searchItem">{renderSearchItem()}</div>
       {props.children && <div className="searchMixin">{props.children}</div>}
       <div className="searchBtn">
-        <button onClick={() => OnSearchChange('search')}>Search</button> <button onClick={() => OnSearchChange('reset')}>Reset</button>
-        <button onClick={() => OnSearchChange('expand')} id='btnExpand'>Expand</button>
+        <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>
+        <Button onClick={() => OnSearchChange('reset')}>Reset</Button>
+        <Button onClick={() => OnSearchChange('expand')} type='danger' id='btnExpand'>Expand</Button>
       </div>
     </div>
   );

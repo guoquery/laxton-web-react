@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import "../dist/index";
-// import { Rt, Pagination ,Search} from "../lib/index";
-import "../src/assets/index";
-import { Rt, Pagination, Search } from "../src/index";
+import "../dist/index";
+import { Rt, Search } from "../lib/index";
+// import "../src/assets/index";
+// import { Rt, Search } from "../src/index";
 import { api } from "./api.service";
 var columns = [
   {
@@ -49,7 +49,6 @@ export const TableDemo = (props: any) => {
         setData(Data);
       } else {
         setData([...data, ...Data]);
-
       }
       setPagination({ total: res.Data.TotalRecord, pageSize: q.PageSize, current: q.CurrentPage });
     }

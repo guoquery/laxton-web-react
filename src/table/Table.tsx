@@ -105,7 +105,7 @@ const Table = (props: TableProps) => {
     />
   );
   const renderPagination = () => {
-    if (!props.pagination) {
+    if (!props.pagination || !props.pagination.total) {
       return;
     }
     if (paginationType === "scroll") {
