@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../dist/index";
-import { Rt, Search } from "../lib/index";
+// import { Rt, Search } from "../lib/index";
 // import "../src/assets/index";
-// import { Rt, Search } from "../src/index";
+import { Rt, Search } from "../src/index";
 import { api } from "./api.service";
 var columns = [
   {

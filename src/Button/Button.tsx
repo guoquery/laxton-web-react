@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 
-export const tuple = <T extends string[]>(...args: T) => args;
-export const tupleNum = <T extends number[]>(...args: T) => args;
 type ButtonTypes = 'primary' | 'default' | 'dashed' | 'danger' | 'link';
 type sizeTypes = 'small' | 'large';
 

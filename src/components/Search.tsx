@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { ChamInput, Button } from "../index";
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 interface SearchProps {
@@ -59,6 +61,15 @@ export const Search = (props: SearchProps) => {
     })
     return searchItem;
   }
+
+  const renderExpendButton = () => {
+    const btn = expandIndex === 0 ? 'Collapse' : 'Expend';
+    const icon = expandIndex === 0 ? faAngleUp : faAngleDown;
+    return (<span>
+      <span style={{ marginRight: '8px' }}>{btn}</span>
+      <FontAwesomeIcon icon={icon} size="lg" />
+    </span >)
+  }
   return (
     <div className="search" id="search">
       <div className="searchItem">{renderSearchItem()}</div>
@@ -66,7 +77,7 @@ export const Search = (props: SearchProps) => {
       <div className="searchBtn">
         <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>
         <Button onClick={() => OnSearchChange('reset')}>Reset</Button>
-        <Button onClick={() => OnSearchChange('expand')} type='danger' id='btnExpand'>Expand</Button>
+        {props.searchConfig.length > expandIndex && <Button onClick={() => OnSearchChange('expand')} type='link' id='btnExpand'>{renderExpendButton()}</Button>}
       </div>
     </div>
   );
