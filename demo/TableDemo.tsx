@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
+// import "../dist/index";
 // import { Rt, Search } from "../lib/index";
-// import "../src/assets/index";
-import { Rt, Search } from "../src/index";
+import "../src/assets/index";
+import { Rt, Search, Message } from "../src/index";
 import { api } from "./api.service";
 var columns = [
   {
@@ -44,6 +44,9 @@ export const TableDemo = (props: any) => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
+      Message.success('test1111')
+      Message.error('test1111')
+      Message.warning('test1111')
       const Data = res.Data.Items;
       if (action === "replace") {
         setData(Data);

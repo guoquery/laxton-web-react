@@ -36,13 +36,13 @@
 
     &:hover,
     &:focus {
-        .button-color(@color; @btn-hover-color; @btn-hover-color);
+        .button-color(@color; @hover-color; @hover-color);
         // .button-color(@color; ~`colorPalette('@{background}', 5) `; ~`colorPalette('@{background}', 5) `);
     }
 
     &:active,
     &.active {
-        .button-color(@color; @btn-active-color; @btn-active-color);
+        .button-color(@color; @active-color; @active-color);
         // .button-color(@color; ~`colorPalette('@{background}', 7) `; ~`colorPalette('@{background}', 7) `);
     }
 
@@ -75,13 +75,13 @@
 
     &:hover,
     &:focus {
-        .button-color(@btn-hover-color; @background; @btn-hover-color);
+        .button-color(@hover-color; @background; @hover-color);
         // .button-color(~`colorPalette('@{btn-primary-bg}', 5) `; @background; ~`colorPalette('@{btn-primary-bg}', 5) `);
     }
 
     &:active,
     &.active {
-        .button-color(@btn-active-color; @background; @btn-active-color);
+        .button-color(@active-color; @background; @active-color);
         // .button-color(~`colorPalette('@{btn-primary-bg}', 7) `; @background; ~`colorPalette('@{btn-primary-bg}', 7) `);
     }
 

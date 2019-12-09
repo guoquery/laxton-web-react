@@ -1,3 +1,4 @@
+@laxton-prefix: laxton;
 @text-color : #666;
 @font-size-base : 12px;
 @table-border-color: #e9e9e9;
@@ -28,4 +29,62 @@ div {
     flex-direction: @direction;
     justify-content: @justify;
     align-items: @align;
+}
+
+.reset-component() {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: @text-color;
+    font-size: @font-size-base;
+    font-variant: @font-variant-base;
+    line-height: @line-height-base;
+    list-style: none;
+    font-feature-settings: @font-feature-settings-base;
+}
+
+.size(@width; @height) {
+    width: @width;
+    height: @height;
+}
+
+.square(@size) {
+    .size(@size; @size);
+}
+
+.placeholder(@color: @input-placeholder-color) {
+
+    // Firefox
+    &::-moz-placeholder {
+        color: @color;
+        opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+    }
+
+    // Internet Explorer 10+
+    &:-ms-input-placeholder {
+        color: @color;
+    }
+
+    // Safari and Chrome
+    &::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    &:placeholder-shown {
+        text-overflow: ellipsis;
+    }
+}
+
+.clearfix() {
+    zoom: 1;
+
+    &::before,
+    &::after {
+        display: table;
+        content: '';
+    }
+
+    &::after {
+        clear: both;
+    }
 }

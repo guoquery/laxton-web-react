@@ -27,7 +27,9 @@ export const Search = (props: SearchProps) => {
     console.log(Filters, '>>>>>>>>>>>')
     switch (type) {
       case 'search':
-        props.onChange({ type, data: Filters })
+        if (Object.keys(Filters).length > 0) {
+          props.onChange({ type, data: Filters })
+        }
         break;
       case 'reset':
         setFilters({})

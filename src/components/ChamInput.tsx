@@ -1,8 +1,8 @@
-// import calendar style
-// You can customize style by copying asset folder.
-// import "@y0c/react-datepicker/assets/styles/calendar.scss";
+
 
 import React, { useContext, useEffect, useState } from "react";
+import { Input } from "../index";
+// import {Input}
 // import { Picker, StyleSheet, text, TextInput, View } from "react-native";
 // import { api } from "../service/api.service";
 export interface ChamInputItem {
@@ -100,13 +100,13 @@ export const ChamInput = (props: ChamInputProps) => {
   }
   if (type === undefined || type === "text") {
     inputControl = (
-      <input
+      <Input
         type={item.type}
         id={`txt${item.value}`}
         maxLength={item.maxLength}
         // autoCompleteType={"off"
         placeholder={item.placeholder ? item.placeholder : "Enter Here"}
-        onChange={e => SetValue(e.target.value)}
+        onChange={e => SetValue(e)}
         value={GetValue}
       />
     );
