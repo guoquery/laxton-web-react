@@ -5,6 +5,7 @@ export { Pagination } from './Pagination/Pagination';
 export { Button } from './Button/Button';
 export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
+export { ChamPopup } from './ChamPopup/ChamPopup';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
