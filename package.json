@@ -1,6 +1,6 @@
 {
   "name": "laxton-web-react",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "React front end component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,7 +9,7 @@
     "dev": "webpack --mode development --config webpack/webpack.dev.config.js",
     "build": "webpack --mode production --config webpack/webpack.prod.config.js",
     "start": "webpack-dev-server --mode development --config webpack/webpack.dev.config.js --hot --open",
-    "tsc": "tsc"
+    "tsc": "rimraf lib && tsc"
   },
   "files": [
     "dist",
@@ -58,6 +58,7 @@
     "classnames": "^2.2.6",
     "deep-eql": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "laxton-web-react": "^0.1.12"
+    "laxton-web-react": "^0.1.12",
+    "rimraf": "^3.0.0"
   }
 }
