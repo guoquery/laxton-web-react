@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChamInput, Button } from "../index";
+import { ChamInput, Button } from "../../index";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -8,7 +8,8 @@ interface SearchProps {
   expendIndex?: number,
   searchConfig: any;
   onChange: (action: any) => any;
-  children?: any
+  children?: any;
+  api?: any;
 }
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
@@ -56,6 +57,7 @@ export const Search = (props: SearchProps) => {
             value={Filters[item.value] || ''}
             onChange={OnTextChange}
             layOut='row'
+            api={props.api}
           // editable={this.props.editable}
           ></ChamInput>
         )

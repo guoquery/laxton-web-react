@@ -1,31 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import "../dist/index";
-// import { Rt, Search } from "../lib/index";
-import "../src/assets/index";
-import { Rt, Search, Message } from "../src/index";
+import "../dist/index";
+import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+// import "../src/assets/index";
+// import { Rt, Search, Message, ChamInputItem } from "../src/index";
 import { api } from "./api.service";
-var columns = [
-  {
-    title: "Role Name",
-    dataIndex: "Name",
-    width: 100
-  },
-  {
-    title: "Description",
-    dataIndex: "Description",
-    width: 100
-  },
-  {
-    title: "Action",
-    render: function (props: any) {
-      return (
-        <span onClick={() => console.log(props, "sese>55666>>>>>>>>")}>
-          action
-        </span>
-      );
-    }
-  }
-];
+
+
 export const TableDemo = (props: any) => {
   let dataType: any[] = [];
   const [data, setData] = useState(dataType);
@@ -40,6 +20,55 @@ export const TableDemo = (props: any) => {
     Filters: { Name: null },
     PageSize: 10
   });
+  const Action = (action: string, data: any) => {
+    console.log(action, "edit", data.Id);
+    switch (action) {
+      case "delete":
+        // api.post(`api/User/Deactive?userId=${data.record.Id}`).then((res: any) => {
+        //   if (res.Result) {
+        //     api.post(`api/User/GetPageListWithPostion`, q).then((res: any) => {
+        //       setData(res.Data.Items);
+        //       Message.success('DELETE SUCCESSFULLY.');
+        //     });
+        //   }
+        // });
+        break;
+      case "edit":
+        // props.navigation.navigate("UserDetailScreen", { id: data.record.Id });
+        // console.log(action, "edit", data.record.Id);
+        break;
+    }
+  };
+  const columns = [
+    {
+      title: "Role Name",
+      dataIndex: "Name",
+      width: 100
+    },
+    {
+      title: "Description",
+      dataIndex: "Description",
+      width: 100
+    },
+    {
+      title: "Action",
+      buttonIcons: [
+        {
+          type: 'edit',
+          // popTitle: this.api.translate('toolTips.delete?'),
+          click: (item: any) => { Action('edit', item) },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+        {
+          type: 'delete',
+          click: (item: any) => { Action('delete', item) },
+          // popTitle: this.api.translate('toolTips.delete?'),
+          // click: (item: any) => { this.listPage.deleteList(item); },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+      ]
+    }
+  ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -106,22 +135,27 @@ export const TableDemo = (props: any) => {
     setQ({ ...q, ...{ CurrentPage: 1, Filters: e.data } })
   }
 
-  const searchConfig: object[] = [
+  const searchConfig: ChamInputItem[] = [
     {
       label: ' Role Name',
-      value: 'Name'
+      value: 'Name',
+      require: true,
     },
     {
       label: 'Status',
-      value: 'Status'
+      value: 'Status',
+      type: 'dropDown',
+      typeCode: "Status"
     },
     {
       label: ' Role Name',
-      value: 'Name'
+      value: 'Name',
+      type: 'datePicker'
     },
     {
       label: 'Status',
-      value: 'Status'
+      value: 'Status',
+      // type: 'textArea'
     },
     {
       label: ' Role Name',
@@ -149,7 +183,7 @@ export const TableDemo = (props: any) => {
       {/* <RTable columns={columns}
         data={data}
         className="RTable"></RTable> */}
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig}></Search>
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
 
       <Rt
         columns={columns}

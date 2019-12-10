@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { omit } from '../tools/index';
-import { Omit } from '../tools/type';
+import { omit } from '../Tools/index';
+import { Omit } from '../Tools/type';
 
 type InputTypes = 'primary' | 'default' | 'dashed' | 'danger' | 'link';
 type sizeTypes = 'small' | 'large';

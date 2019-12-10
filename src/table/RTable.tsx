@@ -63,7 +63,7 @@ const RTable = (props: TableProps) => {
       expandedRowClassName() {
         return "";
       },
-      onExpandedRowsChange() {},
+      onExpandedRowsChange() { },
       prefixCls: "rc-table",
       bodyStyle: {},
       style: {},
@@ -162,8 +162,8 @@ const RTable = (props: TableProps) => {
         {props.expandIconAsCell ? (
           <td key="rc-table-expand-icon-placeholder"></td>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <td colSpan={props.columns.length}>{content}</td>
       </tr>
     );

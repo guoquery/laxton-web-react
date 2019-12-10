@@ -1,3 +1,3 @@
-export { Search } from './Search';
-export { ChamInput } from './ChamInput';
+export { Search } from './Search/Search';
+export { ChamInput, ChamInputItem } from './ChamInput/ChamInput';
 

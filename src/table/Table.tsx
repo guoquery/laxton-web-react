@@ -81,6 +81,12 @@ const Table = (props: TableProps) => {
   const pageSize = pagination.pageSize;
 
   const { dataSource, columns, ...restTableProps } = props;
+
+  if (columns) {
+
+  }
+
+
   const OnRowClick = (record: any, index: number) => {
     console.log(record, index, "onrowclick");
     const { onRow } = props;

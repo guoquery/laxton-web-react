@@ -1,7 +1,7 @@
 
 
 import React, { useContext, useEffect, useState } from "react";
-import { Input } from "../index";
+import { Input, Select } from "../../index";
 // import {Input}
 // import { Picker, StyleSheet, text, TextInput, View } from "react-native";
 // import { api } from "../service/api.service";
@@ -36,7 +36,8 @@ interface ChamInputProps {
   clearValue?: boolean;
   editable?: boolean;
   onChange?: (value: any) => void;
-  layOut?: 'row' | 'column'
+  layOut?: 'row' | 'column',
+  api?: any,
 }
 
 export const ChamInput = (props: ChamInputProps) => {
@@ -44,31 +45,33 @@ export const ChamInput = (props: ChamInputProps) => {
   const [dropdownData, setDropdownData] = useState([]);
   const [editable, setEditable] = useState((props.editable === undefined ? true : props.editable));
   const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
-    // if (item.type != 'dropDown') { return }
-    // if (item.linkage === 0 || item.linkage) {
-    //   const parentAreaID = item.linkage ? store[item.linkage] : 0;
-    //   if (parentAreaID === 0 || parentAreaID) {
-    //     const res = await api.get(`api/applicantArea/GetSelect?parentAreaID=${parentAreaID}`);
-    //     if (res.Result) {
-    //       setDropdownData(res.Data);
-    //     }
-    //     console.log(res.Data)
-    //   }
-    // } else if (item.apiUrl) {
-    //   const res = await api.post(item.apiUrl, {});
-    //   if (res.Result) {
-    //     setDropdownData(res.Data.Items);
-    //   }
-    // } else if (item.typeCode) {
-    //   let url = `api/Common/GetDropdownData?typeCode=`;
-    //   if (item.des) {
-    //     url = `api/Common/GetDropdownDataDescription?typeCode=`;
-    //   }
-    //   const res = await api.get(`${url}${item.typeCode}`);
-    //   if (res.Result) {
-    //     setDropdownData(res.Data);
-    //   }
-    // }
+    if (item.type != 'dropDown') { return }
+    const api = props.api;
+    if (item.linkage === 0 || item.linkage) {
+      const parentAreaID = 0;
+      // const parentAreaID = item.linkage ? store[item.linkage] : 0;
+      if (parentAreaID === 0 || parentAreaID) {
+        const res = await api.get(`api/applicantArea/GetSelect?parentAreaID=${parentAreaID}`);
+        if (res.Result) {
+          setDropdownData(res.Data);
+        }
+        console.log(res.Data)
+      }
+    } else if (item.apiUrl) {
+      const res = await api.post(item.apiUrl, {});
+      if (res.Result) {
+        setDropdownData(res.Data.Items);
+      }
+    } else if (item.typeCode) {
+      let url = `api/Common/GetDropdownData?typeCode=`;
+      if (item.des) {
+        url = `api/Common/GetDropdownDataDescription?typeCode=`;
+      }
+      const res = await api.get(`${url}${item.typeCode}`);
+      if (res.Result) {
+        setDropdownData(res.Data);
+      }
+    }
   };
   const item: ChamInputItem = props.item;
   const GetValue = props.value
@@ -91,7 +94,7 @@ export const ChamInput = (props: ChamInputProps) => {
 
   const SetValue = (value: any): void => {
     // store[key] = value;
-    // console.log('set>>>>>1111', GetValue, store)
+    console.log('set>>>>>1111', GetValue, value)
     // SetValueState(value)
     if (props.onChange) {
       // console.log('set>>>>>22222', GetValue)
@@ -101,7 +104,7 @@ export const ChamInput = (props: ChamInputProps) => {
   if (type === undefined || type === "text") {
     inputControl = (
       <Input
-        type={item.type}
+        type={item.inputType}
         id={`txt${item.value}`}
         maxLength={item.maxLength}
         // autoCompleteType={"off"
@@ -111,67 +114,69 @@ export const ChamInput = (props: ChamInputProps) => {
       />
     );
   } else if (type === "dropDown") {
-    // inputControl = (
-    //   <Picker
-    //     testID={`ddl${item.value}`}
-    //     prompt="Choose Here"
-    //     selectedValue={GetValue}
-    //     style={{ height: 26 }}
-    //     enabled={DropdownEnabled(item)}
-    //     onValueChange={(value, itemIndex) => SetValue(value, item.value)}
-    //   >
-    //     {dropdownData.length > 0 && item &&
-    //       dropdownData.map((label: any) => (
-    //         <Picker.Item
-    //           key={label.AreaId || label.Id}
-    //           label={label.Name}
-    //           value={label.AreaId || label.Id}
-    //         />
+    inputControl = (
+      // <Picker
+      //   testID={`ddl${item.value}`}
+      //   prompt="Choose Here"
+      //   selectedValue={GetValue}
+      //   style={{ height: 26 }}
+      //   enabled={DropdownEnabled(item)}
+      //   onValueChange={(value, itemIndex) => SetValue(value, item.value)}
+      // >
+      // {dropdownData.length > 0 && item &&
+      //   dropdownData.map((label: any) => (
+      //     <Picker.Item
+      //       key={label.AreaId || label.Id}
+      //       label={label.Name}
+      //       value={label.AreaId || label.Id}
+      //     />
 
-    //       ))}
-    //   </Picker>
-    // );
+      //   ))}
+      // </Picker>
+      // <select name="select" id={`ddl${item.value}`} onChange={e => SetValue(e.target.value)}>
+      //   {dropdownData.length > 0 && item &&
+      //     dropdownData.map((label: any) => (
+      //       <option
+      //         key={label.AreaId || label.Id}
+      //         value={label.AreaId || label.Id}
+      //       >{label.Name}</option>
+
+      //     ))}
+      // </select>
+      <Select data={dropdownData} value={GetValue} onChange={e => SetValue(e)}></Select>
+
+
+    );
   } else if (type === "textArea") {
-    // inputControl = (
-    //   <TextInput
-    //     testID={`txt${item.value}`}
-    //     editable={editable}
-    //     multiline={true}
-    //     style={{
-    //       height: 60,
-    //       borderColor: "gray",
-    //       borderWidth: 1,
-    //       backgroundColor: "#fff",
-    //       zIndex: -100000
-    //     }}
-    //     onChangeText={value => SetValue(value, item.value)}
-    //     value={GetValue}
-    //   />
-    // );
+    inputControl = (
+      <textarea></textarea>
+    );
   } else if (type === "datePicker") {
     inputControl = (
-      // <Button
-      //     onPress={this.onDateChange}
-      //     title={'date'}
-      //     color="#8BC34A"
-      //     accessibilityLabel="Add about this button"
-      // />
-      // <DatePicker onChange={day => (this.store[item.value] = day)} />
-      <input
+      // <input
+      //   type={"date"}
+      //   value={GetValue}
+      //   autoComplete="newPassword"
+      //   onChange={e => SetValue(e.target.value)}
+      //   disabled={!editable}
+      //   id={`dc${item.value}`}
+      // ></input>
+      <Input
         type={"date"}
-        value={GetValue}
-        autoComplete="newPassword"
-        onChange={e => SetValue(e.target.value)}
-        disabled={!editable}
         id={`dc${item.value}`}
-      ></input>
+        maxLength={item.maxLength}
+        // autoCompleteType={"off"
+        placeholder={item.placeholder ? item.placeholder : "Enter Here"}
+        onChange={e => SetValue(e)}
+        value={GetValue}
+      />
     );
   }
 
   return (
     <div className={layOut === 'row' ? 'chamInput' : "chamInput"}>
-      {layOut === 'column' && <div className={'chamInputLabel'} style={styles.label}><text style={styles.require}>{item.require ? "*" : ""}</text><text id={`lbl${item.value}`}>{item.label}</text></div>}
-      {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}>{item.label} :  </div>}
+      {layOut === 'column' && <div className={'chamInputLabel'} style={styles.label}><span style={styles.require}>{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
+      {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
       {inputControl}
     </div>
   );

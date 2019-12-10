@@ -1,4 +1,3 @@
-import { object } from "prop-types";
 
 export default function (target: object, params: string[]) {
   let copy: any = { ...target };

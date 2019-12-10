@@ -1,5 +1,7 @@
 import React from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 interface TableRowProps {
   columns: any;
   index: any;
@@ -19,6 +21,22 @@ interface TableRowProps {
   childrenColumnName?: any;
 }
 
+// const actionIcon: any[] = [
+//   {
+//     icon: faPencilAlt,
+//     action: "Edit"
+//   },
+//   {
+//     icon: faTrashAlt,
+//     action: "Delete"
+//   }
+// ];
+const actionIcon: any = {
+  delete: faTrashAlt,
+  edit: faPencilAlt,
+}
+
+
 const RTableRow = (props: TableRowProps) => {
   const componentWillUnmount = () => {
     props.onDestroy(props.record);
@@ -37,10 +55,36 @@ const RTableRow = (props: TableRowProps) => {
   const needIndentSpaced = props.needIndentSpaced;
   const onRowClick = props.onRowClick;
 
+
+  /******render button icon*****/
+  const renderButtonIcon = (col: any) => {
+
+    console.log(col, '>>>>>>>>>>>', col.buttonIcons)
+
+    return <div style={{ flexDirection: "row", justifyContent: "center" }}>
+      {col.buttonIcons.map((item: any, index: number) => (
+        <FontAwesomeIcon
+          key={`${item.icon}${index}`}
+          icon={actionIcon[item.type]}
+          size={'lg'}
+          style={{
+            marginLeft: 6,
+            marginRight: 6
+          }}
+          // onClick={(e) => { e.stopPropagation(); Action(item.action, props) }}
+          onClick={(e) => { e.stopPropagation(); item.click(props.record) }}
+        />
+      ))}
+    </div>
+
+  }
+  /******end*****/
+
   for (let i = 0; i < columns.length; i++) {
     const col = columns[i];
     const colClassName = col.className || "";
     const render = col.render;
+    const buttonIcons = col.buttonIcons;
     let text = record[col.dataIndex];
 
     let expandIcon = null;
@@ -55,7 +99,7 @@ const RTableRow = (props: TableRowProps) => {
         <span
           className={`${prefixCls}-expand-icon ${prefixCls}-${
             expanded ? "expanded" : "collapsed"
-          }`}
+            }`}
           onClick={props.onExpand.bind(null, !expanded, record)}
         />
       );
@@ -77,11 +121,16 @@ const RTableRow = (props: TableRowProps) => {
       expandIcon = null;
     }
 
+    if (buttonIcons && buttonIcons.length > 0) {
+      text = renderButtonIcon(col)
+
+    }
+
     if (render) {
       // console.log(render, "render>>>>>>>")
       text = render({ text, record, index }) || {};
-      // console.log(render, "render>>>>>>>", text)
       tdProps = text.props || {};
+      // console.log(tdProps.rowSpan, "render>>>>>>>", text.props)
 
       if (
         typeof text !== "string" &&
