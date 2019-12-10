@@ -23,7 +23,7 @@ export interface ChamInputItem {
   placeholder?: string;
   typeCode?: string;
   apiUrl?: string;
-  des?: string;
+  des?: boolean;
 
   /**dropDown***/
 }
@@ -38,6 +38,7 @@ interface ChamInputProps {
   onChange?: (value: any) => void;
   layOut?: 'row' | 'column',
   api?: any,
+  width?: string;
 }
 
 export const ChamInput = (props: ChamInputProps) => {
@@ -174,8 +175,8 @@ export const ChamInput = (props: ChamInputProps) => {
   }
 
   return (
-    <div className={layOut === 'row' ? 'chamInput' : "chamInput"}>
-      {layOut === 'column' && <div className={'chamInputLabel'} style={styles.label}><span style={styles.require}>{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
+    <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={props.style}>
+      {layOut === 'column' && <div className={'chamInputLabel'} ><span className="require">{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
       {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
       {inputControl}
     </div>

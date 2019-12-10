@@ -14,6 +14,7 @@ interface SearchProps {
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
   const [Filters, setFilters] = useState(FilterType)
+  const [linkageObj, setLinkageObj] = useState({})
   const [expandIndex, setExpendIndex] = useState(props.expendIndex || 3)
 
   const OnTextChange = (e: any) => {
@@ -50,13 +51,18 @@ export const Search = (props: SearchProps) => {
     let searchItem: any = [];
     props.searchConfig.map((item: any, index: number) => {
       if (!expandIndex || (index < expandIndex)) {
+        if (item.linkage) {
+          console.log(item, item.linkage, '>>>>>>><<<<<<<<<<<<')
+          let obj: any = {};
+          obj[item.linkage] = undefined;
+        }
         searchItem.push(
           <ChamInput
             key={item.value + index}
             item={item}
             value={Filters[item.value] || ''}
             onChange={OnTextChange}
-            layOut='row'
+            // layOut='row'
             api={props.api}
           // editable={this.props.editable}
           ></ChamInput>

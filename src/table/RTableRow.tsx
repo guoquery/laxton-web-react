@@ -58,9 +58,6 @@ const RTableRow = (props: TableRowProps) => {
 
   /******render button icon*****/
   const renderButtonIcon = (col: any) => {
-
-    console.log(col, '>>>>>>>>>>>', col.buttonIcons)
-
     return <div style={{ flexDirection: "row", justifyContent: "center" }}>
       {col.buttonIcons.map((item: any, index: number) => (
         <FontAwesomeIcon
@@ -71,12 +68,10 @@ const RTableRow = (props: TableRowProps) => {
             marginLeft: 6,
             marginRight: 6
           }}
-          // onClick={(e) => { e.stopPropagation(); Action(item.action, props) }}
           onClick={(e) => { e.stopPropagation(); item.click(props.record) }}
         />
       ))}
     </div>
-
   }
   /******end*****/
 
@@ -94,19 +89,22 @@ const RTableRow = (props: TableRowProps) => {
     let notRender = false;
     let indentText;
 
-    if (i === 0 && expandable) {
-      expandIcon = (
-        <span
-          className={`${prefixCls}-expand-icon ${prefixCls}-${
-            expanded ? "expanded" : "collapsed"
-            }`}
-          onClick={props.onExpand.bind(null, !expanded, record)}
-        />
-      );
-    } else if (i === 0 && needIndentSpaced) {
-      expandIcon = (
-        <span className={`${prefixCls}-expand-icon ${prefixCls}-spaced`} />
-      );
+    if (record.children && record.children.length > 0) {
+      if (i === 0 && expandable) {
+        expandIcon = (
+          <span
+            className={`${prefixCls}-expand-icon ${prefixCls}-${
+              expanded ? "expanded" : "collapsed"
+              }`}
+            onClick={props.onExpand.bind(null, !expanded, record)}
+          />
+        );
+      } else if (i === 0 && needIndentSpaced) {
+        expandIcon = (
+          <span className={`${prefixCls}-expand-icon ${prefixCls}-spaced`} />
+        );
+      }
+
     }
 
     if (expandIconAsCell && i === 0) {
@@ -121,9 +119,9 @@ const RTableRow = (props: TableRowProps) => {
       expandIcon = null;
     }
 
+    /** rend button icon */
     if (buttonIcons && buttonIcons.length > 0) {
       text = renderButtonIcon(col)
-
     }
 
     if (render) {

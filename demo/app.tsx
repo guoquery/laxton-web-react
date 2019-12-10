@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { TableDemo } from "./TableDemo";
-import { SearchDemo } from './SearchDemo';
+import { TableTreeDemo } from "./TableTreeDemo";
+// import { SearchDemo } from './SearchDemo';
 import { api } from "./api.service";
 
 
@@ -24,6 +25,6 @@ const index = 1;
 const userName = key[index].userName;
 const password = key[index].password;;
 api.GetToken(`grant_type=password&username=${userName}&password=${password}`).then(() => {
-  const App = TableDemo;
+  const App = TableTreeDemo;
   ReactDOM.render(<App />, document.getElementById("root")); //app即为挂载点，在模板html中
 })

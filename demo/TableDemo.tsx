@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputItem } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputItem } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputItem } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -136,42 +136,73 @@ export const TableDemo = (props: any) => {
   }
 
   const searchConfig: ChamInputItem[] = [
+    // {
+    //   label: "First Name",
+    //   value: "FirstName"
+    // },
+    // {
+    //   label: "Last Name",
+    //   value: "LastName"
+    // },
+    // {
+    //   label: "Other Name",
+    //   value: "OtherNames"
+    // },
+    // {
+    //   label: "Gender",
+    //   type: "dropDown",
+    //   value: "Gender",
+    //   typeCode: "GenderCode",
+    //   des: true
+    // },
+    // {
+    //   label: "Phone Number",
+    //   value: "PhoneNumber"
+    // },
+    // {
+    //   label: "E-mail Address",
+    //   value: "Email",
+    //   require: true
+    // },
+    // {
+    //   label: "Date Of Birth",
+    //   type: "datePicker",
+    //   value: "DateOfBirth"
+    // }
     {
-      label: ' Role Name',
-      value: 'Name',
-      require: true,
+      label: "Province",
+      value: "Province",
+      type: "dropDown",
+      typeCode: "Province",
+      linkage: 0
     },
     {
-      label: 'Status',
-      value: 'Status',
-      type: 'dropDown',
-      typeCode: "Status"
+      label: "District",
+      type: "dropDown",
+      value: "District",
+      linkage: "Province"
     },
     {
-      label: ' Role Name',
-      value: 'Name',
-      type: 'datePicker'
+      label: "Constituency",
+      type: "dropDown",
+      value: "Constituency",
+      linkage: "District"
     },
     {
-      label: 'Status',
-      value: 'Status',
-      // type: 'textArea'
+      label: "Polling Station",
+      type: "dropDown",
+      value: "PollingStation",
+      linkage: "Constituency"
     },
     {
-      label: ' Role Name',
-      value: 'Name'
+      label: "Residential Address",
+      type: "textArea",
+      value: "ResidentialAddress"
     },
     {
-      label: 'Status',
-      value: 'Status'
-    },
-    {
-      label: ' Role Name',
-      value: 'Name'
-    },
-    {
-      label: 'Status',
-      value: 'Status'
+      label: "Postal Address",
+      type: "textArea",
+      value: "PostalAddress"
     }
   ]
 

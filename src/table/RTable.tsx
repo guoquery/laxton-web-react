@@ -171,6 +171,7 @@ const RTable = (props: TableProps) => {
 
   const getRowsByData = (data: any[], visible: boolean, indent: number) => {
     const columns = getCurrentColumns();
+    const propsData = props.data || [];
     const childrenColumnName = props.childrenColumnName;
     const expandedRowRender = props.expandedRowRender;
     const expandIconAsCell = props.expandIconAsCell;
@@ -178,7 +179,7 @@ const RTable = (props: TableProps) => {
     // const keyFn = rowKey;
     const rowClassName = props.rowClassName;
     const expandedRowClassName = props.expandedRowClassName;
-    const needIndentSpaced = props.data.some(record => {
+    const needIndentSpaced = propsData.some(record => {
       if (childrenColumnName) {
         return (
           record[childrenColumnName] && record[childrenColumnName].length > 0
