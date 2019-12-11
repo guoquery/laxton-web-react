@@ -25,6 +25,6 @@ const index = 1;
 const userName = key[index].userName;
 const password = key[index].password;;
 api.GetToken(`grant_type=password&username=${userName}&password=${password}`).then(() => {
-  const App = TableTreeDemo;
+  const App = TableDemo;
   ReactDOM.render(<App />, document.getElementById("root")); //app即为挂载点，在模板html中
 })

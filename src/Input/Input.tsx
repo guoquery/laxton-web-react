@@ -87,7 +87,7 @@ export const Input = (props: InputProps) => {
     'defaultValue',
     'size',
   ]);
-  console.log(props, otherProps, 'other>>>>>>>>>')
+  // console.log(props, otherProps, 'other>>>>>>>>>')
   return (
 
     <input

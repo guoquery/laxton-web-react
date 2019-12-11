@@ -34,7 +34,7 @@ interface ChamInputProps {
   style?: any;
   placeholder?: string;
   clearValue?: boolean;
-  editable?: boolean;
+  disabled?: boolean;
   onChange?: (value: any) => void;
   layOut?: 'row' | 'column',
   api?: any,
@@ -44,7 +44,7 @@ interface ChamInputProps {
 export const ChamInput = (props: ChamInputProps) => {
   const [layOut] = useState(props.layOut || 'column');
   const [dropdownData, setDropdownData] = useState([]);
-  const [editable, setEditable] = useState((props.editable === undefined ? true : props.editable));
+  const [disabled, setEditable] = useState((props.disabled === undefined ? false : props.disabled));
   const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
     if (item.type != 'dropDown') { return }
     const api = props.api;
@@ -83,8 +83,8 @@ export const ChamInput = (props: ChamInputProps) => {
     GetDropdownData(props.item);
   }, []);
   const DropdownEnabled = (item: ChamInputItem): boolean => {
-    if (!editable) {
-      return editable
+    if (disabled) {
+      return disabled
     }
     let enabled = true;
     if (item.linkage) {
@@ -108,6 +108,7 @@ export const ChamInput = (props: ChamInputProps) => {
         type={item.inputType}
         id={`txt${item.value}`}
         maxLength={item.maxLength}
+        disabled={props.disabled}
         // autoCompleteType={"off"
         placeholder={item.placeholder ? item.placeholder : "Enter Here"}
         onChange={e => SetValue(e)}
@@ -159,7 +160,7 @@ export const ChamInput = (props: ChamInputProps) => {
       //   value={GetValue}
       //   autoComplete="newPassword"
       //   onChange={e => SetValue(e.target.value)}
-      //   disabled={!editable}
+      //   disabled={!disabled}
       //   id={`dc${item.value}`}
       // ></input>
       <Input

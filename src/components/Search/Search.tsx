@@ -64,7 +64,8 @@ export const Search = (props: SearchProps) => {
             onChange={OnTextChange}
             // layOut='row'
             api={props.api}
-          // editable={this.props.editable}
+            // editable={this.props.editable}
+            disabled={item.value === 'FirstName'}
           ></ChamInput>
         )
       }
