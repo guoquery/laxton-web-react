@@ -43,12 +43,14 @@ export const TableDemo = (props: any) => {
     {
       title: "Role Name",
       dataIndex: "Name",
-      width: 100
+      width: 100,
+      sorter: true
     },
     {
       title: "Description",
       dataIndex: "Description",
-      width: 100
+      width: 100,
+      sorter: true
     },
     {
       title: "Action",

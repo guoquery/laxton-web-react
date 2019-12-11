@@ -86,7 +86,16 @@ const Table = (props: TableProps) => {
 
   }
 
+  const onChange = (data: any) => {
+    if (props.onChange) {
+      props.onChange(data);
+    }
+  }
 
+  const onRTableChange = (e: any) => {
+    // console.log(e, "abcdeedd>>>>>>>>>>")
+    onChange({ type: "sorter", data: e })
+  }
   const OnRowClick = (record: any, index: number) => {
     console.log(record, index, "onrowclick");
     const { onRow } = props;
@@ -103,6 +112,7 @@ const Table = (props: TableProps) => {
       // prefixCls={prefixCls}
       data={props.dataSource}
       columns={columns}
+      onChange={onRTableChange}
     // showHeader={showHeader}
     // className={classString}
     // expandIconColumnIndex={expandIconColumnIndex}
@@ -136,9 +146,7 @@ const Table = (props: TableProps) => {
   };
   const OnPaginationChange = (params: any) => {
     console.log(params, current, 'OnPaginationChange')
-    if (props.onChange) {
-      props.onChange({ type: "pagination", data: params });
-    }
+    onChange({ type: "pagination", data: params })
   }
   const LoadMore = () => {
     console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))

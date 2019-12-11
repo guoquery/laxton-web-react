@@ -47,6 +47,11 @@ export const Search = (props: SearchProps) => {
         break;
     }
   }
+  const IfDisabled = (item: any) => {
+    if (item.iif && typeof item.iif === 'function') {
+      return item.iif()
+    }
+  }
   const renderSearchItem = () => {
     let searchItem: any = [];
     props.searchConfig.map((item: any, index: number) => {
@@ -64,8 +69,7 @@ export const Search = (props: SearchProps) => {
             onChange={OnTextChange}
             // layOut='row'
             api={props.api}
-            // editable={this.props.editable}
-            disabled={item.value === 'FirstName'}
+            disabled={IfDisabled(item)}
           ></ChamInput>
         )
       }

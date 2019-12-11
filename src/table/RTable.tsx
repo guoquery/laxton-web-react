@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import TableRow from "./RTableRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 interface TableProps {
   data: any[];
   columns: any[];
@@ -21,9 +24,13 @@ interface TableProps {
   columnsPageSize?: number;
   expandedRowRender?: any;
   className?: string;
+  onChange?: (value: any) => any;
 }
 
 const RTable = (props: TableProps) => {
+
+  const [sortColumn, setSortColumn] = useState()
+  const [sortOrder, setSortOrder] = useState()
   const [currentColumnsPage, setCurrentColumnsPage] = useState(0);
   // const [data, setData] = useState(props.data)
   const data = props.data;
@@ -122,6 +129,86 @@ const RTable = (props: TableProps) => {
     return expandedRowKeys;
   };
 
+  /********** thead sort  ********/
+  const sortButton = (c: any) => {
+
+    const isAscend = isSortColumn(c) && sortOrder === 'ascend';
+    const isDescend = isSortColumn(c) && sortOrder === 'descend';
+    const ascend = (
+      <span className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}>
+        <FontAwesomeIcon icon={faCaretUp} size="lg" />
+      </span>
+
+    );
+    const descend = (
+      <span className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}>
+        <FontAwesomeIcon icon={faCaretDown} size="lg" />
+      </span>
+    );
+
+
+    return (
+      // className={`${prefixCls}-column-sorter`}
+      <div className={classNames(
+        `${prefixCls}-column-sorter-inner`,
+        ascend && descend && `${prefixCls}-column-sorter-inner-full`,
+      )}>
+        {ascend}
+        {descend}
+      </div>
+    )
+  }
+
+  const isSortColumn = (c: any) => {
+    if (!c || !sortColumn) {
+      return false;
+    }
+    return c.title === sortColumn.title
+  }
+  const onSortClick = (c: any) => {
+    if (c.sorter) {
+      setSortColumn(c)
+      if (isSortColumn(c)) {
+        if (!sortOrder) {
+          onChange({ dataIndex: c.dataIndex, orderBy: 'ascend' }, 'ascend')
+        } else if (sortOrder === 'ascend') {
+          onChange({ dataIndex: c.dataIndex, orderBy: 'descend' }, 'descend')
+        } else if (sortOrder === 'descend') {
+          setSortColumn(undefined)
+          onChange({ dataIndex: c.dataIndex, orderBy: undefined })
+        }
+      } else {
+        onChange({ dataIndex: c.dataIndex, orderBy: 'ascend' }, 'ascend')
+      }
+    }
+  }
+  const onChange = (obj: any, orderBy?: 'ascend' | 'descend' | undefined) => {
+    setSortOrder(orderBy)
+    if (props.onChange) {
+      props.onChange(obj)
+    }
+  }
+  const renderColumnTitle = (c: any) => {
+    const prefixClsClassName: any = classNames(c.className, `${prefixCls}-column`, {
+      // [`${prefixCls}-column-has-actions`]: isSortColumn(c),
+      // [`${prefixCls}-column-has-actions`]: sortButton || filterDropdown,
+      // [`${prefixCls}-column-has-filters`]: filterDropdown,
+      [`${prefixCls}-column-has-sorters-active`]: isSortColumn(c) && sortOrder,
+      [`${prefixCls}-column-has-sorters`]: c.sorter,
+      // [`${prefixCls}-column-sort`]: isSortColumn && sortOrder,
+    })
+
+    return (
+      <div className={prefixClsClassName} onClick={() => onSortClick(c)} >
+        <span>{c.title}</span>
+        {c.sorter && < span className={`${prefixCls}-column-sorter`} > {sortButton(c)}</span>}
+        {/* {c.sorter && <span>{sortButton}</span>} */}
+      </div >
+    )
+
+  }
+  /********** thead end ********/
+
   const getThs = () => {
     let ths = [];
     if (props.expandIconAsCell) {
@@ -132,15 +219,16 @@ const RTable = (props: TableProps) => {
       });
     }
     ths = ths.concat(getCurrentColumns());
+    // console.log(ths, '222222')
     return ths.map((c: any, index: number) => {
       if (c.colSpan !== 0) {
         return (
           <th
             key={`${c.key}${index}`}
             colSpan={c.colSpan}
-            className={c.className || ""}
+            className={`RTable-thead`}
           >
-            {c.title}
+            {renderColumnTitle(c)}
           </th>
         );
       }

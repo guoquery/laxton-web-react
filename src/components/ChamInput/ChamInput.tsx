@@ -10,6 +10,7 @@ export interface ChamInputItem {
   type?: "text" | "dropDown" | "textArea" | "datePicker";
   value: string;
   require?: boolean;
+  disabled?: boolean;
   /**text***/
   inputType?: string | "password";
   maxLength?: number;
