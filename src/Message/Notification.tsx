@@ -140,7 +140,7 @@ export class Notification extends Component<any, any> {
   render() {
     const { notices } = this.state;
     const prefixCls = 'laxton'
-    console.log(notices, "notices>>>>>>>>>")
+    // console.log(notices, "notices>>>>>>>>>")
     // const classes = classNames(prefixCls, {
     //   [`${prefixCls}-${type}`]: type,
     //   // [`${prefixCls}-${shape}`]: shape,

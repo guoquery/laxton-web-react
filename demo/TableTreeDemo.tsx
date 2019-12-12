@@ -97,6 +97,7 @@ export const TableTreeDemo = (props: any) => {
         // pagination={pagination}
         onChange={e => { }}
         onRow={(record: any, index?: number) => { }} />}
+
       {/* {
         showModel && <RModal onChange={(e: any) => OnMoDalChange(e)}>
           <View style={{ flexDirection: "row", flexWrap: 'wrap' }}>

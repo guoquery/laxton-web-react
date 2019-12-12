@@ -24,7 +24,7 @@ export interface SelectLocale {
 export const DatePicker = (props: any): any => {
   const dropdownData = props.data
   const onChange = (value: any) => {
-    console.log(value)
+    // console.log(value)
     if (props.onChange && typeof props.onChange === 'function') {
       props.onChange(value)
     }

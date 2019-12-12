@@ -71,6 +71,22 @@ export const TableDemo = (props: any) => {
       ]
     }
   ];
+  const customColumn = [
+    {
+      dataIndex: "Name",
+      title: "Role Name",
+      checked: true,
+    },
+    {
+      dataIndex: "Description",
+      title: "Description",
+      checked: true
+    },
+    {
+      title: "Action",
+      checked: true
+    }
+  ]
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -226,6 +242,7 @@ export const TableDemo = (props: any) => {
         // paginationType={"common"}
         onChange={(e: any) => OnTableChange(e)}
         onRow={(record: any, index?: number) => OnRow(record, index)}
+        customColumn={customColumn}
       ></Rt>
     </div>
   );

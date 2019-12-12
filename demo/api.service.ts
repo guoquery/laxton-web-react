@@ -21,7 +21,7 @@ class ApiService {
   // RootStore = new RootStore();
   subMenu: any[] = [];
   checkStatus(res: any) {
-    console.log(res, "checkStatus");
+    // console.log(res, "checkStatus");
     if (res.ok) {
       return true;
     } else if (res.status === 500) {

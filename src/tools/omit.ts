@@ -14,3 +14,17 @@ export default function (target: object, params: string[]) {
 
   return copy
 }
+
+function test(target: object, origin: any) {
+  let copy: any = {};
+  if (typeof target === 'object') {
+    Object.keys(target).forEach((key: any) => {
+      Object.keys(origin).forEach(p => {
+        if (key === p) {
+          copy[key] = origin[key]
+        }
+      })
+    })
+  }
+  return copy
+}

@@ -5,7 +5,10 @@ import * as React from "react";
 import { useState } from "react";
 import { RTable } from ".";
 import { Pagination } from "../Pagination/Pagination";
+import { render } from "react-dom";
+import { Checkbox } from "../index";
 // import { TableProps } from './interface';
+import { useEffect } from 'react';
 
 function noop() { }
 
@@ -62,6 +65,7 @@ interface TableProps {
   expandedRowRender?: any;
   className?: string;
   showHeader?: boolean;
+  customColumn?: any[];
   onChange?: (value: any) => any;
 }
 const Table = (props: TableProps) => {
@@ -80,7 +84,10 @@ const Table = (props: TableProps) => {
   const current = pagination.current;
   const pageSize = pagination.pageSize;
 
-  const { dataSource, columns, ...restTableProps } = props;
+  const { dataSource, ...restTableProps } = props;
+
+  const [columns, setColumns] = useState(props.columns)
+  const [customColumn, setCustomColumn] = useState(props.customColumn || [])
 
   if (columns) {
 
@@ -97,7 +104,7 @@ const Table = (props: TableProps) => {
     onChange({ type: "sorter", data: e })
   }
   const OnRowClick = (record: any, index: number) => {
-    console.log(record, index, "onrowclick");
+    // console.log(record, index, "onrowclick");
     const { onRow } = props;
     const custom = onRow ? onRow(record, index) : {};
   };
@@ -145,11 +152,11 @@ const Table = (props: TableProps) => {
     }
   };
   const OnPaginationChange = (params: any) => {
-    console.log(params, current, 'OnPaginationChange')
+    // console.log(params, current, 'OnPaginationChange')
     onChange({ type: "pagination", data: params })
   }
   const LoadMore = () => {
-    console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))
+    // console.log(current, 'loadmore', { page: current + 1, pageSize: pageSize }, Math.ceil(props.pagination.total / pageSize))
     if (current >= Math.ceil(props.pagination.total / pageSize)) { return }
     if (props.onChange) {
       props.onChange({ type: "scroll", data: { page: current + 1, pageSize: pageSize } });
@@ -195,10 +202,65 @@ const Table = (props: TableProps) => {
       }
     }
   };
+  useEffect(() => {
+    let columnsArr: any[] = []
+    customColumn.forEach(el => {
+      props.columns.forEach(c => {
+        if (el.title === c.title) {
+          if (el.checked) {
+            columnsArr.push(c)
+          }
+        }
+      })
+    });
+    setColumns(columnsArr)
+  }, [customColumn])
 
+  const onCustomColumnChange = (e: any, item: any) => {
+    if (customColumn) {
+      // console.log(e, 'onCustomColumnChange', item)
+      setCustomColumn(
+        customColumn.map(el => {
+          if (el.title === item.title) {
+            el.checked = e
+          }
+          return el
+        }
+        )
+      )
+
+      // )
+    }
+
+    // if (!e) {
+    //   setColumns(columns.filter((el) => el.dataIndex === item.dataIndex))
+    // } else {
+
+    // }
+
+  }
+
+  const renderHeard = () => {
+    if (title || (props.customColumn && props.customColumn.length > 0)) {
+      // if(props.showCustomColumn){
+
+      // }
+      return (
+        <div className={`table-header`}>
+          <span>{title}</span>
+
+          <div className={`customColumn`}>
+            {customColumn.length > 0 && customColumn.map((item: any, index: number) =>
+              <Checkbox key={item.title + index} defaultChecked={item.checked} onChange={(e) => onCustomColumnChange(e, item)}>{item.title}</Checkbox>
+            )}
+          </div>
+        </div>
+      )
+    }
+  }
   return (
     <div className="RTableBox" onWheel={(e: any) => onMousewheel(e)}>
-      {title}
+      {renderHeard()}
       {table}
       {renderLoadMore()}
       <div className={"paginationBox"}>{renderPagination()}</div>

@@ -7,7 +7,7 @@ function createNotification() {
   const div = document.createElement('div')
   document.body.appendChild(div)
   const notification: any = ReactDOM.render(<Notification />, div)
-  console.log(notification, 'notification>>>>>>>>>>1111111111111')
+  // console.log(notification, 'notification>>>>>>>>>>1111111111111')
   return {
     addNotice(notice: any) {
       return notification.addNotice(notice)

@@ -7,9 +7,11 @@ export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
 export { ChamPopup } from './ChamPopup/ChamPopup';
 export { Select } from './Select/index';
+export { Checkbox } from './Checkbox/Checkbox';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
+import { Checkbox } from './Checkbox/Checkbox';
 
 // export default { utils, version: '1.4.3' }
 // export { utils }

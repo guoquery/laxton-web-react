@@ -57,7 +57,7 @@ export const ChamInput = (props: ChamInputProps) => {
         if (res.Result) {
           setDropdownData(res.Data);
         }
-        console.log(res.Data)
+        // console.log(res.Data)
       }
     } else if (item.apiUrl) {
       const res = await api.post(item.apiUrl, {});
@@ -96,7 +96,7 @@ export const ChamInput = (props: ChamInputProps) => {
 
   const SetValue = (value: any): void => {
     // store[key] = value;
-    console.log('set>>>>>1111', GetValue, value)
+    // console.log('set>>>>>1111', GetValue, value)
     // SetValueState(value)
     if (props.onChange) {
       // console.log('set>>>>>22222', GetValue)
