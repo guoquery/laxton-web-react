@@ -68,7 +68,7 @@ export const Checkbox = (props: CheckboxProps) => {
         className={checkboxClass}
         ref={this.saveCheckbox}
       /> */}
-      <input type="checkbox" id={id} defaultChecked={props.defaultChecked} onChange={(e: any) => onChange(e.target)} />
+      <input type="checkbox" id={id} defaultChecked={props.defaultChecked} onChange={(e: any) => onChange(e.target)} checked={props.checked} />
       {children !== undefined && <span id={`lbl${id}`}>{children}</span>}
     </label>
   );

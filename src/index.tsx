@@ -11,7 +11,7 @@ export { Checkbox } from './Checkbox/Checkbox';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
-import { Checkbox } from './Checkbox/Checkbox';
+// import { Checkbox } from './Checkbox/Checkbox';
 
 // export default { utils, version: '1.4.3' }
 // export { utils }

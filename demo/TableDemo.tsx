@@ -130,16 +130,16 @@ export const TableDemo = (props: any) => {
     }
 
   };
-  const OnRow = (record: any, index?: number) => {
-    console.log(record, index, "demo....");
-    // return {
-    //   onClick: event:any => {}, // 点击行
-    //   onDoubleClick: event => {},
-    //   onContextMenu: event => {},
-    //   onMouseEnter: event => {}, // 鼠标移入行
-    //   onMouseLeave: event => {}
-    // };
-  };
+  // const OnRow = (record: any, index?: number) => {
+  //   console.log(record, index, "demo....");
+  //   // return {
+  //   //   onClick: event:any => {}, // 点击行
+  //   //   onDoubleClick: event => {},
+  //   //   onContextMenu: event => {},
+  //   //   onMouseEnter: event => {}, // 鼠标移入行
+  //   //   onMouseLeave: event => {}
+  //   // };
+  // };
   const OnChange = (e: any) => {
     switch (e.type) {
       case 'reset':
@@ -158,35 +158,6 @@ export const TableDemo = (props: any) => {
       label: "First Name",
       value: "FirstName"
     },
-    // {
-    //   label: "Last Name",
-    //   value: "LastName"
-    // },
-    // {
-    //   label: "Other Name",
-    //   value: "OtherNames"
-    // },
-    // {
-    //   label: "Gender",
-    //   type: "dropDown",
-    //   value: "Gender",
-    //   typeCode: "GenderCode",
-    //   des: true
-    // },
-    // {
-    //   label: "Phone Number",
-    //   value: "PhoneNumber"
-    // },
-    // {
-    //   label: "E-mail Address",
-    //   value: "Email",
-    //   require: true
-    // },
-    // {
-    //   label: "Date Of Birth",
-    //   type: "datePicker",
-    //   value: "DateOfBirth"
-    // }
     {
       label: "Province",
       value: "Province",
@@ -226,7 +197,7 @@ export const TableDemo = (props: any) => {
 
   return (
     <div
-      style={{ height: "500px", overflowY: "scroll" }}
+      style={{ height: "100%", overflowY: "scroll" }}
       data-testid="scrollMain"
     >
       {/* <RTable columns={columns}
@@ -240,8 +211,9 @@ export const TableDemo = (props: any) => {
         className="RTable"
         pagination={pagination}
         // paginationType={"common"}
+        paginationType='common'
         onChange={(e: any) => OnTableChange(e)}
-        onRow={(record: any, index?: number) => OnRow(record, index)}
+        // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}
       ></Rt>
     </div>
