@@ -1,64 +1,91 @@
-@import '../../style/core/index.less';
-@import './mixin.less';
-
-.@{laxton-prefix}-input {
-    background-color: red;
-    .reset-component;
-    .input;
-}
-
-//== Style for input-group: input with label, with button or dropdown...
-.@{laxton-prefix}-input-group {
-    //.reset-component;
-    .input-group(~'@{laxton-prefix}-input');
-
-    &-wrapper {
-        display: inline-block;
-        width: 100%;
-        text-align: start;
-        vertical-align: top; // https://github.com/laxton-design/laxton-design/issues/6403
-    }
-}
-
-// Input with affix: prefix or suffix
-.@{laxton-prefix}-input-affix-wrapper {
-    //.reset-component;
-    .input-affix-wrapper(~'@{laxton-prefix}-input');
-
-    // https://github.com/laxton-design/laxton-design/issues/6144
-    .@{laxton-prefix}-input {
-        min-height: 100%; // use min-height, assume that no smaller height to override
-    }
-}
-
-.@{laxton-prefix}-input-password-icon {
-    color: @text-color-secondary;
+.modal {
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 9999;
+    box-shadow: inset 0 0 1px 0 #000;
+  }
+   
+  .modal-title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+  }
+   
+  .modal-content {
+    width: 100%;
+    height: 100px;
+    padding: 0 10px;
+  }
+   
+  .modal-operator {
+    width: 100%;
+    height: 50px;
+  }
+   
+  .modal-operator-close, .modal-operator-confirm {
+    width: 50%;
+    border: none;
+    outline: none;
+    height: 50px;
+    line-height: 50px;
+    opacity: 1;
+    color: #fff;
+    background: rgb(247, 32, 32);
     cursor: pointer;
-    transition: all 0.3s;
+  }
+   
+  .modal-operator-close:active, .modal-operator-confirm:active {
+    opacity: .6;
+    transition: opacity .3s;
+  }
+   
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: .6;
+    z-index: 9998;
+  }
 
-    &:hover {
-        color: #333;
-    }
+.modal-enter {
+  transform: scale(0);
+}
+ 
+.modal-enter-active {
+  transform: scale(1.1);
+  transition: all .2s linear;
+}
+ 
+.modal-enter-end {
+  transform: scale(1);
+  transition: all .1s linear;
+}
+ 
+.modal-leave {
+  transform: scale(1);
+}
+ 
+.modal-leave-active {
+  transform: scale(1.1);
+  transition: all .1s linear;
+}
+ 
+.modal-leave-end {
+  transform: scale(0);
+  transition: all .2s linear;
 }
 
-.@{laxton-prefix}-input-clear-icon {
-    color: @disabled-color;
-    font-size: @font-size-sm;
-    // https://github.com/laxton-design/laxton-design/pull/18151
-    // https://codesandbox.io/s/wizardly-sun-u10br
-    vertical-align: 0;
-    cursor: pointer;
-    transition: color 0.3s;
-
-    &:hover {
-        color: @text-color-secondary;
-    }
-
-    &:active {
-        color: @text-color;
-    }
-
-    +i {
-        margin-left: 6px;
-    }
-}
+  

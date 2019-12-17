@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputItem } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputItem } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputItem,ChamPopup } from "../src/index";
 import { api } from "./api.service";
 
 
 export const TableDemo = (props: any) => {
   let dataType: any[] = [];
   const [data, setData] = useState(dataType);
+  const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [pagination, setPagination] = useState({
     total: 0,
@@ -34,11 +35,35 @@ export const TableDemo = (props: any) => {
         // });
         break;
       case "edit":
+          // showModal();
+          // console.log(visible);
+          setVisible(true);
+          console.log(visible);
         // props.navigation.navigate("UserDetailScreen", { id: data.record.Id });
         // console.log(action, "edit", data.record.Id);
         break;
     }
   };
+  useEffect(()=>{
+    console.log(visible,222222)
+  },[visible])
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const closeModal = () => {
+    setVisible(false);
+    console.log('我是onClose回调');
+  }
+
+  const confirm = () => {
+    setVisible(false);
+      console.log('我是confirm回调');
+  }
+  const maskClick = () => {
+    setVisible(false);
+    console.log('点击蒙层')
+  }
   const columns = [
     {
       title: "Role Name",
@@ -86,7 +111,7 @@ export const TableDemo = (props: any) => {
       title: "Action",
       checked: true
     }
-  ]
+  ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -204,6 +229,15 @@ export const TableDemo = (props: any) => {
         data={data}
         className="RTable"></RTable> */}
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
+
+      <ChamPopup
+        title='这里是自定义title'
+        confirm={confirm}
+        onClose={closeModal}
+        maskClick={maskClick}
+        visible={visible} >
+            这里是自定义content,初步试验,在自定义组件里面继续定义子级,会默认设定为children;
+      </ChamPopup>
 
       <Rt
         columns={columns}
