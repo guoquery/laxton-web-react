@@ -18,7 +18,7 @@ export const Search = (props: SearchProps) => {
   const [expandIndex, setExpendIndex] = useState(props.expendIndex || 3)
 
   const OnTextChange = (e: any) => {
-    // console.log(e, 'OnTextChange');
+    console.log(e, 'OnTextChange');
     setFilters({ ...Filters, ...e })
     // setQ({
     //   ...q,
@@ -26,7 +26,7 @@ export const Search = (props: SearchProps) => {
     // });
   }
   const OnSearchChange = (type: 'search' | 'reset' | 'expand') => {
-    // console.log(Filters, '>>>>>>>>>>>')
+    console.log(Filters, '>>>>>>>>>>>')
     switch (type) {
       case 'search':
         if (Object.keys(Filters).length > 0) {

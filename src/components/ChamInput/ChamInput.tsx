@@ -1,10 +1,7 @@
 
 
 import React, { useContext, useEffect, useState } from "react";
-import { Input, Select } from "../../index";
-// import {Input}
-// import { Picker, StyleSheet, text, TextInput, View } from "react-native";
-// import { api } from "../service/api.service";
+import { Input, Select, Edit } from "../../index";
 export interface ChamInputItem {
   label: string;
   type?: "text" | "dropDown" | "textArea" | "datePicker";
@@ -15,6 +12,7 @@ export interface ChamInputItem {
   inputType?: string | "password";
   maxLength?: number;
   pattern?: string;
+  error?: string;
   /**text***/
   /**datePicker***/
   format?: string;
@@ -46,6 +44,7 @@ export const ChamInput = (props: ChamInputProps) => {
   const [layOut] = useState(props.layOut || 'column');
   const [dropdownData, setDropdownData] = useState([]);
   const [disabled, setEditable] = useState((props.disabled === undefined ? false : props.disabled));
+  const [validateFields, seValidateFields] = useState();
   const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
     if (item.type != 'dropDown') { return }
     const api = props.api;
@@ -77,7 +76,17 @@ export const ChamInput = (props: ChamInputProps) => {
   };
   const item: ChamInputItem = props.item;
   const GetValue = props.value
-  // const [GetValue, SetValueState] = useState(props.value || '')
+
+  const [inputValue, SetInputValue] = useState(props.value || '')
+  useEffect(() => {
+    // GetDropdownData(props.item);
+    // console.log('GetValue', GetValue, ">>>>>>>>")
+    if (!GetValue) {
+      if (inputValue) {
+        SetInputValue('')
+      }
+    }
+  }, [GetValue]);
   const type = props.item ? props.item.type : "text";
   let inputControl;
   useEffect(() => {
@@ -93,19 +102,13 @@ export const ChamInput = (props: ChamInputProps) => {
     }
     return enabled;
   };
-
   const SetValue = (value: any): void => {
-    // store[key] = value;
-    // console.log('set>>>>>1111', GetValue, value)
-    // SetValueState(value)
-    if (props.onChange) {
-      // console.log('set>>>>>22222', GetValue)
-      props.onChange({ [item.value]: value })
-    }
+    SetInputValue(value)
   }
   if (type === undefined || type === "text") {
     inputControl = (
       <Input
+        className={validateFields === false ? 'has-error' : ''}
         type={item.inputType}
         id={`txt${item.value}`}
         maxLength={item.maxLength}
@@ -113,42 +116,12 @@ export const ChamInput = (props: ChamInputProps) => {
         // autoCompleteType={"off"
         placeholder={item.placeholder ? item.placeholder : "Enter Here"}
         onChange={e => SetValue(e)}
-        value={GetValue}
+        value={inputValue}
       />
     );
   } else if (type === "dropDown") {
     inputControl = (
-      // <Picker
-      //   testID={`ddl${item.value}`}
-      //   prompt="Choose Here"
-      //   selectedValue={GetValue}
-      //   style={{ height: 26 }}
-      //   enabled={DropdownEnabled(item)}
-      //   onValueChange={(value, itemIndex) => SetValue(value, item.value)}
-      // >
-      // {dropdownData.length > 0 && item &&
-      //   dropdownData.map((label: any) => (
-      //     <Picker.Item
-      //       key={label.AreaId || label.Id}
-      //       label={label.Name}
-      //       value={label.AreaId || label.Id}
-      //     />
-
-      //   ))}
-      // </Picker>
-      // <select name="select" id={`ddl${item.value}`} onChange={e => SetValue(e.target.value)}>
-      //   {dropdownData.length > 0 && item &&
-      //     dropdownData.map((label: any) => (
-      //       <option
-      //         key={label.AreaId || label.Id}
-      //         value={label.AreaId || label.Id}
-      //       >{label.Name}</option>
-
-      //     ))}
-      // </select>
-      <Select data={dropdownData} value={GetValue} onChange={e => SetValue(e)}></Select>
-
-
+      <Select data={dropdownData} value={inputValue} onChange={e => SetValue(e)}></Select>
     );
   } else if (type === "textArea") {
     inputControl = (
@@ -156,14 +129,6 @@ export const ChamInput = (props: ChamInputProps) => {
     );
   } else if (type === "datePicker") {
     inputControl = (
-      // <input
-      //   type={"date"}
-      //   value={GetValue}
-      //   autoComplete="newPassword"
-      //   onChange={e => SetValue(e.target.value)}
-      //   disabled={!disabled}
-      //   id={`dc${item.value}`}
-      // ></input>
       <Input
         type={"date"}
         id={`dc${item.value}`}
@@ -171,50 +136,29 @@ export const ChamInput = (props: ChamInputProps) => {
         // autoCompleteType={"off"
         placeholder={item.placeholder ? item.placeholder : "Enter Here"}
         onChange={e => SetValue(e)}
-        value={GetValue}
+        value={inputValue}
       />
     );
+  }
+  useEffect(() => {
+    if (validateFields != undefined) {
+      // console.log('set>>>>>22222', GetValue, validateFields, inputValue)
+      if (props.onChange) {
+        props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
+
+      }
+    }
+  }, [validateFields, inputValue])
+  const onValidateChange = (e: any) => {
+    // console.log('onValidateChange', e)
+    seValidateFields(e)
   }
 
   return (
     <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={props.style}>
       {layOut === 'column' && <div className={'chamInputLabel'} ><span className="require">{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
       {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
-      {inputControl}
+      <Edit {...props} validateValue={inputValue} onValidateChange={(e: boolean) => onValidateChange(e)}>{inputControl}</Edit>
     </div>
   );
-};
-const styles = {
-  row: {
-    // flexDirection: 'row',
-    alignItems: 'center'
-  },
-  inputWrapper: {
-    // flexDirection: "row",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-    width: "100%"
-  },
-  input: {
-    width: "22%"
-  },
-  textArea: {
-    width: "47%"
-  },
-  label: {
-    marginTop: 10,
-    marginBottom: 2,
-    // flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  marginR: {
-    marginRight: "1.5%",
-    marginLeft: "1.5%"
-  },
-  require: {
-    color: 'red',
-    paddingTop: 4,
-    marginRight: 2,
-  }
 };

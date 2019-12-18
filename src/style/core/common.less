@@ -5,6 +5,18 @@
 @table-head-background-color: #f3f3f3;
 @defaultBorderColor: #ddd;
 
+@form-prefix-cls: ~'@{laxton-prefix}-form';
+@form-component-height: @input-height-base;
+@form-component-max-height: @input-height-lg;
+@form-feedback-icon-size: @font-size-base;
+@form-help-margin-top: (@form-component-height - @form-component-max-height) / 2 + 2px;
+@form-explain-font-size: @font-size-base;
+// Extends additional 1px to fix precision issue.
+// https://github.com/ant-design/ant-design/issues/12803
+// https://github.com/ant-design/ant-design/issues/8220
+@form-explain-precision: 1px;
+@form-explain-height: floor(@form-explain-font-size * @line-height-base);
+
 div {
     box-sizing: border-box;
 }

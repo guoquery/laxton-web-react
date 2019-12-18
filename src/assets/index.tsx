@@ -6,4 +6,6 @@ import "../Button/style/index.less"
 import "../Input/style/index.less"
 import "../Message/style/index.less"
 import "../Select/style/index.less"
+import "../Edit/style/index.less"
+
 

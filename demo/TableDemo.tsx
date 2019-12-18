@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputItem } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputItem } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputItem } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -156,7 +156,29 @@ export const TableDemo = (props: any) => {
   const searchConfig: ChamInputItem[] = [
     {
       label: "First Name",
-      value: "FirstName"
+      value: "FirstName",
+      require: true,
+      pattern: '[A-Za-z]{3}',
+      // error: 'The input is not valid Name'
+    },
+    {
+      label: "Last Name",
+      value: "LastName",
+      require: true,
+      // error: 'The input is not valid Name'
+    },
+    // {
+    //   label: "test Name",
+    //   value: "TestName",
+    //   require: true,
+    //   // error: 'The input is not valid Name'
+    // },
+    {
+      label: 'Email',
+      value: "Email",
+      require: true,
+      pattern: '^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$',
+      // error: 'The input is not valid E-mail!'
     },
     {
       label: "Province",

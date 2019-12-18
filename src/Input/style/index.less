@@ -5,7 +5,16 @@
     // background-color: red;
     .reset-component;
     .input;
+
+    &.has-error {
+        border-color: red;
+    }
+
+    &.has-error:focus {
+        box-shadow: none;
+    }
 }
+
 
 //== Style for input-group: input with label, with button or dropdown...
 .@{laxton-prefix}-input-group {

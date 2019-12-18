@@ -3465,21 +3465,6 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
-laxton-web-react@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/laxton-web-react/-/laxton-web-react-0.1.12.tgz#5fda2a1aaa4fa781cd937a6dc7f310b1f8cf3594"
-  integrity sha512-dsI59tEm/OPTtlJnebKJRBd9cd6L9ocrBD8SNUCtIH7h4KyXTHS+UXM+PuN+TEqMcyhPklvGMldWzBYWco/l+g==
-  dependencies:
-    "@fortawesome/fontawesome-svg-core" "^1.2.25"
-    "@fortawesome/free-solid-svg-icons" "^5.11.2"
-    "@fortawesome/react-fontawesome" "^0.1.7"
-    "@types/classnames" "^2.2.9"
-    "@types/react" "^16.9.13"
-    "@types/react-dom" "^16.9.4"
-    classnames "^2.2.6"
-    deep-eql "^4.0.0"
-    extract-text-webpack-plugin "^3.0.2"
-
 lcid@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-2.0.0.tgz#6ef5d2df60e52f82eb228a4c373e8d1f397253cf"

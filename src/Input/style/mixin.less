@@ -421,3 +421,262 @@
         padding-right: @input-padding-horizontal-base + @input-affix-with-clear-btn-width;
     }
 }
+
+
+
+// Validation state
+
+
+// .form-control-validation(@text-color: @input-color; @border-color: @input-border-color; @background-color: @input-bg) {
+
+//     .@{laxton-prefix}-form-explain,
+//     .@{laxton-prefix}-form-split {
+//         color: @text-color;
+//     }
+
+//     // 输入框的不同校验状态
+//     .@{laxton-prefix}-input {
+
+//         &,
+//         &:hover {
+//             background-color: @background-color;
+//             border-color: @border-color;
+//         }
+
+//         &:focus {
+//             .active(@border-color);
+//         }
+
+//         &:not([disabled]):hover {
+//             border-color: @border-color;
+//         }
+//     }
+
+//     .@{laxton-prefix}-calendar-picker-open .@{laxton-prefix}-calendar-picker-input {
+//         .active(@border-color);
+//     }
+
+//     // Input prefix
+//     .@{laxton-prefix}-input-affix-wrapper {
+//         .@{laxton-prefix}-input {
+
+//             &,
+//             &:hover {
+//                 background-color: @background-color;
+//                 border-color: @border-color;
+//             }
+
+//             &:focus {
+//                 .active(@border-color);
+//             }
+//         }
+
+//         &:hover .@{laxton-prefix}-input:not(.@{laxton-prefix}-input-disabled) {
+//             border-color: @border-color;
+//         }
+//     }
+
+//     .@{laxton-prefix}-input-prefix {
+//         color: @text-color;
+//     }
+
+//     .@{laxton-prefix}-input-group-addon {
+//         color: @text-color;
+//         background-color: @background-color;
+//         border-color: @border-color;
+//     }
+
+//     .has-feedback {
+//         color: @text-color;
+//     }
+// }
+
+// .has-success,
+// .has-warning,
+// .has-error,
+// .is-validating {
+//     &.has-feedback {
+//         position: absolute;
+//         top: 50%;
+//         right: 0;
+//         z-index: 1;
+//         width: @form-component-height;
+//         height: 20px;
+//         margin-top: -10px;
+//         font-size: @form-feedback-icon-size;
+//         line-height: 20px;
+//         text-align: center;
+//         visibility: visible;
+//         animation: zoomIn 0.3s @ease-out-back;
+//         pointer-events: none;
+
+//         & svg {
+//             position: absolute;
+//             top: 0;
+//             right: 0;
+//             bottom: 0;
+//             left: 0;
+//             margin: auto;
+//         }
+//     }
+// }
+
+// .has-success {
+//     &.has-feedback {
+//         color: @success-color;
+//         animation-name: diffZoomIn1 !important;
+//     }
+// }
+
+// .has-warning {
+//     .form-control-validation(@warning-color; @warning-color; @form-warning-input-bg; );
+
+//     &.has-feedback {
+//         color: @warning-color;
+//         animation-name: diffZoomIn3 !important;
+//     }
+
+//     //select
+//     .@{laxton-prefix}-select {
+//         &-selection {
+//             border-color: @warning-color;
+
+//             &:hover {
+//                 border-color: @warning-color;
+//             }
+//         }
+
+//         &-open .@{laxton-prefix}-select-selection,
+//         &-focused .@{laxton-prefix}-select-selection {
+//             .active(@warning-color);
+//         }
+//     }
+
+//     // arrow and icon
+//     .@{laxton-prefix}-calendar-picker-icon::after,
+//     .@{laxton-prefix}-time-picker-icon::after,
+//     .@{laxton-prefix}-picker-icon::after,
+//     .@{laxton-prefix}-select-arrow,
+//     .@{laxton-prefix}-cascader-picker-arrow {
+//         color: @warning-color;
+//     }
+
+//     //input-number, timepicker
+//     .@{laxton-prefix}-input-number,
+//     .@{laxton-prefix}-time-picker-input {
+//         border-color: @warning-color;
+
+//         &-focused,
+//         &:focus {
+//             .active(@warning-color);
+//         }
+
+//         &:not([disabled]):hover {
+//             border-color: @warning-color;
+//         }
+//     }
+
+//     .@{laxton-prefix}-cascader-picker:focus .@{laxton-prefix}-cascader-input {
+//         .active(@warning-color);
+//     }
+// }
+
+// .has-error {
+//     .form-control-validation(@error-color; @error-color; @form-error-input-bg; );
+
+//     &.has-feedback {
+//         color: @error-color;
+//         animation-name: diffZoomIn2 !important;
+//     }
+
+//     //select
+//     .@{laxton-prefix}-select {
+//         &-selection {
+//             border-color: @error-color;
+
+//             &:hover {
+//                 border-color: @error-color;
+//             }
+//         }
+
+//         &-open .@{laxton-prefix}-select-selection,
+//         &-focused .@{laxton-prefix}-select-selection {
+//             .active(@error-color);
+//         }
+//     }
+
+//     .@{laxton-prefix}-select.@{laxton-prefix}-select-auto-complete {
+//         .@{laxton-prefix}-input:focus {
+//             border-color: @error-color;
+//         }
+//     }
+
+//     .@{laxton-prefix}-input-group-addon .@{laxton-prefix}-select {
+//         &-selection {
+//             border-color: transparent;
+//             box-shadow: none;
+//         }
+//     }
+
+//     // arrow and icon
+//     .@{laxton-prefix}-calendar-picker-icon::after,
+//     .@{laxton-prefix}-time-picker-icon::after,
+//     .@{laxton-prefix}-picker-icon::after,
+//     .@{laxton-prefix}-select-arrow,
+//     .@{laxton-prefix}-cascader-picker-arrow {
+//         color: @error-color;
+//     }
+
+//     //input-number, timepicker
+//     .@{laxton-prefix}-input-number,
+//     .@{laxton-prefix}-time-picker-input {
+//         border-color: @error-color;
+
+//         &-focused,
+//         &:focus {
+//             .active(@error-color);
+//         }
+
+//         &:not([disabled]):hover {
+//             border-color: @error-color;
+//         }
+//     }
+
+//     .@{laxton-prefix}-mention-wrapper {
+//         .@{laxton-prefix}-mention-editor {
+
+//             &,
+//             &:not([disabled]):hover {
+//                 border-color: @error-color;
+//             }
+//         }
+
+//         &.@{laxton-prefix}-mention-active:not([disabled]) .@{laxton-prefix}-mention-editor,
+//         .@{laxton-prefix}-mention-editor:not([disabled]):focus {
+//             .active(@error-color);
+//         }
+//     }
+
+//     .@{laxton-prefix}-cascader-picker:focus .@{laxton-prefix}-cascader-input {
+//         .active(@error-color);
+//     }
+
+//     // transfer
+//     .@{laxton-prefix}-transfer {
+//         &-list {
+//             border-color: @error-color;
+
+//             &-search:not([disabled]) {
+//                 border-color: @input-border-color;
+
+//                 &:hover {
+//                     .hover();
+//                 }
+
+//                 &:focus {
+//                     .active();
+//                 }
+//             }
+//         }
+//     }
+// }
