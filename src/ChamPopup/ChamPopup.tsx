@@ -83,11 +83,11 @@ export const ChamPopup = (props:any) => {
                               <button 
                               onClick={closeModal}
                               className='ant-btn'
-                              >取消</button>
+                              >Cancel</button>
                               <button 
                               onClick={confirm}
                               className='ant-btn ant-btn-primary'
-                              >确定</button>
+                              >Determine</button>
                           </div>
                       </div>
                       <div className='mask' onClick={maskClick} ></div>

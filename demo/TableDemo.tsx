@@ -231,7 +231,7 @@ export const TableDemo = (props: any) => {
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
 
       <ChamPopup
-        title='这里是自定义title'
+        title='Basic Modal'
         confirm={confirm}
         onClose={closeModal}
         maskClick={maskClick}
