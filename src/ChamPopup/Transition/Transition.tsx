@@ -4,24 +4,6 @@
 import React,{useEffect, useState,useRef} from 'react';
 // 这里引入classnames处理类名的拼接
 import classnames from 'classnames';
-// 过渡时间不传入默认为0; defaultProps设置默认参数 interface
-interface defaultProps {
-  // animate: true,
-  // visible: false,
-  animate: Boolean,
-  // visible: any,
-  transitionName: String,
-  // appearTimeout: Number,
-  // appearActiveTimeout: Number,
-  // appearEndTimeout: Number,
-  // enterTimeout: Number,
-  enterActiveTimeout: Number,
-  enterEndTimeout: Number,
-  // leaveTimeout: Number,
-  leaveEndTimeout: Number,
-  leaveActiveTimeout: Number,
-  children: any
-}
    
 export const Transition = (props: any)=>{
   const [visible, setVisible] = useState(false);
@@ -44,7 +26,7 @@ export const Transition = (props: any)=>{
        
 
    // 入场动画
-  const enterAnimate = (props:any, transitionName:any) => {
+  const enterAnimate = (props:any, transitionName:string) => {
     const { visible, enterTimeout, enterActiveTimeout, enterEndTimeout } = props
     const { initClasses, activeClasses, endClasses } = getClasses('enter', transitionName)
     setVisible(visible);
@@ -64,7 +46,7 @@ export const Transition = (props: any)=>{
   }
  
   // 出场动画
-  const leaveAnimate = (props:any, transitionName: any) => {
+  const leaveAnimate = (props:any, transitionName: string) => {
     const { visible, leaveTimeout, leaveActiveTimeout, leaveEndTimeout } = props
     const { initClasses, activeClasses, endClasses } = getClasses('leave', transitionName)
     setClasses(initClasses)
@@ -121,7 +103,8 @@ export const Transition = (props: any)=>{
   }
 
     return (
-      cloneChildren()
+     cloneChildren()
+      // visible
     )
 
 }

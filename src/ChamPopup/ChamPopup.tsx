@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import './style/index.less';
 import {Transition} from './Transition/Transition'
-// import { NewPortal } from '../../src/index'
-import {NewPortal} from './newPortal/newPortal' 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle, faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
+import {NewPortal} from './newPortal/newPortal'
 
 export const ChamPopup = (props:any) => {
    const [visible, setVisible] = useState(false);
@@ -47,31 +48,45 @@ export const ChamPopup = (props:any) => {
   }
   const { title, children} = props;
   return (
-    <div className='ChamPopup'>
+    <div>
           <NewPortal>
                 <Transition
                   visible={props.visible}
                   animate={true}
                   transitionName='modal'
+                  // enterTimeout={10}
+                  // leaveTimeout={10}
                   enterActiveTimeout={200}
                   enterEndTimeout={100}
                   leaveActiveTimeout={100}
                   leaveEndTimeout={200}
                   >
-                    <div>
+                    <div className='ChamPopup'>
                      <div className='modal'>
-                          {/* 这里使用父组件的title */}
-                          <div className='modal-title'>{title}</div>
-                          {/* 这里的content使用父组件的children */}
-                          <div className='modal-content'>{children}</div>
-                          <div className='modal-operator'>
+                          <button className='ant-modal-expand'>
+                            <span className='ant-modal-expand-x'>
+                              <FontAwesomeIcon icon={faExpand} />
+                            </span>
+                          </button>
+                          <button className='ant-modal-close' onClick={closeModal}>
+                            <span className='ant-modal-close-x'>
+                              <FontAwesomeIcon  icon={faTimes}/>
+                            </span>
+                          </button>
+                          <div className='ant-modal-header'>
+                            <div className='ant-modal-title'>{title}</div>
+                          </div>
+                          <div className='ant-modal-body'>
+                            <div className='modal-content'>{children}</div>
+                          </div>
+                          <div className='ant-modal-footer'>
                               <button 
                               onClick={closeModal}
-                              className='modal-operator-close'
+                              className='ant-btn'
                               >取消</button>
                               <button 
                               onClick={confirm}
-                              className='modal-operator-confirm'
+                              className='ant-btn ant-btn-primary'
                               >确定</button>
                           </div>
                       </div>

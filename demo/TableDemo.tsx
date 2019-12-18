@@ -236,7 +236,9 @@ export const TableDemo = (props: any) => {
         onClose={closeModal}
         maskClick={maskClick}
         visible={visible} >
-            这里是自定义content,初步试验,在自定义组件里面继续定义子级,会默认设定为children;
+           <p>Some contents...</p>
+           <p>Some contents...</p>
+           <p>Some contents...</p>
       </ChamPopup>
 
       <Rt
