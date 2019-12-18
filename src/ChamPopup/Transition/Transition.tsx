@@ -22,10 +22,11 @@ interface defaultProps {
   leaveActiveTimeout: Number,
   children: any
 }
+   
 export const Transition = (props: any)=>{
   const [visible, setVisible] = useState(false);
   const [classes, setClasses] = useState('');
-  // const ref = useRef({visible});
+  
 
   useEffect(()=>{
     const { transitionName, animate, visible } = props
@@ -108,19 +109,19 @@ export const Transition = (props: any)=>{
 
     const children = props.children
     const className = children.props.className
- 
+    
+    if (!visible) {
+      return null
+    }
     // 通过React.cloneElement给子元素添加额外的props，
     return React.cloneElement(
       children,
       { className: `${className} ${classes}` }
     )
   }
- 
-//   // console.log(visible,cloneChildren());
-//     // return visible && props.children
+
     return (
-      visible && cloneChildren()
+      cloneChildren()
     )
-//   // }
 
 }
