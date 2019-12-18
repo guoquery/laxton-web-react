@@ -60,10 +60,6 @@ export const TableDemo = (props: any) => {
     setVisible(false);
       console.log('我是confirm回调');
   }
-  const maskClick = () => {
-    setVisible(false);
-    console.log('点击蒙层')
-  }
   const columns = [
     {
       title: "Role Name",
@@ -232,9 +228,12 @@ export const TableDemo = (props: any) => {
 
       <ChamPopup
         title='Basic Modal'
-        confirm={confirm}
-        onClose={closeModal}
-        maskClick={maskClick}
+        onOk={confirm}
+        onCancel={closeModal}
+        okText='Determine'
+        cancelText='Cancel'
+        width='30%'
+        mask={true}
         visible={visible} >
            <p>Some contents...</p>
            <p>Some contents...</p>

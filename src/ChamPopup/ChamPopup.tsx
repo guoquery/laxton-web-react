@@ -18,39 +18,32 @@ export const ChamPopup = (props:any) => {
   //  },[]);
    
   // 点击取消更新modal中的visible状态
-  const closeModal = () => {
-    const { onClose } = props;
-    onClose && onClose()
+  const onCancel = () => {
+    const { onCancel } = props;
+    onCancel && onCancel()
     setVisible(
       false
     );
-    console.log('点击取消啦!',visible,onClose);
+    console.log(visible);
   }
 
    // 点击确定按钮
-  const confirm = () => {
-      console.log('点击确定啦!');
-      const { confirm } = props
-      confirm && confirm();
+  const onOk = () => {
+      const { onOk } = props
+      onOk && onOk();
       setVisible(
         false
       )
    }
 
-  // 点击蒙层
- const maskClick = () => {
-      console.log('点击蒙层啦!');
-      const { maskClick } = props
-      maskClick && maskClick();
-      setVisible(
-        false
-      )
+  const { title, children, cancelText, okText, mask, width} = props;
+  const widthStle = {
+    width: width?width:'520px'
   }
-  const { title, children} = props;
   return (
     <div>
           <NewPortal>
-                <Transition
+                {/* <Transition
                   visible={props.visible}
                   animate={true}
                   transitionName='modal'
@@ -60,15 +53,17 @@ export const ChamPopup = (props:any) => {
                   enterEndTimeout={100}
                   leaveActiveTimeout={100}
                   leaveEndTimeout={200}
-                  >
-                    <div className='ChamPopup'>
-                     <div className='modal'>
+                  > */}
+                  {
+                    props.visible && 
+                    <div className='ChamPopup' >
+                      <div className='modal' style={widthStle}>
                           <button className='ant-modal-expand'>
                             <span className='ant-modal-expand-x'>
                               <FontAwesomeIcon icon={faExpand} />
                             </span>
                           </button>
-                          <button className='ant-modal-close' onClick={closeModal}>
+                          <button className='ant-modal-close' onClick={onCancel}>
                             <span className='ant-modal-close-x'>
                               <FontAwesomeIcon  icon={faTimes}/>
                             </span>
@@ -81,18 +76,21 @@ export const ChamPopup = (props:any) => {
                           </div>
                           <div className='ant-modal-footer'>
                               <button 
-                              onClick={closeModal}
-                              className='ant-btn'
-                              >Cancel</button>
+                                onClick={onCancel}
+                                className='ant-btn'
+                              >{cancelText}</button>
                               <button 
-                              onClick={confirm}
-                              className='ant-btn ant-btn-primary'
-                              >Determine</button>
+                                onClick={onOk}
+                                className='ant-btn ant-btn-primary'
+                              >{okText}</button>
                           </div>
                       </div>
-                      <div className='mask' onClick={maskClick} ></div>
+                      {
+                        mask && <div className='mask' onClick={onCancel} ></div>
+                      }
                     </div>
-                </Transition>
+                  }
+                {/* </Transition> */}
             </NewPortal>
     </div>
   );
