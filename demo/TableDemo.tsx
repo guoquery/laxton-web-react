@@ -11,6 +11,7 @@ export const TableDemo = (props: any) => {
   const [data, setData] = useState(dataType);
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
+  const [ClassStet, setClassStet] = useState(true);
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
@@ -53,11 +54,13 @@ export const TableDemo = (props: any) => {
 
   const closeModal = () => {
     setVisible(false);
+    setClassStet(true)
     console.log('我是onClose回调');
   }
 
   const confirm = () => {
     setVisible(false);
+    setClassStet(true)
       console.log('我是confirm回调');
   }
   const columns = [

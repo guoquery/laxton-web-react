@@ -21,6 +21,9 @@ export const ChamPopup = (props: any) => {
     setVisible(
       false
     );
+    setClassStet(
+      true
+    )
     console.log(visible);
   }
 
@@ -31,11 +34,14 @@ export const ChamPopup = (props: any) => {
     setVisible(
       false
     )
+    setClassStet(
+      true
+    )
   }
 
   const { title, children, cancelText, okText, mask, width } = props;
   // const widthStle = {
-  //   width: width ? width : '520px'
+  //   width: width ? width : '100px'
   // }
   return (
     <div>
