@@ -7,7 +7,7 @@ import { NewPortal } from './newPortal/newPortal'
 
 export const ChamPopup = (props: any) => {
   const [visible, setVisible] = useState(false);
-  const [ClassStet, setClassStet] = useState(false);
+  const [ClassStet, setClassStet] = useState(true);
 
 
   //  useEffect(()=>{
