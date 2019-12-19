@@ -235,7 +235,7 @@ export const TableDemo = (props: any) => {
         onCancel={closeModal}
         okText='Determine'
         cancelText='Cancel'
-        width='30%'
+        width='40%'
         mask={true}
         visible={visible} >
            <p>Some contents...</p>

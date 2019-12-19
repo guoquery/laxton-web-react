@@ -5,7 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
 import { NewPortal } from './newPortal/newPortal'
 
-export const ChamPopup = (props: any) => {
+interface ChamPopup {
+  mask?:true,
+  visible: Boolean,
+  title:any, 
+  children:any,
+  cancelText:string,
+  okText:string,
+  onCancel: any,
+  onOk: any,
+  width:any
+}
+
+export const ChamPopup = (props: ChamPopup) => {
   const [visible, setVisible] = useState(false);
   const [ClassStet, setClassStet] = useState(true);
 
