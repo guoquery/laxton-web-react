@@ -6,39 +6,22 @@ import { faTimesCircle, faTimes, faExpand } from "@fortawesome/free-solid-svg-ic
 import {NewPortal} from './newPortal/newPortal'
 
 export const ChamPopup = (props:any) => {
-   const [visible, setVisible] = useState(false);
 
-  //  useEffect(()=>{
-  //    if(props.visible !== visible) {
-  //      setVisible(
-  //         props.visible
-  //      )
-  //    }
-  //    console.log(visible,props,'useEffect')
-  //  },[]);
-   
   // 点击取消更新modal中的visible状态
   const onCancel = () => {
     const { onCancel } = props;
     onCancel && onCancel()
-    setVisible(
-      false
-    );
-    console.log(visible);
   }
 
    // 点击确定按钮
   const onOk = () => {
       const { onOk } = props
       onOk && onOk();
-      setVisible(
-        false
-      )
    }
 
   const { title, children, cancelText, okText, mask, width} = props;
   const widthStle = {
-    width: width?width:'520px'
+    width: width ? width:'520px',
   }
   return (
     <div>
@@ -86,7 +69,7 @@ export const ChamPopup = (props:any) => {
                           </div>
                       </div>
                       {
-                        mask && <div className='mask' onClick={onCancel} ></div>
+                         (mask?true:false ) && <div className='mask' onClick={onCancel} ></div>
                       }
                     </div>
                   }
