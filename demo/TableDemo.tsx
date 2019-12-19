@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 // import "../dist/index";
 // import { Rt, Search, Message, ChamInputItem } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem } from "../src/index";
+import { Rt, Search, Message, ChamInputItem, ChamPopup } from "../src/index";
 import { api } from "./api.service";
 
 
 export const TableDemo = (props: any) => {
   let dataType: any[] = [];
   const [data, setData] = useState(dataType);
+  const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
+  const [ClassStet, setClassStet] = useState(true);
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
@@ -34,11 +36,33 @@ export const TableDemo = (props: any) => {
         // });
         break;
       case "edit":
+        // showModal();
+        // console.log(visible);
+        setVisible(true);
+        console.log(visible);
         // props.navigation.navigate("UserDetailScreen", { id: data.record.Id });
         // console.log(action, "edit", data.record.Id);
         break;
     }
   };
+  useEffect(() => {
+    console.log(visible, 222222)
+  }, [visible])
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const closeModal = () => {
+    setVisible(false);
+    setClassStet(true)
+    console.log('我是onClose回调');
+  }
+
+  const confirm = () => {
+    setVisible(false);
+    setClassStet(true)
+    console.log('我是confirm回调');
+  }
   const columns = [
     {
       title: "Role Name",
@@ -86,7 +110,7 @@ export const TableDemo = (props: any) => {
       title: "Action",
       checked: true
     }
-  ]
+  ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -220,6 +244,14 @@ export const TableDemo = (props: any) => {
     }
   ]
 
+  const customizeFooter = () => {
+    return (
+      <div>
+        一个皮皮虾
+      </div>
+    )
+  }
+
   return (
     <div
       style={{ height: "100%", overflowY: "scroll" }}
@@ -229,6 +261,20 @@ export const TableDemo = (props: any) => {
         data={data}
         className="RTable"></RTable> */}
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
+
+      <ChamPopup
+        title='Basic Modal'
+        prefixCls='laxton'
+        // footer={null}
+        onOk={confirm}
+        onCancel={closeModal}
+        okText='Determine'
+        cancelText='Cancel'
+        visible={visible} >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </ChamPopup>
 
       <Rt
         columns={columns}

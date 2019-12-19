@@ -9,4 +9,5 @@ import "../Select/style/index.less"
 import "../Edit/style/index.less"
 
 
+import "../ChamPopup/style/index.less"
 

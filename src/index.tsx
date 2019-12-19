@@ -8,6 +8,8 @@ export { default as Message } from './Message/index';
 export { ChamPopup } from './ChamPopup/ChamPopup';
 export { Select } from './Select/index';
 export { DatePicker } from './DatePicker/index';
+export { NewPortal } from './ChamPopup/newPortal/newPortal';
+export { Transition } from './ChamPopup/Transition/Transition';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
 // // Created by scripts/src-index.js.
