@@ -2,59 +2,60 @@ import React, { useEffect, useState } from "react";
 import './style/index.less';
 import { Transition } from './Transition/Transition'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
 import { NewPortal } from './newPortal/newPortal'
+import { Button } from "../../src/index";
 
 interface ChamPopup {
-  mask?:true,
+  mask?: any,
   visible: Boolean,
-  title:any, 
-  children:any,
-  cancelText:string,
-  okText:string,
-  onCancel: any,
-  onOk: any,
-  width:any
+  title: any, 
+  children: any,
+  footer?: any,
+  zIndex?: number,
+  cancelText: string,
+  okText: string,
+  onCancel: (type?:any)=> any,
+  onOk: ()=> any,
+  width?: any,
+  maskClosable?: Boolean,
+  prefixCls?: string,
+  okType?: "link" | "primary" | "default" | "dashed" | "danger" | undefined, // primary
 }
 
 export const ChamPopup = (props: ChamPopup) => {
-  const [visible, setVisible] = useState(false);
+  const { title, children, cancelText, okText, width, zIndex } = props;
+  const maskClosable = props.maskClosable === undefined ? true : props.maskClosable;
+  const mask = props.mask === undefined ? true : props.mask;
+  const okType = props.okType === undefined ? 'primary' : props.okType;
+  const widthStle = {
+    width: width ? width : '520px',
+    // zIndex: zIndex? zIndex : '999'
+  }
   const [ClassStet, setClassStet] = useState(true);
-
-
-  //  useEffect(()=>{
-  //   setClassStet(true)
-  //  },[]);
+  const prefixCls = props.prefixCls === undefined ? 'laxton' : props.prefixCls;
 
   // 点击取消更新modal中的visible状态
-  const onCancel = () => {
+  const onCancel = (type?: any) => {
     const { onCancel } = props;
+    if ( type === 'mask' ) {
+      if ( !maskClosable ) { return false };
+    }
     onCancel && onCancel()
-    setVisible(
-      false
-    );
     setClassStet(
       true
     )
-    console.log(visible);
   }
 
   // 点击确定按钮
   const onOk = () => {
     const { onOk } = props
     onOk && onOk();
-    setVisible(
-      false
-    )
     setClassStet(
       true
     )
   }
 
-  const { title, children, cancelText, okText, mask, width } = props;
-  // const widthStle = {
-  //   width: width ? width : '100px'
-  // }
   return (
     <div>
       <NewPortal>
@@ -72,36 +73,30 @@ export const ChamPopup = (props: ChamPopup) => {
         {
           props.visible &&
           <div className='ChamPopup'>
-            <div className={ClassStet ? 'modal' : 'onModal'} >
-              <button className='ant-modal-expand'>
-                <span className='ant-modal-expand-x'>
+            <div className={ClassStet ? `${prefixCls}-modal` : `${prefixCls}-onModal`} style={ widthStle }>
+              <button className={`${prefixCls}-modal-expand`}>
+                <span className={`${prefixCls}-modal-expand-x`}>
                   <FontAwesomeIcon icon={faExpand} onClick={() => { setClassStet(!ClassStet) }} />
                 </span>
               </button>
-              <button className='ant-modal-close' onClick={onCancel}>
-                <span className='ant-modal-close-x'>
+              <button className={`${prefixCls}-modal-close`} onClick={onCancel}>
+                <span className={`${prefixCls}-modal-close-x`}>
                   <FontAwesomeIcon icon={faTimes} />
                 </span>
               </button>
-              <div className='ant-modal-header'>
-                <div className='ant-modal-title'>{title}</div>
+              <div className={`${prefixCls}-modal-header`}>
+                <div className={`${prefixCls}-modal-title`}>{title}</div>
               </div>
-              <div className='ant-modal-body'>
-                <div className='modal-content'>{children}</div>
+              <div className={`${prefixCls}-modal-body`}>
+                <div className={`${prefixCls}-modal-content`}>{children}</div>
               </div>
-              <div className='ant-modal-footer'>
-                <button
-                  onClick={onCancel}
-                  className='ant-btn'
-                >{cancelText}</button>
-                <button
-                  onClick={onOk}
-                  className='ant-btn ant-btn-primary'
-                >{okText}</button>
+              <div className={`${prefixCls}-modal-footer`}>
+                <Button  onClick={onCancel} >{cancelText}</Button>
+                <Button type={okType} onClick={onOk}>{okText}</Button>
               </div>
             </div>
             {
-              mask && <div className='mask' onClick={onCancel} ></div>
+              mask && <div className='mask' onClick={ ()=> onCancel('mask')} ></div>
             }
           </div>
         }

@@ -1,3 +1,5 @@
+@import '../../style/core/index.less';
+
 .ChamPopup {
   position: fixed;
   top: 0;
@@ -7,172 +9,111 @@
   z-index: 1000;
   overflow: auto;
   outline: 0;
-}
-
-.modal {
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-  line-height: 1.5;
-  position: relative;
-  top: 150px;
-  margin: 0 auto;
-  // width: 520px;
-  width:30%;
-  // height:100%;
-  position: relative;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 4px;
-  z-index: 9999;
-}
-
-.onModal {
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-  line-height: 1.5;
-  position: relative;
-  // top: 100px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 4px;
-  z-index: 9999;
-}
-
-.ant-modal-close,
-.ant-modal-expand {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 10;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.45);
-  font-weight: 700;
-  line-height: 1;
-  text-decoration: none;
-  background: transparent;
-  border: 0;
-  outline: 0;
-  cursor: pointer;
-}
-
-.ant-modal-close-x {
-  display: block;
-  // width: 56px;
-  // height: 56px;
-  margin-right: 15px;
-  font-size: 16px;
-  font-style: normal;
-  line-height: 56px;
-  text-align: center;
-  text-transform: none;
-  text-rendering: auto;
-}
-
-.ant-modal-expand-x {
-  display: block;
-  // width: 56px;
-  // height: 56px;
-  margin-right: 40px;
-  font-size: 16px;
-  font-style: normal;
-  line-height: 56px;
-  text-align: center;
-  text-transform: none;
-  text-rendering: auto;
-}
-
-.ant-modal-header {
-  padding: 16px 24px;
-  color: rgba(0, 0, 0, 0.65);
-  background: #fff;
-  border-bottom: 1px solid #e8e8e8;
-  border-radius: 4px 4px 0 0;
-}
-
-.ant-modal-title {
-  margin: 0;
-  color: rgba(0, 0, 0, 0.85);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
-  word-wrap: break-word;
-}
-
-.ant-modal-body {
-  padding: 24px;
-  font-size: 14px;
-  line-height: 1.5;
-  word-wrap: break-word;
-}
-
-.ant-modal-footer {
-  padding: 10px 16px;
-  text-align: right;
-  background: transparent;
-  border-top: 1px solid #e8e8e8;
-  border-radius: 0 0 4px 4px;
-
-  button+button {
-    margin-bottom: 0;
-    margin-left: 8px;
+  .@{laxton-prefix}-modal {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    top: 150px;
+    margin: 0 auto;
+    width:30%;
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    z-index: 9999;
+  }
+  .@{laxton-prefix}-onModal {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    // top: 100px;
+    margin: 0 auto;
+    width: 100% !important;
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    z-index: 9999;
+  }
+  .@{laxton-prefix}-modal-close,.@{laxton-prefix}-modal-expand {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.45);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    .@{laxton-prefix}-modal-close-x {
+      display: block;
+      // width: 56px;
+      // height: 56px;
+      margin-right: 15px;
+      font-size: 16px;
+      font-style: normal;
+      line-height: 56px;
+      text-align: center;
+      text-transform: none;
+      text-rendering: auto;
+    }
+    .@{laxton-prefix}-modal-expand-x {
+      display: block;
+      // width: 56px;
+      // height: 56px;
+      margin-right: 40px;
+      font-size: 16px;
+      font-style: normal;
+      line-height: 56px;
+      text-align: center;
+      text-transform: none;
+      text-rendering: auto;
+    }
+  }
+  .@{laxton-prefix}-modal-header {
+    padding: 16px 24px;
+    color: rgba(0, 0, 0, 0.65);
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    border-radius: 4px 4px 0 0;
+    .@{laxton-prefix}-modal-title {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.85);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      word-wrap: break-word;
+    }
+  }
+  .@{laxton-prefix}-modal-body {
+    padding: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .@{laxton-prefix}-modal-footer {
+    padding: 10px 16px;
+    text-align: right;
+    background: transparent;
+    border-top: 1px solid #e8e8e8;
+    border-radius: 0 0 4px 4px;
+    button{
+      margin: auto;
+    }
+    button+button {
+      margin-bottom: 0;
+      margin-left: 8px;
+    }
   }
 }
 
-.ant-btn {
-  line-height: 1.499;
-  position: relative;
-  display: inline-block;
-  font-weight: 400;
-  white-space: nowrap;
-  text-align: center;
-  background-image: none;
-  border: 1px solid transparent;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
-  cursor: pointer;
-  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
-  cursor: pointer;
-  -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
-  transition: all .3s cubic-bezier(.645, .045, .355, 1);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  height: 32px;
-  padding: 0 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  color: rgba(0, 0, 0, 0.65);
-  background-color: #fff;
-  border-color: #d9d9d9;
-}
-
-.ant-btn:hover {
-  color: #40a9ff;
-  background-color: #fff;
-  border-color: #40a9ff;
-}
-
-.ant-btn-primary {
-  color: #fff;
-  background-color: #1890ff;
-  border-color: #1890ff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-}
-
-.ant-btn-primary:hover {
-  text-decoration: none;
-  color: #fff;
-  background-color: #40a9ff;
-  border-color: #40a9ff;
-}
 
 
 

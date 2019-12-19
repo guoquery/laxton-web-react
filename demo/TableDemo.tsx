@@ -231,12 +231,13 @@ export const TableDemo = (props: any) => {
 
       <ChamPopup
         title='Basic Modal'
+        prefixCls='laxton'
+        footer={null}
         onOk={confirm}
         onCancel={closeModal}
         okText='Determine'
+        zIndex={999}
         cancelText='Cancel'
-        width='40%'
-        mask={true}
         visible={visible} >
            <p>Some contents...</p>
            <p>Some contents...</p>
