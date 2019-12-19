@@ -219,6 +219,14 @@ export const TableDemo = (props: any) => {
     }
   ]
 
+  const customizeFooter = () => {
+    return (
+      <div>
+        一个皮皮虾
+      </div>
+    )
+  }
+
   return (
     <div
       style={{ height: "100%", overflowY: "scroll" }}
@@ -232,11 +240,10 @@ export const TableDemo = (props: any) => {
       <ChamPopup
         title='Basic Modal'
         prefixCls='laxton'
-        footer={null}
+        // footer={null}
         onOk={confirm}
         onCancel={closeModal}
         okText='Determine'
-        zIndex={999}
         cancelText='Cancel'
         visible={visible} >
            <p>Some contents...</p>

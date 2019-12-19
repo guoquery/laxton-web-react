@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  // z-index: 100;
   overflow: auto;
   outline: 0;
   .@{laxton-prefix}-modal {
@@ -21,7 +21,7 @@
     background-color: #fff;
     background-clip: padding-box;
     border-radius: 4px;
-    z-index: 9999;
+    z-index: 100;
   }
   .@{laxton-prefix}-onModal {
     color: rgba(0, 0, 0, 0.65);
@@ -36,7 +36,7 @@
     background-color: #fff;
     background-clip: padding-box;
     border-radius: 4px;
-    z-index: 9999;
+    z-index: 100;
   }
   .@{laxton-prefix}-modal-close,.@{laxton-prefix}-modal-expand {
     position: absolute;
@@ -112,24 +112,21 @@
       margin-left: 8px;
     }
   }
+  .@{laxton-prefix}-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: .6;
+    z-index: 99;
+  }
 }
 
 
 
 
-
-
-
-.mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #000;
-  opacity: .6;
-  z-index: 9998;
-}
 
 .modal-enter {
   transform: scale(0);
