@@ -165,6 +165,7 @@ export const TableDemo = (props: any) => {
       label: "Last Name",
       value: "LastName",
       require: true,
+      type: 'datePicker'
       // error: 'The input is not valid Name'
     },
     // {
@@ -173,18 +174,20 @@ export const TableDemo = (props: any) => {
     //   require: true,
     //   // error: 'The input is not valid Name'
     // },
-    {
-      label: 'Email',
-      value: "Email",
-      require: true,
-      pattern: '^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$',
-      // error: 'The input is not valid E-mail!'
-    },
+    // {
+    //   label: 'Email',
+    //   value: "Email",
+    //   require: true,
+    //   pattern: '^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$',
+    //   // error: 'The input is not valid E-mail!'
+    // },
     {
       label: "Province",
       value: "Province",
       type: "dropDown",
       typeCode: "Province",
+      renderItem: 'Name',
+      optionValue: 'AreaId',
       linkage: 0
     },
     {
@@ -212,7 +215,7 @@ export const TableDemo = (props: any) => {
     },
     {
       label: "Postal Address",
-      type: "textArea",
+      type: 'datePicker',
       value: "PostalAddress"
     }
   ]

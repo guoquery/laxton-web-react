@@ -6,7 +6,8 @@ export { Button } from './Button/Button';
 export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
 export { ChamPopup } from './ChamPopup/ChamPopup';
-export { Select } from './Select/Select';
+export { Select } from './Select/index';
+export { DatePicker } from './DatePicker/index';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
 // // Created by scripts/src-index.js.

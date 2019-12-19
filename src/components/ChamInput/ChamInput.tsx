@@ -1,7 +1,8 @@
 
 
 import React, { useContext, useEffect, useState } from "react";
-import { Input, Select, Edit } from "../../index";
+import { Input, Select, Edit, DatePicker } from "../../index";
+import { render } from 'react-dom';
 export interface ChamInputItem {
   label: string;
   type?: "text" | "dropDown" | "textArea" | "datePicker";
@@ -23,6 +24,9 @@ export interface ChamInputItem {
   typeCode?: string;
   apiUrl?: string;
   des?: boolean;
+  renderItem?: string;
+  renderResult?: string;
+  optionValue?: string;
 
   /**dropDown***/
 }
@@ -107,6 +111,7 @@ export const ChamInput = (props: ChamInputProps) => {
   }
   if (type === undefined || type === "text") {
     inputControl = (
+
       <Input
         className={validateFields === false ? 'has-error' : ''}
         type={item.inputType}
@@ -115,13 +120,13 @@ export const ChamInput = (props: ChamInputProps) => {
         disabled={props.disabled}
         // autoCompleteType={"off"
         placeholder={item.placeholder ? item.placeholder : "Enter Here"}
-        onChange={e => SetValue(e)}
+        onChange={(e: any) => SetValue(e)}
         value={inputValue}
       />
     );
   } else if (type === "dropDown") {
     inputControl = (
-      <Select data={dropdownData} value={inputValue} onChange={e => SetValue(e)}></Select>
+      <Select data={dropdownData} value={inputValue} onChange={(e: any) => SetValue(e)} renderItem={item.renderItem} optionValue={item.optionValue} renderResult={item.renderResult}></Select>
     );
   } else if (type === "textArea") {
     inputControl = (
@@ -129,15 +134,18 @@ export const ChamInput = (props: ChamInputProps) => {
     );
   } else if (type === "datePicker") {
     inputControl = (
-      <Input
-        type={"date"}
-        id={`dc${item.value}`}
-        maxLength={item.maxLength}
-        // autoCompleteType={"off"
-        placeholder={item.placeholder ? item.placeholder : "Enter Here"}
-        onChange={e => SetValue(e)}
-        value={inputValue}
-      />
+
+      <DatePicker onChange={(e: any) => SetValue(e)}></DatePicker>
+      // <Input
+      //   type={"date"}
+      //   id={`dc${item.value}`}
+      //   maxLength={item.maxLength}
+      //   // autoCompleteType={"off"
+      //   placeholder={item.placeholder ? item.placeholder : "Enter Here"}
+      //   onChange={(e: any) => SetValue(e)}
+      //   value={inputValue}
+      // />
+
     );
   }
   useEffect(() => {
