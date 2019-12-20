@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../dist/index";
-import { Rt, Search, Message, ChamInputItem, ChamPopup } from "../lib/index";
+import { Rt, Search, Message, ChamInputItem, Modal } from "../lib/index";
 // import "../src/assets/index";
 // import { Rt, Search, Message, ChamInputItem, ChamPopup } from "../src/index";
 import { api } from "./api.service";
@@ -262,7 +262,7 @@ export const TableDemo = (props: any) => {
         className="RTable"></RTable> */}
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3}></Search>
 
-      <ChamPopup
+      <Modal
         title='Basic Modal'
         prefixCls='laxton'
         // footer={null}
@@ -274,7 +274,7 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </ChamPopup>
+      </Modal>
 
       <Rt
         columns={columns}
