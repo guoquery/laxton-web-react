@@ -3,9 +3,9 @@ import { Transition } from './Transition/Transition'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
 import { NewPortal } from './newPortal/newPortal'
-import { Button } from "../../src/index";
+import { Button } from "../index";
 
-interface ChamPopup {
+interface ModalProps {
   mask?: any,
   visible: Boolean,
   title: any,
@@ -22,7 +22,7 @@ interface ChamPopup {
   okType?: "link" | "primary" | "default" | "dashed" | "danger" | undefined, // primary
 }
 
-export const ChamPopup = (props: ChamPopup) => {
+export const Modal = (props: ModalProps) => {
   const { title, children, cancelText, okText, width, zIndex, footer } = props;
   const maskClosable = props.maskClosable === undefined ? true : props.maskClosable;
   const mask = props.mask === undefined ? true : props.mask;
@@ -74,7 +74,7 @@ export const ChamPopup = (props: ChamPopup) => {
                   > */}
         {
           props.visible &&
-          <div className='ChamPopup'>
+          <div className='Modal'>
             <div className={ClassStet ? `${prefixCls}-modal` : `${prefixCls}-onModal`} style={styleSet}>
               <button className={`${prefixCls}-modal-expand`}>
                 <span className={`${prefixCls}-modal-expand-x`}>
