@@ -4,6 +4,7 @@ import { ChamInput, Button } from "../../index";
 import { Grid } from 'shineout'
 
 interface ChamItemProps {
+  values: any;
   expandIndex?: number,
   chamItemConfig: any;
   onChange: (action: any) => any;
@@ -15,7 +16,8 @@ interface ChamItemProps {
 }
 export const ChamItem = (props: ChamItemProps) => {
   const FilterType: any = {}
-  const [Filters, setFilters] = useState(FilterType)
+  const { values } = props;
+  // const [Filters, setFilters] = useState(FilterType)
   const expandIndex = props.expandIndex
 
   const OnTextChange = (e: any) => {
@@ -40,7 +42,7 @@ export const ChamItem = (props: ChamItemProps) => {
           <Grid width={props.width || (1 / 4)} key={item.value + index}>
             <ChamInput
               item={item}
-              value={Filters[item.value] || ''}
+              value={values[item.value] || ''}
               onChange={OnTextChange}
               layOut={props.layOut}
               api={props.api}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputItem, Modal } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputItem, ChamPopup } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputItem, Modal } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputItem, Modal } from "../src/index";
 import { api } from "./api.service";
 
 

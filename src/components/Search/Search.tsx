@@ -98,7 +98,7 @@ export const Search = (props: SearchProps) => {
       {/* <div className="searchItem">
         <Grid gutter={props.gutter || 40}>{renderSearchItem()}</Grid>
       </div> */}
-      <ChamItem expandIndex={expandIndex} chamItemConfig={props.searchConfig} onChange={OnTextChange} gutter={props.gutter || 40} width={props.width || (1 / 4)} api={props.api}></ChamItem>
+      <ChamItem values={Filters} expandIndex={expandIndex} chamItemConfig={props.searchConfig} onChange={OnTextChange} gutter={props.gutter || 40} width={props.width || (1 / 4)} api={props.api}></ChamItem>
       {props.children && <div className="searchMixin">{props.children}</div>}
       <div className="searchBtn">
         <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>
