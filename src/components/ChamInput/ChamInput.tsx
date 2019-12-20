@@ -41,7 +41,7 @@ interface ChamInputProps {
   onChange?: (value: any) => void;
   layOut?: 'row' | 'column',
   api?: any,
-  width?: string;
+  width?: string | number;
 }
 
 export const ChamInput = (props: ChamInputProps) => {
@@ -130,40 +130,26 @@ export const ChamInput = (props: ChamInputProps) => {
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea></textarea>
+      <textarea style={{ width: "100%" }} onChange={(e: any) => SetValue(e.target.value)} placeholder="Enter Here"></textarea>
     );
   } else if (type === "datePicker") {
     inputControl = (
-
       <DatePicker onChange={(e: any) => SetValue(e)}></DatePicker>
-      // <Input
-      //   type={"date"}
-      //   id={`dc${item.value}`}
-      //   maxLength={item.maxLength}
-      //   // autoCompleteType={"off"
-      //   placeholder={item.placeholder ? item.placeholder : "Enter Here"}
-      //   onChange={(e: any) => SetValue(e)}
-      //   value={inputValue}
-      // />
-
     );
   }
   useEffect(() => {
     if (validateFields != undefined) {
-      // console.log('set>>>>>22222', GetValue, validateFields, inputValue)
       if (props.onChange) {
         props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
-
       }
     }
   }, [validateFields, inputValue])
   const onValidateChange = (e: any) => {
-    // console.log('onValidateChange', e)
     seValidateFields(e)
   }
 
   return (
-    <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={props.style}>
+    <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={{ ...props.style, ...{ width: props.width } }}>
       {layOut === 'column' && <div className={'chamInputLabel'} ><span className="require">{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
       {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
       <Edit {...props} validateValue={inputValue} onValidateChange={(e: boolean) => onValidateChange(e)}>{inputControl}</Edit>

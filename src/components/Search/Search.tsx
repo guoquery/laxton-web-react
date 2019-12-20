@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { ChamInput, Button } from "../../index";
+import { ChamInput, Button, ChamItem } from "../../index";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//@ts-ignore
+import { Grid } from 'shineout'
 
 
 interface SearchProps {
@@ -10,6 +12,9 @@ interface SearchProps {
   onChange: (action: any) => any;
   children?: any;
   api?: any;
+  layOut?: 'row' | 'column';
+  width?: string | number;
+  gutter?: number;
 }
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
@@ -18,7 +23,7 @@ export const Search = (props: SearchProps) => {
   const [expandIndex, setExpendIndex] = useState(props.expendIndex || 3)
 
   const OnTextChange = (e: any) => {
-    console.log(e, 'OnTextChange');
+    console.log(e, 'OnTextChange1111111');
     setFilters({ ...Filters, ...e })
     // setQ({
     //   ...q,
@@ -52,30 +57,33 @@ export const Search = (props: SearchProps) => {
       return item.iif()
     }
   }
-  const renderSearchItem = () => {
-    let searchItem: any = [];
-    props.searchConfig.map((item: any, index: number) => {
-      if (!expandIndex || (index < expandIndex)) {
-        if (item.linkage) {
-          // console.log(item, item.linkage, '>>>>>>><<<<<<<<<<<<')
-          let obj: any = {};
-          obj[item.linkage] = undefined;
-        }
-        searchItem.push(
-          <ChamInput
-            key={item.value + index}
-            item={item}
-            value={Filters[item.value] || ''}
-            onChange={OnTextChange}
-            // layOut='row'
-            api={props.api}
-            disabled={IfDisabled(item)}
-          ></ChamInput>
-        )
-      }
-    })
-    return searchItem;
-  }
+  // const renderSearchItem = () => {
+  //   let searchItem: any = [];
+  //   props.searchConfig.map((item: any, index: number) => {
+  //     if (!expandIndex || (index < expandIndex)) {
+  //       if (item.linkage) {
+  //         // console.log(item, item.linkage, '>>>>>>><<<<<<<<<<<<')
+  //         let obj: any = {};
+  //         obj[item.linkage] = undefined;
+  //       }
+  //       searchItem.push(
+  //         <Grid width={props.width || (1 / 4)}>
+  //           <ChamInput
+  //             key={item.value + index}
+  //             item={item}
+  //             value={Filters[item.value] || ''}
+  //             onChange={OnTextChange}
+  //             layOut={props.layOut}
+  //             api={props.api}
+  //             // width={props.width}
+  //             disabled={IfDisabled(item)}
+  //           ></ChamInput>
+  //         </Grid>
+  //       )
+  //     }
+  //   })
+  //   return searchItem;
+  // }
 
   const renderExpendButton = () => {
     const btn = expandIndex === 0 ? 'Collapse' : 'Expend';
@@ -87,7 +95,10 @@ export const Search = (props: SearchProps) => {
   }
   return (
     <div className="search" id="search">
-      <div className="searchItem">{renderSearchItem()}</div>
+      {/* <div className="searchItem">
+        <Grid gutter={props.gutter || 40}>{renderSearchItem()}</Grid>
+      </div> */}
+      <ChamItem expandIndex={expandIndex} chamItemConfig={props.searchConfig} onChange={OnTextChange} gutter={props.gutter || 40} width={props.width || (1 / 4)} api={props.api}></ChamItem>
       {props.children && <div className="searchMixin">{props.children}</div>}
       <div className="searchBtn">
         <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>

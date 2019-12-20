@@ -260,9 +260,9 @@ export const TableDemo = (props: any) => {
       {/* <RTable columns={columns}
         data={data}
         className="RTable"></RTable> */}
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3}></Search>
 
-      <ChamPopup
+      {/* <ChamPopup
         title='Basic Modal'
         prefixCls='laxton'
         // footer={null}
@@ -274,7 +274,7 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </ChamPopup>
+      </ChamPopup> */}
 
       <Rt
         columns={columns}
@@ -282,7 +282,7 @@ export const TableDemo = (props: any) => {
         className="RTable"
         pagination={pagination}
         // paginationType={"common"}
-        paginationType='common'
+        // paginationType='common'
         onChange={(e: any) => OnTableChange(e)}
         // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}

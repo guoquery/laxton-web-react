@@ -35,7 +35,7 @@ export const DatePicker = (props: any): any => {
   const pre = 'laxton'
   const renderPicker = () => {
 
-    return <SODatePicker type="date" onChange={onChange} style={{ width: '100%' }}></SODatePicker>
+    return <SODatePicker type="date" onChange={onChange} style={{ width: '100%' }} placeholder="Choose Date"></SODatePicker>
 
   }
   return (renderPicker());

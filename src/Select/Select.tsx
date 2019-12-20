@@ -141,7 +141,7 @@ export const Select = (props: SelectProps): any => {
     //     ))}
     // </select>
 
-    return <SOSelect data={data} keygen={renderItem} value={value} onChange={(e: any) => onChange(e)} renderItem={renderItem} renderResult={(d: any) => 'abc'}></SOSelect>
+    return <SOSelect data={data} keygen={renderItem} value={value ? value : undefined} onChange={(e: any) => onChange(e)} renderItem={renderItem} renderResult={(d: any) => 'abc'} placeholder="Choose Here"></SOSelect>
 
   }
   return (renderSelect());

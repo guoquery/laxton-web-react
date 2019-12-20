@@ -1,5 +1,5 @@
 
-export { Search, ChamInput, ChamInputItem } from "./components";
+export { Search, ChamInput, ChamInputItem, ChamItem } from "./components";
 export { Rt, RTable } from './Table';
 export { Pagination } from './Pagination/Pagination';
 export { Button } from './Button/Button';
@@ -12,6 +12,7 @@ export { NewPortal } from './ChamPopup/newPortal/newPortal';
 export { Transition } from './ChamPopup/Transition/Transition';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
+export { Grid } from './Grid/Grid';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
