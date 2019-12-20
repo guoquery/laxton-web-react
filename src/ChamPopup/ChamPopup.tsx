@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import './style/index.less';
 import { Transition } from './Transition/Transition'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
@@ -9,14 +8,14 @@ import { Button } from "../../src/index";
 interface ChamPopup {
   mask?: any,
   visible: Boolean,
-  title: any, 
+  title: any,
   children: any,
   footer?: any,
   zIndex?: number,
   cancelText: string,
   okText: string,
-  onCancel: (type?:any)=> any,
-  onOk: ()=> any,
+  onCancel: (type?: any) => any,
+  onOk: () => any,
   width?: any,
   maskClosable?: Boolean,
   prefixCls?: string,
@@ -30,10 +29,10 @@ export const ChamPopup = (props: ChamPopup) => {
   const okType = props.okType === undefined ? 'primary' : props.okType;
   const styleSet = {
     width: width ? width : '520px',
-    zIndex: zIndex? zIndex : 100
+    zIndex: zIndex ? zIndex : 100
   };
   const ZindexMask = {
-    zIndex: zIndex ? zIndex-1 : 99
+    zIndex: zIndex ? zIndex - 1 : 99
   };
   const [ClassStet, setClassStet] = useState(true);
   const prefixCls = props.prefixCls === undefined ? 'laxton' : props.prefixCls;
@@ -41,8 +40,8 @@ export const ChamPopup = (props: ChamPopup) => {
   // 点击取消更新modal中的visible状态
   const onCancel = (type?: any) => {
     const { onCancel } = props;
-    if ( type === 'mask' ) {
-      if ( !maskClosable ) { return false };
+    if (type === 'mask') {
+      if (!maskClosable) { return false };
     }
     onCancel && onCancel()
     setClassStet(
@@ -76,7 +75,7 @@ export const ChamPopup = (props: ChamPopup) => {
         {
           props.visible &&
           <div className='ChamPopup'>
-            <div className={ClassStet ? `${prefixCls}-modal` : `${prefixCls}-onModal`} style={ styleSet }>
+            <div className={ClassStet ? `${prefixCls}-modal` : `${prefixCls}-onModal`} style={styleSet}>
               <button className={`${prefixCls}-modal-expand`}>
                 <span className={`${prefixCls}-modal-expand-x`}>
                   <FontAwesomeIcon icon={faExpand} onClick={() => { setClassStet(!ClassStet) }} />
@@ -95,12 +94,12 @@ export const ChamPopup = (props: ChamPopup) => {
               </div>
               {/* { (footer()!== null? footer() : false)  || */}
               <div className={`${prefixCls}-modal-footer`}>
-                <Button  onClick={onCancel} >{cancelText}</Button>
+                <Button onClick={onCancel} >{cancelText}</Button>
                 <Button type={okType} onClick={onOk}>{okText}</Button>
               </div>
             </div>
             {
-              mask && <div className={`${prefixCls}-mask`} style={ZindexMask} onClick={ ()=> onCancel('mask')} ></div>
+              mask && <div className={`${prefixCls}-mask`} style={ZindexMask} onClick={() => onCancel('mask')} ></div>
             }
           </div>
         }
