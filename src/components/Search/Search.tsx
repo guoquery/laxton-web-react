@@ -15,10 +15,11 @@ interface SearchProps {
   layOut?: 'row' | 'column';
   width?: string | number;
   gutter?: number;
+  filters?: any;
 }
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
-  const [Filters, setFilters] = useState(FilterType)
+  const [Filters, setFilters] = useState(props.filters || {})
   const [linkageObj, setLinkageObj] = useState({})
   const [expandIndex, setExpendIndex] = useState(props.expendIndex || 3)
 

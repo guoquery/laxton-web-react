@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem, Modal } from "../lib/index";
-import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem, Modal } from "../src/index";
+import "../dist/index";
+import { Rt, Search, Message, ChamInputItem, Modal } from "../lib/index";
+// import "../src/assets/index";
+// import { Rt, Search, Message, ChamInputItem, Modal } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -19,7 +19,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { Name: null },
+    Filters: { FirstName: "zambiaNextVote", LastName: '1/1/1998' },
     PageSize: 10
   });
   const Action = (action: string, data: any) => {
@@ -174,7 +174,7 @@ export const TableDemo = (props: any) => {
         break;
     }
     setLoadMoreType('replace')
-    setQ({ ...q, ...{ CurrentPage: 1, Filters: e.data } })
+    setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
   const searchConfig: ChamInputItem[] = [
@@ -183,13 +183,18 @@ export const TableDemo = (props: any) => {
       value: "FirstName",
       require: true,
       pattern: '[A-Za-z]{3}',
+      disabled: true,
+      // iif: () => true
       // error: 'The input is not valid Name'
     },
     {
       label: "Last Name",
       value: "LastName",
       require: true,
-      type: 'datePicker'
+      type: 'datePicker',
+      minDate: '1/1/1980',
+      maxDate: '1/1/1990',
+      // disabled: true,
       // error: 'The input is not valid Name'
     },
     // {
@@ -212,7 +217,10 @@ export const TableDemo = (props: any) => {
       typeCode: "Province",
       renderItem: 'Name',
       optionValue: 'AreaId',
-      linkage: 0
+      linkage: 0,
+      // disabled: true,
+      placeholder: 'Enter to Search Here',
+      searchAble: true,
     },
     {
       label: "District",
@@ -260,7 +268,7 @@ export const TableDemo = (props: any) => {
       {/* <RTable columns={columns}
         data={data}
         className="RTable"></RTable> */}
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3}></Search>
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
 
       <Modal
         title='Basic Modal'

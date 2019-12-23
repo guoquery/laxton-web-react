@@ -87,6 +87,7 @@ export interface SelectProps extends AbstractSelectProps {
   removeIcon?: React.ReactNode;
   clearIcon?: React.ReactNode;
   menuItemSelectedIcon?: React.ReactNode;
+  [keyName: string]: any
 }
 
 export interface OptionProps {
@@ -96,6 +97,7 @@ export interface OptionProps {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+
 }
 
 export interface OptGroupProps {
@@ -141,7 +143,7 @@ export const Select = (props: SelectProps): any => {
     //     ))}
     // </select>
 
-    return <SOSelect data={data} keygen={renderItem} value={value ? value : undefined} onChange={(e: any) => onChange(e)} renderItem={renderItem} renderResult={(d: any) => 'abc'} placeholder="Choose Here"></SOSelect>
+    return <SOSelect {...props} data={data} keygen={renderItem} value={value ? value : undefined} onChange={(e: any) => onChange(e)} renderItem={renderItem} renderResult={(d: any) => 'abc'}></SOSelect>
 
   }
   return (renderSelect());

@@ -13,6 +13,11 @@ interface ChamItemProps {
   layOut?: 'row' | 'column';
   width?: string | number;
   gutter?: number;
+  [key: string]: any;
+  // item: ChamInputItem;
+  style?: any;
+  disabled?: boolean;
+
 }
 export const ChamItem = (props: ChamItemProps) => {
   const FilterType: any = {}
@@ -28,6 +33,7 @@ export const ChamItem = (props: ChamItemProps) => {
     if (item.iif && typeof item.iif === 'function') {
       return item.iif()
     }
+    return item.disabled
   }
   const renderChamItemItem = () => {
     let ChamItemItem: any = [];
@@ -42,7 +48,7 @@ export const ChamItem = (props: ChamItemProps) => {
           <Grid width={props.width || (1 / 4)} key={item.value + index}>
             <ChamInput
               item={item}
-              value={values[item.value] || ''}
+              value={values[item.value]}
               onChange={OnTextChange}
               layOut={props.layOut}
               api={props.api}

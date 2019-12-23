@@ -3,12 +3,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Input, Select, Edit, DatePicker } from "../../index";
 import { render } from 'react-dom';
+import { Search } from './../Search/Search';
 export interface ChamInputItem {
   label: string;
   type?: "text" | "dropDown" | "textArea" | "datePicker";
   value: string;
   require?: boolean;
   disabled?: boolean;
+  iif?: () => boolean;
   /**text***/
   inputType?: string | "password";
   maxLength?: number;
@@ -16,7 +18,10 @@ export interface ChamInputItem {
   error?: string;
   /**text***/
   /**datePicker***/
+  dateType?: 'date' | 'time' | 'datetime' | 'month' | 'week';
   format?: string;
+  minDate?: Date | string | number;
+  maxDate?: Date | string | number;
   /**datePicker***/
   /**dropDown***/
   linkage?: string | 0;
@@ -27,7 +32,7 @@ export interface ChamInputItem {
   renderItem?: string;
   renderResult?: string;
   optionValue?: string;
-
+  searchAble?: boolean;
   /**dropDown***/
 }
 
@@ -78,6 +83,9 @@ export const ChamInput = (props: ChamInputProps) => {
       }
     }
   };
+  const onSearch = (e: any) => {
+    console.log(e, 'on Select search')
+  }
   const item: ChamInputItem = props.item;
   const GetValue = props.value
 
@@ -109,6 +117,7 @@ export const ChamInput = (props: ChamInputProps) => {
   const SetValue = (value: any): void => {
     SetInputValue(value)
   }
+  const { placeholder } = item
   if (type === undefined || type === "text") {
     inputControl = (
 
@@ -119,22 +128,41 @@ export const ChamInput = (props: ChamInputProps) => {
         maxLength={item.maxLength}
         disabled={props.disabled}
         // autoCompleteType={"off"
-        placeholder={item.placeholder ? item.placeholder : "Enter Here"}
+        placeholder={placeholder ? placeholder : "Enter Here"}
         onChange={(e: any) => SetValue(e)}
         value={inputValue}
       />
     );
   } else if (type === "dropDown") {
     inputControl = (
-      <Select data={dropdownData} value={inputValue} onChange={(e: any) => SetValue(e)} renderItem={item.renderItem} optionValue={item.optionValue} renderResult={item.renderResult}></Select>
+      <Select
+        disabled={props.disabled}
+        data={dropdownData}
+        value={inputValue}
+        onChange={(e: any) => SetValue(e)}
+        renderItem={item.renderItem}
+        optionValue={item.optionValue}
+        onFilter={item.searchAble ? onSearch : undefined}
+        placeholder={placeholder ? placeholder : "Choose Here"}
+        renderResult={item.renderResult}></Select>
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea style={{ width: "100%" }} onChange={(e: any) => SetValue(e.target.value)} placeholder="Enter Here"></textarea>
+      <textarea disabled={props.disabled} style={{ width: "100%" }} onChange={(e: any) => SetValue(e.target.value)} placeholder="Enter Here"></textarea>
     );
   } else if (type === "datePicker") {
+
+    const { minDate, maxDate, dateType, placeholder, format } = item;
     inputControl = (
-      <DatePicker onChange={(e: any) => SetValue(e)}></DatePicker>
+      <DatePicker
+        format={format || 'MM/dd/yyyy'}
+        value={minDate ? minDate : inputValue}
+        disabled={props.disabled}
+        onChange={(e: any) => SetValue(e)}
+        min={minDate}
+        max={maxDate}
+        type={dateType || 'date'}
+        placeholder={placeholder || " Choose Date"} ></DatePicker>
     );
   }
   useEffect(() => {
