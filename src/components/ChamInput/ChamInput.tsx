@@ -88,8 +88,8 @@ export const ChamInput = (props: ChamInputProps) => {
   }
   const item: ChamInputItem = props.item;
   const GetValue = props.value
-
-  const [inputValue, SetInputValue] = useState(props.value || '')
+  // console.log(props.value, 'input props.value')
+  const [inputValue, SetInputValue] = useState('')
   useEffect(() => {
     // GetDropdownData(props.item);
     // console.log('GetValue', GetValue, ">>>>>>>>")
@@ -97,6 +97,8 @@ export const ChamInput = (props: ChamInputProps) => {
       if (inputValue) {
         SetInputValue('')
       }
+    } else {
+      SetInputValue(GetValue)
     }
   }, [GetValue]);
   const type = props.item ? props.item.type : "text";
@@ -115,6 +117,7 @@ export const ChamInput = (props: ChamInputProps) => {
     return enabled;
   };
   const SetValue = (value: any): void => {
+    // console.log(value, 'e>>>>>>>>>>')
     SetInputValue(value)
   }
   const { placeholder } = item
@@ -138,13 +141,14 @@ export const ChamInput = (props: ChamInputProps) => {
       <Select
         disabled={props.disabled}
         data={dropdownData}
-        value={inputValue}
+        value={inputValue ? Number(inputValue) : undefined}
+        defaultValue={inputValue ? Number(inputValue) : undefined}
+        datum={{ format: item.optionValue || 'Id' }}
         onChange={(e: any) => SetValue(e)}
         renderItem={item.renderItem}
         optionValue={item.optionValue}
         onFilter={item.searchAble ? onSearch : undefined}
-        placeholder={placeholder ? placeholder : "Choose Here"}
-        renderResult={item.renderResult}></Select>
+        placeholder={placeholder ? placeholder : "Choose Here"}></Select>
     );
   } else if (type === "textArea") {
     inputControl = (

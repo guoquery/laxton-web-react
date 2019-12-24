@@ -22,6 +22,7 @@ interface ChamItemProps {
 export const ChamItem = (props: ChamItemProps) => {
   const FilterType: any = {}
   const { values } = props;
+  // console.log(values, 'ChamItem>>>>>>>>>>>>>>>>')
   // const [Filters, setFilters] = useState(FilterType)
   const expandIndex = props.expandIndex
 
@@ -44,6 +45,7 @@ export const ChamItem = (props: ChamItemProps) => {
           let obj: any = {};
           obj[item.linkage] = undefined;
         }
+        // console.log(values, item.value, values[item.value])
         ChamItemItem.push(
           <Grid width={props.width || (1 / 4)} key={item.value + index}>
             <ChamInput
