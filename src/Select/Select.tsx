@@ -109,7 +109,7 @@ export interface SelectLocale {
 }
 
 export const Select = (props: SelectProps): any => {
-  // console.error(props.defaultValue, props.value, 'SelectProps>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
   const dropdownData = props.data
   // const [dropdownData] = useState(props.data || [{ "Id": 1, "Name": "New" }, { "Id": 2, "Name": "Active" }, { "Id": 3, "Name": "Inactive" }])
 
@@ -118,10 +118,11 @@ export const Select = (props: SelectProps): any => {
   })
   // const [value, setValue] = useState(props.value)
   const { data } = props;
-  const renderItem = props.renderItem || 'Name';
+  const optionLabel = props.optionLabel || 'Name';
   const optionValue = props.optionValue || 'Id';
+
   const onChange = (e: any) => {
-    // console.log(e, "onchange")
+    console.warn(e, "select onchange")
     // setValue(e[renderItem])
     // setValue(e)
     if (props.onChange && typeof props.onChange === 'function') {
@@ -147,10 +148,10 @@ export const Select = (props: SelectProps): any => {
     // </select>
 
     return <SOSelect {...props} data={data} keygen={optionValue} onChange={(e: any) => onChange(e)}
-      // value={props.value}
+      value={props.value}
       // renderItem={renderItem}
-      renderResult={(item: any) => `${item[renderItem]}`}
-      renderItem={(item: any, i: number) => `${item[renderItem]}`}
+      renderResult={(item: any) => `${item[optionLabel]}`}
+      renderItem={(item: any, i: number) => `${item[optionLabel]}`}
     ></SOSelect>
 
   }

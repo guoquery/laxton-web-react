@@ -12,7 +12,7 @@ export const TableDemo = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
-  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01" });
+  const [chamItemValues, setChamItemValues] = useState({});
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
@@ -114,6 +114,7 @@ export const TableDemo = (props: any) => {
     }
   ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
+    return
     // console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
@@ -191,7 +192,7 @@ export const TableDemo = (props: any) => {
       value: "Status",
       type: "dropDown",
       typeCode: "Status",
-      optionValue: "Id"
+      // optionValue: "Id"
     },
     {
       label: "First Name",
@@ -255,17 +256,48 @@ export const TableDemo = (props: any) => {
     //   value: "PollingStation",
     //   linkage: "Constituency"
     // },
-    // {
-    //   label: "Residential Address",
-    //   type: "textArea",
-    //   value: "ResidentialAddress"
-    // },
+    {
+      label: "Residential Address",
+      type: "textArea",
+      value: "ResidentialAddress"
+    },
     // {
     //   label: "Postal Address",
     //   type: 'datePicker',
     //   value: "PostalAddress"
     // }
   ]
+  const userAddress: ChamInputItem[] = [{
+    label: "Province",
+    value: "Province",
+    type: "dropDown",
+    typeCode: "Province",
+    linkage: 0,
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "District",
+    type: "dropDown",
+    value: "District",
+    linkage: "Province",
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "Constituency",
+    type: "dropDown",
+    value: "Constituency",
+    linkage: "District",
+    optionValue: "AreaId"
+  },
+  {
+    label: "Polling Station",
+    type: "dropDown",
+    value: "PollingStation",
+    linkage: "Constituency",
+    optionValue: "AreaId"
+  }]
 
   const customizeFooter = () => {
     return (
@@ -276,6 +308,7 @@ export const TableDemo = (props: any) => {
   }
   const OnChamItemChange = (e: any) => {
     console.log('OnChamItemChange', e)
+    setChamItemValues({ ...chamItemValues, ...e })
   }
 
   return (
@@ -297,7 +330,8 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal> */}
-      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
+      {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
+      <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
       {/* <Rt
         columns={columns}

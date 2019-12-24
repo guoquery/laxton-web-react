@@ -51,6 +51,7 @@ export const ChamItem = (props: ChamItemProps) => {
             <ChamInput
               item={item}
               value={values[item.value]}
+              values={values}
               onChange={OnTextChange}
               layOut={props.layOut}
               api={props.api}
