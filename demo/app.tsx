@@ -20,6 +20,10 @@ const key = [
     userName: `Zambianextvote`,
     password: `NextVote@777`,
   },
+  {
+    userName: `darcey@qq.com`,
+    password: `NextVote@777`,
+  },
 ]
 const index = 1;
 const userName = key[index].userName;

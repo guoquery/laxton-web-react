@@ -7,29 +7,10 @@ import { render } from 'react-dom';
 import { Search } from './../Search/Search';
 import { useLinkage } from './../customHooks/useLinkage';
 import { linkStore } from "../customObserver/LinkageStore";
-export interface ChamInputItem {
-  label: string;
-  type?: "text" | "dropDown" | "textArea" | "datePicker";
-  value: string;
-  require?: boolean;
-  disabled?: boolean;
-  iif?: () => boolean;
-  /**text***/
-  inputType?: string | "password";
-  maxLength?: number;
-  pattern?: string;
-  error?: string;
-  /**text***/
-  /**datePicker***/
-  dateType?: 'date' | 'time' | 'datetime' | 'month' | 'week';
-  format?: string;
-  minDate?: Date | string | number;
-  maxDate?: Date | string | number;
-  /**datePicker***/
+
+export interface DropDownItem {
   /**dropDown***/
   linkage?: string | 0;
-  placeholder?: string;
-
   typeCode?: string;
   apiUrl?: string;
   des?: boolean;
@@ -39,7 +20,31 @@ export interface ChamInputItem {
   optionValue?: string;
   useFormat?: boolean;
   searchAble?: boolean;
+  apiMethod?: 'post' | 'get';
   /**dropDown***/
+}
+export interface DatePickerItem {
+  /**datePicker***/
+  dateType?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'year';
+  format?: string;
+  minDate?: Date | string | number;
+  maxDate?: Date | string | number;
+  /**datePicker***/
+}
+export interface ChamInputItem extends DropDownItem, DatePickerItem {
+  label: string;
+  type?: "text" | "dropDown" | "textArea" | "datePicker";
+  value: string;
+  placeholder?: string;
+  require?: boolean;
+  disabled?: boolean;
+  iif?: () => boolean;
+  /**text***/
+  inputType?: string | "password";
+  maxLength?: number;
+  pattern?: string;
+  error?: string;
+  /**text***/
 }
 
 interface ChamInputProps {
@@ -62,6 +67,12 @@ export const ChamInput = observer((props: ChamInputProps) => {
   const [disabled, setEditable] = useState((props.disabled === undefined ? false : props.disabled));
   const [validateFields, seValidateFields] = useState();
   // console.error(linkStore, '>>>>>>>>>>>>>')
+
+  const item: ChamInputItem = props.item;
+  const GetValue = props.value
+  // console.log(props.value, 'input props.value')
+  const [inputValue, SetInputValue] = useState('')
+
   const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
 
     if (item.type != 'dropDown') { return }
@@ -84,7 +95,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
         }
         // console.log(res.Data)
       }
-    } else if (item.apiUrl) {
+    } else if (item.apiUrl && !item.searchAble) {
       const res = await api.post(item.apiUrl, {});
       if (res.Result) {
         setDropdownData(res.Data.Items);
@@ -100,15 +111,33 @@ export const ChamInput = observer((props: ChamInputProps) => {
       }
     }
   };
-  const onSearch = (e: any) => {
-    console.log(e, 'on Select search')
-  }
-  const item: ChamInputItem = props.item;
-  const GetValue = props.value
-  // console.log(props.value, 'input props.value')
-  const [inputValue, SetInputValue] = useState('')
-  const abced = useLinkage(props.values, item)
+  const onSearch = async (e: any) => {
+    if (e == '' || e === undefined || e === null) { return }
+    console.log(e, typeof e, 'on Select search')
+    const method = item.apiMethod || 'get';
+    getSearchData(method, e, item.apiUrl)
 
+  }
+
+  const getSearchData = async (method: 'get' | 'post', param: any, url?: string) => {
+    let res;
+    if (url) {
+      switch (method) {
+        case 'get':
+          res = await props.api.get(`${item.apiUrl}${param}`);
+          break;
+        case 'post':
+          res = await props.api.post(`${item.apiUrl}`, param);
+          break;
+      }
+    } else {
+      // res = await props.api.get(`${item.apiUrl}${param}`);
+    }
+    if (res && res.Result) {
+      const data = res.Data;
+      setDropdownData(data);
+    }
+  }
   useEffect(() => {
     // GetDropdownData(props.item);
     if (!GetValue) {
@@ -171,6 +200,8 @@ export const ChamInput = observer((props: ChamInputProps) => {
         optionLabel={item.optionLabel}
         optionValue={item.optionValue}
         clearable
+        renderResult={item.renderResult}
+        renderItem={item.renderItem}
         onFilter={item.searchAble ? onSearch : undefined}
         placeholder={placeholder ? placeholder : "Choose Here"}></Select>
     );
@@ -185,6 +216,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
       <DatePicker
         absolute={props.absolute === false ? false : true}
         format={format || 'MM/dd/yyyy'}
+        // value={inputValue}
         value={minDate ? (inputValue ? inputValue : minDate) : inputValue}
         disabled={props.disabled}
         onChange={(e: any) => SetValue(e)}

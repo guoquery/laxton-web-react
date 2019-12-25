@@ -198,7 +198,15 @@ export const TableDemo = (props: any) => {
       label: "First Name",
       value: "FirstName",
       require: true,
-      pattern: '[A-Za-z]{3}',
+      type: 'dropDown',
+      // pattern: '[A-Za-z]{3}',
+      searchAble: true,
+      apiMethod: 'get',
+      apiUrl: 'api/Elections/GetElectionsByKeyWord?keyWord=',
+      optionValue: "MasterId",
+      // optionLabel: "ElectionName1",
+      renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
+      renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
       // disabled: true,
       // iif: () => true
       // error: 'The input is not valid Name'
@@ -208,8 +216,9 @@ export const TableDemo = (props: any) => {
       value: "LastName",
       // require: true,
       type: 'datePicker',
-      minDate: '1/1/1980',
-      maxDate: '1/1/1990',
+      // minDate: '1/1/1980',
+      // maxDate: '1/1/1990',
+      // dateType: 'year',
       // disabled: true,
       error: 'The input is not valid Name'
     },
