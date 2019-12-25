@@ -185,7 +185,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
       <DatePicker
         absolute={props.absolute === false ? false : true}
         format={format || 'MM/dd/yyyy'}
-        value={minDate ? minDate : inputValue}
+        value={minDate ? (inputValue ? inputValue : minDate) : inputValue}
         disabled={props.disabled}
         onChange={(e: any) => SetValue(e)}
         min={minDate}

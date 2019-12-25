@@ -20,7 +20,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: {},
+    Filters: { LastName: '1988-08-06' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -171,29 +171,29 @@ export const TableDemo = (props: any) => {
   }
 
   const searchConfig: ChamInputItem[] = [
-    {
-      label: "Position",
-      value: "Position",
-      type: "dropDown",
-      typeCode: "Position"
-    },
-    {
-      label: "Employment Date",
-      value: "EmploymentDate",
-      type: "datePicker"
-    },
-    {
-      label: "Date of Revocation",
-      value: "DateOfRevocation",
-      type: "datePicker"
-    },
-    {
-      label: "Status",
-      value: "Status",
-      type: "dropDown",
-      typeCode: "Status",
-      // optionValue: "Id"
-    },
+    // {
+    //   label: "Position",
+    //   value: "Position",
+    //   type: "dropDown",
+    //   typeCode: "Position"
+    // },
+    // {
+    //   label: "Employment Date",
+    //   value: "EmploymentDate",
+    //   type: "datePicker"
+    // },
+    // {
+    //   label: "Date of Revocation",
+    //   value: "DateOfRevocation",
+    //   type: "datePicker"
+    // },
+    // {
+    //   label: "Status",
+    //   value: "Status",
+    //   type: "dropDown",
+    //   typeCode: "Status",
+    //   // optionValue: "Id"
+    // },
     {
       label: "First Name",
       value: "FirstName",
@@ -203,16 +203,16 @@ export const TableDemo = (props: any) => {
       // iif: () => true
       // error: 'The input is not valid Name'
     },
-    // {
-    //   label: "Last Name",
-    //   value: "LastName",
-    //   require: true,
-    //   type: 'datePicker',
-    //   // minDate: '1/1/1980',
-    //   // maxDate: '1/1/1990',
-    //   // disabled: true,
-    //   // error: 'The input is not valid Name'
-    // },
+    {
+      label: "Last Name",
+      value: "LastName",
+      // require: true,
+      type: 'datePicker',
+      minDate: '1/1/1980',
+      maxDate: '1/1/1990',
+      // disabled: true,
+      error: 'The input is not valid Name'
+    },
     // {
     //   label: "test Name",
     //   value: "TestName",
