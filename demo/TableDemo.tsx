@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem, Modal, ChamItem ,Button} from "../lib/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem ,Button} from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem, Modal, ChamItem, Button } from "../src/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,7 +21,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { TestNumber: '123456' },
+    Filters: { TestNumber: '123456', LastName: '1901-01-01T00:00:00' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -184,7 +184,7 @@ export const TableDemo = (props: any) => {
     setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
-  const searchConfig: ChamInputItem[] = [
+  const searchConfig: ChamInputType[] = [
     {
       label: "test Number",
       value: "TestNumber",
@@ -276,7 +276,7 @@ export const TableDemo = (props: any) => {
     //   value: "PostalAddress"
     // }
   ]
-  const userAddress: ChamInputItem[] = [{
+  const userAddress: ChamInputType[] = [{
     label: "Province",
     value: "Province",
     type: "dropDown",

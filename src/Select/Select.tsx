@@ -8,7 +8,7 @@ import { omit } from '../Tools/index';
 // import { tuple } from '../_util/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { ChamInputItem } from '../index';
+import { ChamInputType } from '../index';
 //@ts-ignore
 import { Select as SOSelect } from 'shineout'
 

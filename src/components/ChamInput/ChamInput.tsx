@@ -8,7 +8,7 @@ import { Search } from './../Search/Search';
 import { useLinkage } from './../customHooks/useLinkage';
 import { linkStore } from "../customObserver/LinkageStore";
 
-export interface DropDownItem {
+export interface DropDownType {
   /**dropDown***/
   linkage?: string | 0;
   typeCode?: string;
@@ -23,7 +23,7 @@ export interface DropDownItem {
   apiMethod?: 'post' | 'get';
   /**dropDown***/
 }
-export interface DatePickerItem {
+export interface DatePickerType {
   /**datePicker***/
   dateType?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'year';
   format?: string;
@@ -31,7 +31,7 @@ export interface DatePickerItem {
   maxDate?: Date | string | number;
   /**datePicker***/
 }
-export interface ChamInputItem extends DropDownItem, DatePickerItem {
+export interface ChamInputType extends DropDownType, DatePickerType {
   label: string;
   type?: "text" | "dropDown" | "textArea" | "datePicker";
   value: string;
@@ -49,7 +49,7 @@ export interface ChamInputItem extends DropDownItem, DatePickerItem {
 }
 
 interface ChamInputProps {
-  item: ChamInputItem;
+  item: ChamInputType;
   value: any;
   style?: any;
   placeholder?: string;
@@ -69,12 +69,12 @@ export const ChamInput = observer((props: ChamInputProps) => {
   const [validateFields, seValidateFields] = useState();
   // console.error(linkStore, '>>>>>>>>>>>>>')
 
-  const item: ChamInputItem = props.item;
+  const item: ChamInputType = props.item;
   const GetValue = props.value
   // console.log(props.value, 'input props.value')
   const [inputValue, SetInputValue] = useState('')
 
-  const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
+  const GetDropdownData = async (item: ChamInputType): Promise<any> => {
 
     if (item.type != 'dropDown') { return }
     const api = props.api;
