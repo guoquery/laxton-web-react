@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "../src/assets/index";
 import { Rt, Search, Message, ChamInputItem, Modal, ChamItem, Button } from "../src/index";
 import { api } from "./api.service";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 
 export const TableDemo = (props: any) => {
@@ -89,12 +89,26 @@ export const TableDemo = (props: any) => {
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
         {
+          icon: faPlusSquare,
+          // popTitle: this.api.translate('toolTips.delete?'),
+          click: (item: any) => { Action('edit', item) },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+        {
+          type: 'assign',
+          click: (item: any) => { Action('delete', item) },
+          // popTitle: this.api.translate('toolTips.delete?'),
+          // click: (item: any) => { this.listPage.deleteList(item); },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+        {
           type: 'delete',
           click: (item: any) => { Action('delete', item) },
           // popTitle: this.api.translate('toolTips.delete?'),
           // click: (item: any) => { this.listPage.deleteList(item); },
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
+
       ]
     }
   ];
@@ -115,7 +129,6 @@ export const TableDemo = (props: any) => {
     }
   ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
-    return
     // console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
@@ -332,7 +345,7 @@ export const TableDemo = (props: any) => {
       {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
       <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
-      {/* <Rt
+      <Rt
         columns={columns}
         dataSource={data}
         className="RTable"
@@ -342,7 +355,7 @@ export const TableDemo = (props: any) => {
         onChange={(e: any) => OnTableChange(e)}
         // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}
-      ></Rt> */}
+      ></Rt>
     </div>
   );
 };

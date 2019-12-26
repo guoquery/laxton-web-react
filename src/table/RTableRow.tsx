@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faTrashAlt, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 interface TableRowProps {
   columns: any;
   index: any;
@@ -34,6 +34,7 @@ interface TableRowProps {
 const actionIcon: any = {
   delete: faTrashAlt,
   edit: faPencilAlt,
+  assign: faUserFriends,
 }
 
 
@@ -62,7 +63,7 @@ const RTableRow = (props: TableRowProps) => {
       {col.buttonIcons.map((item: any, index: number) => (
         <FontAwesomeIcon
           key={`${item.icon}${index}`}
-          icon={actionIcon[item.type]}
+          icon={item.icon || actionIcon[item.type]}
           size={'lg'}
           style={{
             marginLeft: 6,

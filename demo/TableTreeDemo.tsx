@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputItem } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputItem } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputItem } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -95,7 +95,7 @@ export const TableTreeDemo = (props: any) => {
         dataSource={tableData}
         className="RTable"
         // pagination={pagination}
-        onChange={e => { }}
+        // onChange={e => { }}
         onRow={(record: any, index?: number) => { }} />}
 
       {/* {
