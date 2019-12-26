@@ -68,9 +68,6 @@ export const Search = (props: SearchProps) => {
       <ChamItem values={Filters} expandIndex={expandIndex} chamItemConfig={props.searchConfig} onChange={OnTextChange} gutter={props.gutter || 40} width={props.width || (1 / 4)} api={props.api}></ChamItem>
       {props.children && <div className="searchMixin">{props.children}</div>}
       <div className="searchBtn">
-        <Button shape="circle" type='primary' loading/>
-        <Button icon={faAngleDown} shape="circle" type='primary'/>
-        <Button onClick={() => OnSearchChange('search')} type='primary' disabled={true}>Disabled</Button>
         <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>
         <Button onClick={() => OnSearchChange('reset')}>Reset</Button>
         {props.searchConfig.length > expandIndex && <Button onClick={() => OnSearchChange('expand')} type='link' id='btnExpand'>{renderExpendButton()}</Button>}
