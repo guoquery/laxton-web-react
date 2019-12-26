@@ -342,7 +342,7 @@ export const TableDemo = (props: any) => {
       {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
       <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
-      {/* <Rt
+      {<Rt
         columns={columns}
         dataSource={data}
         className="RTable"
@@ -352,7 +352,7 @@ export const TableDemo = (props: any) => {
         onChange={(e: any) => OnTableChange(e)}
         // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}
-      ></Rt> */}
+      ></Rt>}
     </div>
   );
 };

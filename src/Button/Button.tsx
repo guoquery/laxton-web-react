@@ -55,6 +55,7 @@ export const Button = (props: ButtonProps) => {
     }
     const iconType = loading ? faSpinner : icon;
     const renderExpendButton = () => {
+        if(!iconType) return;
         return (<FontAwesomeIcon icon={iconType} size="lg" />)
     }
     const OnClick = (e: any) => {
