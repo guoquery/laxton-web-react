@@ -22,5 +22,21 @@
     &-danger {
         .btn-danger
     }
+}
+.loading-spinner{
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.12);
+    -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.045);
 
 }
+.loading-spinner>svg {
+    -webkit-transform: rotate(360deg);
+    animation: rotation 2s linear infinite;
+    -moz-animation: rotation 2s linear infinite;
+    -webkit-animation: rotation 2s linear infinite;
+    -o-animation: rotation 2s linear infinite
+}
+@-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+  }

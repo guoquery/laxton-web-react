@@ -7,6 +7,7 @@ import "../Input/style/index.less"
 import "../Message/style/index.less"
 import "../Select/style/index.less"
 import "../Edit/style/index.less"
+import "../Checkbox/style/index.less"
 
 
 import "../ChamPopup/style/index.less"

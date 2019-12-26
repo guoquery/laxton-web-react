@@ -10,6 +10,7 @@ interface SearchProps {
   onChange: (action: any) => any;
   children?: any;
   api?: any;
+  icon?: any;
 }
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
@@ -90,6 +91,9 @@ export const Search = (props: SearchProps) => {
       <div className="searchItem">{renderSearchItem()}</div>
       {props.children && <div className="searchMixin">{props.children}</div>}
       <div className="searchBtn">
+        <Button shape="circle" type='primary' loading/>
+        <Button icon={faAngleDown} shape="circle" type='primary'/>
+        <Button onClick={() => OnSearchChange('search')} type='primary' disabled={true}>Disabled</Button>
         <Button onClick={() => OnSearchChange('search')} type='primary'>Search</Button>
         <Button onClick={() => OnSearchChange('reset')}>Reset</Button>
         {props.searchConfig.length > expandIndex && <Button onClick={() => OnSearchChange('expand')} type='link' id='btnExpand'>{renderExpendButton()}</Button>}
