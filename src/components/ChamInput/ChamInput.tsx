@@ -40,10 +40,11 @@ export interface ChamInputItem extends DropDownItem, DatePickerItem {
   disabled?: boolean;
   iif?: () => boolean;
   /**text***/
-  inputType?: string | "password";
+  inputType?: string | "password" | 'number';
   maxLength?: number;
   pattern?: string;
   error?: string;
+  formatCode?: 'count' | '$' | 'zip' | 'tel'
   /**text***/
 }
 
@@ -184,6 +185,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
         placeholder={placeholder ? placeholder : "Enter Here"}
         onChange={(e: any) => SetValue(e)}
         value={inputValue}
+        formatCode={item.formatCode}
       />
     );
   } else if (type === "dropDown") {

@@ -37,7 +37,7 @@ export const Button = (props: ButtonProps) => {
     const prefixCls = props.prefixCls || 'laxton-btn';
     const loading = props.loading || false;
     const icon = props.icon;
-    const disabled = props.disabled ||  false;
+    const disabled = props.disabled || false;
 
 
     // large => lg
@@ -55,7 +55,7 @@ export const Button = (props: ButtonProps) => {
     }
     const iconType = loading ? faSpinner : icon;
     const renderExpendButton = () => {
-        if(!iconType) return;
+        if (!iconType) return;
         return (<FontAwesomeIcon icon={iconType} size="lg" />)
     }
     const OnClick = (e: any) => {
@@ -76,7 +76,7 @@ export const Button = (props: ButtonProps) => {
 
     return (
         <button className={classes} id={`btn_${props.children}`} onClick={(e: any) => OnClick(e)} disabled={props.disabled}>
-            <i className={loading?'loading-spinner':undefined}>{renderExpendButton()}</i>
+            <i className={loading ? 'loading-spinner' : undefined}>{renderExpendButton()}</i>
             <span>{props.children}</span>
         </button>
     );

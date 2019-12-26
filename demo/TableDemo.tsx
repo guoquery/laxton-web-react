@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../lib/index";
+// import { Rt, Search, Message, ChamInputItem, Modal, ChamItem ,Button} from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../src/index";
+import { Rt, Search, Message, ChamInputItem, Modal, ChamItem, Button } from "../src/index";
 import { api } from "./api.service";
+import { faAngleDown, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 
 export const TableDemo = (props: any) => {
@@ -20,7 +21,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { LastName: '1988-08-06' },
+    Filters: { TestNumber: '123456' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -88,12 +89,26 @@ export const TableDemo = (props: any) => {
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
         {
+          icon: faPlusSquare,
+          // popTitle: this.api.translate('toolTips.delete?'),
+          click: (item: any) => { Action('edit', item) },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+        {
+          type: 'assign',
+          click: (item: any) => { Action('delete', item) },
+          // popTitle: this.api.translate('toolTips.delete?'),
+          // click: (item: any) => { this.listPage.deleteList(item); },
+          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
+        },
+        {
           type: 'delete',
           click: (item: any) => { Action('delete', item) },
           // popTitle: this.api.translate('toolTips.delete?'),
           // click: (item: any) => { this.listPage.deleteList(item); },
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
+
       ]
     }
   ];
@@ -114,7 +129,6 @@ export const TableDemo = (props: any) => {
     }
   ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
-    return
     // console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
@@ -171,29 +185,15 @@ export const TableDemo = (props: any) => {
   }
 
   const searchConfig: ChamInputItem[] = [
-    // {
-    //   label: "Position",
-    //   value: "Position",
-    //   type: "dropDown",
-    //   typeCode: "Position"
-    // },
-    // {
-    //   label: "Employment Date",
-    //   value: "EmploymentDate",
-    //   type: "datePicker"
-    // },
-    // {
-    //   label: "Date of Revocation",
-    //   value: "DateOfRevocation",
-    //   type: "datePicker"
-    // },
-    // {
-    //   label: "Status",
-    //   value: "Status",
-    //   type: "dropDown",
-    //   typeCode: "Status",
-    //   // optionValue: "Id"
-    // },
+    {
+      label: "test Number",
+      value: "TestNumber",
+      // require: true,
+      // inputType: 'number'
+      formatCode: '$',
+      // maxLength: 5,
+      // error: 'The input is not valid Name'
+    },
     {
       label: "First Name",
       value: "FirstName",
@@ -325,6 +325,9 @@ export const TableDemo = (props: any) => {
       style={{ height: "100%", overflowY: "scroll" }}
       data-testid="scrollMain"
     >
+      <Button shape="circle" type='primary' loading />
+      <Button icon={faAngleDown} shape="circle" type='primary' />
+      <Button type='primary' disabled={true}>Disabled</Button>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       {/* <Modal
         title='Basic Modal'
@@ -342,7 +345,7 @@ export const TableDemo = (props: any) => {
       {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
       <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
-      {<Rt
+      <Rt
         columns={columns}
         dataSource={data}
         className="RTable"
@@ -352,7 +355,7 @@ export const TableDemo = (props: any) => {
         onChange={(e: any) => OnTableChange(e)}
         // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}
-      ></Rt>}
+      ></Rt>
     </div>
   );
 };
