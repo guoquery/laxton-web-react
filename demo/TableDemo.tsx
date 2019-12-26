@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+// import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem, ChamPopup } from "../src/index";
+import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -12,6 +12,7 @@ export const TableDemo = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
+  const [chamItemValues, setChamItemValues] = useState({});
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
@@ -19,7 +20,8 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { Name: null },
+    Filters: { LastName: '1988-08-06' },
+    // Filters: {FirstName:'77777'},
     PageSize: 10
   });
   const Action = (action: string, data: any) => {
@@ -38,7 +40,7 @@ export const TableDemo = (props: any) => {
       case "edit":
         // showModal();
         // console.log(visible);
-        setVisible(true);
+        // setVisible(true);
         console.log(visible);
         // props.navigation.navigate("UserDetailScreen", { id: data.record.Id });
         // console.log(action, "edit", data.record.Id);
@@ -112,9 +114,11 @@ export const TableDemo = (props: any) => {
     }
   ];
   const getPageList = async (action: "concat" | "replace" = "replace") => {
-    console.log("qqqqq>>>>>>>>>", q.CurrentPage);
+    return
+    // console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
     if (res.Result) {
+      // setChamItemValues({ Status: 1 })
       Message.success('test1111')
       Message.error('test1111')
       Message.warning('test1111')
@@ -128,10 +132,10 @@ export const TableDemo = (props: any) => {
     }
   };
   useEffect(() => {
+    console.log('q>>L>>>>>>', q)
     getPageList((loadMoreType as ('concat' | 'replace')));
     return () => { };
   }, [q]);
-
   const OnTableChange = (e: any) => {
     console.log(e, "e>>>>>>>>>", q.CurrentPage);
     const CurrentPage = e.data.page;
@@ -154,43 +158,69 @@ export const TableDemo = (props: any) => {
     }
 
   };
-  // const OnRow = (record: any, index?: number) => {
-  //   console.log(record, index, "demo....");
-  //   // return {
-  //   //   onClick: event:any => {}, // 点击行
-  //   //   onDoubleClick: event => {},
-  //   //   onContextMenu: event => {},
-  //   //   onMouseEnter: event => {}, // 鼠标移入行
-  //   //   onMouseLeave: event => {}
-  //   // };
-  // };
   const OnChange = (e: any) => {
     switch (e.type) {
       case 'reset':
-        // setLoadMoreType('replace')
         break;
       case 'search':
 
         break;
     }
     setLoadMoreType('replace')
-    setQ({ ...q, ...{ CurrentPage: 1, Filters: e.data } })
+    setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
   const searchConfig: ChamInputItem[] = [
+    // {
+    //   label: "Position",
+    //   value: "Position",
+    //   type: "dropDown",
+    //   typeCode: "Position"
+    // },
+    // {
+    //   label: "Employment Date",
+    //   value: "EmploymentDate",
+    //   type: "datePicker"
+    // },
+    // {
+    //   label: "Date of Revocation",
+    //   value: "DateOfRevocation",
+    //   type: "datePicker"
+    // },
+    // {
+    //   label: "Status",
+    //   value: "Status",
+    //   type: "dropDown",
+    //   typeCode: "Status",
+    //   // optionValue: "Id"
+    // },
     {
       label: "First Name",
       value: "FirstName",
       require: true,
-      pattern: '[A-Za-z]{3}',
+      type: 'dropDown',
+      // pattern: '[A-Za-z]{3}',
+      searchAble: true,
+      apiMethod: 'get',
+      apiUrl: 'api/Elections/GetElectionsByKeyWord?keyWord=',
+      optionValue: "MasterId",
+      // optionLabel: "ElectionName1",
+      renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
+      renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
+      // disabled: true,
+      // iif: () => true
       // error: 'The input is not valid Name'
     },
     {
       label: "Last Name",
       value: "LastName",
-      require: true,
-      type: 'datePicker'
-      // error: 'The input is not valid Name'
+      // require: true,
+      type: 'datePicker',
+      // minDate: '1/1/1980',
+      // maxDate: '1/1/1990',
+      // dateType: 'year',
+      // disabled: true,
+      error: 'The input is not valid Name'
     },
     // {
     //   label: "test Name",
@@ -205,44 +235,78 @@ export const TableDemo = (props: any) => {
     //   pattern: '^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$',
     //   // error: 'The input is not valid E-mail!'
     // },
-    {
-      label: "Province",
-      value: "Province",
-      type: "dropDown",
-      typeCode: "Province",
-      renderItem: 'Name',
-      optionValue: 'AreaId',
-      linkage: 0
-    },
-    {
-      label: "District",
-      type: "dropDown",
-      value: "District",
-      linkage: "Province"
-    },
-    {
-      label: "Constituency",
-      type: "dropDown",
-      value: "Constituency",
-      linkage: "District"
-    },
-    {
-      label: "Polling Station",
-      type: "dropDown",
-      value: "PollingStation",
-      linkage: "Constituency"
-    },
+    // {
+    //   label: "Province",
+    //   value: "Province",
+    //   type: "dropDown",
+    //   typeCode: "Province",
+    //   renderItem: 'Name',
+    //   optionValue: 'AreaId',
+    //   linkage: 0,
+    //   // disabled: true,
+    //   placeholder: 'Enter to Search Here',
+    //   searchAble: true,
+    // },
+    // {
+    //   label: "District",
+    //   type: "dropDown",
+    //   value: "District",
+    //   linkage: "Province"
+    // },
+    // {
+    //   label: "Constituency",
+    //   type: "dropDown",
+    //   value: "Constituency",
+    //   linkage: "District"
+    // },
+    // {
+    //   label: "Polling Station",
+    //   type: "dropDown",
+    //   value: "PollingStation",
+    //   linkage: "Constituency"
+    // },
     {
       label: "Residential Address",
       type: "textArea",
       value: "ResidentialAddress"
     },
-    {
-      label: "Postal Address",
-      type: 'datePicker',
-      value: "PostalAddress"
-    }
+    // {
+    //   label: "Postal Address",
+    //   type: 'datePicker',
+    //   value: "PostalAddress"
+    // }
   ]
+  const userAddress: ChamInputItem[] = [{
+    label: "Province",
+    value: "Province",
+    type: "dropDown",
+    typeCode: "Province",
+    linkage: 0,
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "District",
+    type: "dropDown",
+    value: "District",
+    linkage: "Province",
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "Constituency",
+    type: "dropDown",
+    value: "Constituency",
+    linkage: "District",
+    optionValue: "AreaId"
+  },
+  {
+    label: "Polling Station",
+    type: "dropDown",
+    value: "PollingStation",
+    linkage: "Constituency",
+    optionValue: "AreaId"
+  }]
 
   const customizeFooter = () => {
     return (
@@ -251,18 +315,18 @@ export const TableDemo = (props: any) => {
       </div>
     )
   }
+  const OnChamItemChange = (e: any) => {
+    console.log('OnChamItemChange', e)
+    setChamItemValues({ ...chamItemValues, ...e })
+  }
 
   return (
     <div
       style={{ height: "100%", overflowY: "scroll" }}
       data-testid="scrollMain"
     >
-      {/* <RTable columns={columns}
-        data={data}
-        className="RTable"></RTable> */}
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api}></Search>
-
-      <ChamPopup
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+      {/* <Modal
         title='Basic Modal'
         prefixCls='laxton'
         // footer={null}
@@ -274,19 +338,21 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </ChamPopup>
+      </Modal> */}
+      {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
+      <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
-      <Rt
+      {/* <Rt
         columns={columns}
         dataSource={data}
         className="RTable"
         pagination={pagination}
         // paginationType={"common"}
-        paginationType='common'
+        // paginationType='common'
         onChange={(e: any) => OnTableChange(e)}
         // onRow={(record: any, index?: number) => OnRow(record, index)}
         customColumn={customColumn}
-      ></Rt>
+      ></Rt> */}
     </div>
   );
 };

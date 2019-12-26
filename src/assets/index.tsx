@@ -10,5 +10,5 @@ import "../Edit/style/index.less"
 import "../Checkbox/style/index.less"
 
 
-import "../ChamPopup/style/index.less"
+import "../Modal/style/index.less"
 

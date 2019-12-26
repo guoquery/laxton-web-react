@@ -1,34 +1,50 @@
 
 
 import React, { useContext, useEffect, useState } from "react";
+import { observer } from "mobx-react";
 import { Input, Select, Edit, DatePicker } from "../../index";
 import { render } from 'react-dom';
-export interface ChamInputItem {
+import { Search } from './../Search/Search';
+import { useLinkage } from './../customHooks/useLinkage';
+import { linkStore } from "../customObserver/LinkageStore";
+
+export interface DropDownItem {
+  /**dropDown***/
+  linkage?: string | 0;
+  typeCode?: string;
+  apiUrl?: string;
+  des?: boolean;
+  renderItem?: string;
+  renderResult?: string;
+  optionLabel?: string;
+  optionValue?: string;
+  useFormat?: boolean;
+  searchAble?: boolean;
+  apiMethod?: 'post' | 'get';
+  /**dropDown***/
+}
+export interface DatePickerItem {
+  /**datePicker***/
+  dateType?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'year';
+  format?: string;
+  minDate?: Date | string | number;
+  maxDate?: Date | string | number;
+  /**datePicker***/
+}
+export interface ChamInputItem extends DropDownItem, DatePickerItem {
   label: string;
   type?: "text" | "dropDown" | "textArea" | "datePicker";
   value: string;
+  placeholder?: string;
   require?: boolean;
   disabled?: boolean;
+  iif?: () => boolean;
   /**text***/
   inputType?: string | "password";
   maxLength?: number;
   pattern?: string;
   error?: string;
   /**text***/
-  /**datePicker***/
-  format?: string;
-  /**datePicker***/
-  /**dropDown***/
-  linkage?: string | 0;
-  placeholder?: string;
-  typeCode?: string;
-  apiUrl?: string;
-  des?: boolean;
-  renderItem?: string;
-  renderResult?: string;
-  optionValue?: string;
-
-  /**dropDown***/
 }
 
 interface ChamInputProps {
@@ -41,28 +57,45 @@ interface ChamInputProps {
   onChange?: (value: any) => void;
   layOut?: 'row' | 'column',
   api?: any,
-  width?: string;
+  width?: string | number;
+  [keyName: string]: any
 }
 
-export const ChamInput = (props: ChamInputProps) => {
+export const ChamInput = observer((props: ChamInputProps) => {
   const [layOut] = useState(props.layOut || 'column');
   const [dropdownData, setDropdownData] = useState([]);
   const [disabled, setEditable] = useState((props.disabled === undefined ? false : props.disabled));
   const [validateFields, seValidateFields] = useState();
+  // console.error(linkStore, '>>>>>>>>>>>>>')
+
+  const item: ChamInputItem = props.item;
+  const GetValue = props.value
+  // console.log(props.value, 'input props.value')
+  const [inputValue, SetInputValue] = useState('')
+
   const GetDropdownData = async (item: ChamInputItem): Promise<any> => {
+
     if (item.type != 'dropDown') { return }
     const api = props.api;
     if (item.linkage === 0 || item.linkage) {
-      const parentAreaID = 0;
-      // const parentAreaID = item.linkage ? store[item.linkage] : 0;
+      // const parentAreaID = 0;
+      const parentAreaID = item.linkage ? linkStore[item.linkage] : 0;
+      // console.error('bacede', item.linkage, props.values, props.values[item.linkage], parentAreaID)
       if (parentAreaID === 0 || parentAreaID) {
+        let idToString = parentAreaID >= 10 ? parentAreaID + "" : parentAreaID > 0 ? '0' + parentAreaID : parentAreaID
+
         const res = await api.get(`api/applicantArea/GetSelect?parentAreaID=${parentAreaID}`);
         if (res.Result) {
-          setDropdownData(res.Data);
+          const data = res.Data;
+          data.forEach((el: any) => {
+            el[item.optionValue || 'Id'] = Number(el[item.optionValue || 'Id'])
+            // el.Id = Number(el[item.optionValue || 'Id'])
+          });
+          setDropdownData(data);
         }
         // console.log(res.Data)
       }
-    } else if (item.apiUrl) {
+    } else if (item.apiUrl && !item.searchAble) {
       const res = await api.post(item.apiUrl, {});
       if (res.Result) {
         setDropdownData(res.Data.Items);
@@ -78,37 +111,66 @@ export const ChamInput = (props: ChamInputProps) => {
       }
     }
   };
-  const item: ChamInputItem = props.item;
-  const GetValue = props.value
+  const onSearch = async (e: any) => {
+    if (e == '' || e === undefined || e === null) { return }
+    console.log(e, typeof e, 'on Select search')
+    const method = item.apiMethod || 'get';
+    getSearchData(method, e, item.apiUrl)
 
-  const [inputValue, SetInputValue] = useState(props.value || '')
+  }
+
+  const getSearchData = async (method: 'get' | 'post', param: any, url?: string) => {
+    let res;
+    if (url) {
+      switch (method) {
+        case 'get':
+          res = await props.api.get(`${item.apiUrl}${param}`);
+          break;
+        case 'post':
+          res = await props.api.post(`${item.apiUrl}`, param);
+          break;
+      }
+    } else {
+      // res = await props.api.get(`${item.apiUrl}${param}`);
+    }
+    if (res && res.Result) {
+      const data = res.Data;
+      setDropdownData(data);
+    }
+  }
   useEffect(() => {
     // GetDropdownData(props.item);
-    // console.log('GetValue', GetValue, ">>>>>>>>")
     if (!GetValue) {
       if (inputValue) {
         SetInputValue('')
       }
+    } else {
+      SetInputValue(GetValue)
     }
   }, [GetValue]);
   const type = props.item ? props.item.type : "text";
   let inputControl;
+  const effect = item.linkage ? linkStore[item.linkage] : null;
   useEffect(() => {
     GetDropdownData(props.item);
-  }, []);
-  const DropdownEnabled = (item: ChamInputItem): boolean => {
-    if (disabled) {
-      return disabled
-    }
-    let enabled = true;
+  }, [effect]);
+  // useEffect(() => {
+  //   // const getData = linkStore.Province.
+  //   GetDropdownData(props.item);
+  // }, []);
+  const DropdownEnabled = (): boolean => {
+
+    let disabled = false;
     if (item.linkage) {
-      // enabled = !!store[item.linkage];
+      disabled = !linkStore[item.linkage];
     }
-    return enabled;
+    return disabled;
   };
   const SetValue = (value: any): void => {
-    SetInputValue(value)
+    console.log(value, 'e>>>>>>>>>>')
+    SetInputValue(value ? value : '')
   }
+  const { placeholder } = item
   if (type === undefined || type === "text") {
     inputControl = (
 
@@ -119,54 +181,93 @@ export const ChamInput = (props: ChamInputProps) => {
         maxLength={item.maxLength}
         disabled={props.disabled}
         // autoCompleteType={"off"
-        placeholder={item.placeholder ? item.placeholder : "Enter Here"}
+        placeholder={placeholder ? placeholder : "Enter Here"}
         onChange={(e: any) => SetValue(e)}
         value={inputValue}
       />
     );
   } else if (type === "dropDown") {
+    // const useFormat = item.useFormat === false ? false : true;
     inputControl = (
-      <Select data={dropdownData} value={inputValue} onChange={(e: any) => SetValue(e)} renderItem={item.renderItem} optionValue={item.optionValue} renderResult={item.renderResult}></Select>
+      <Select
+        absolute={props.absolute === false ? false : true}
+        disabled={props.disabled || DropdownEnabled()}
+        data={dropdownData}
+        value={inputValue ? Number(inputValue) : undefined}
+        defaultValue={inputValue ? Number(inputValue) : undefined}
+        datum={{ format: item.optionValue || 'Id' }}
+        onChange={(e: any) => SetValue(e)}
+        optionLabel={item.optionLabel}
+        optionValue={item.optionValue}
+        clearable
+        renderResult={item.renderResult}
+        renderItem={item.renderItem}
+        onFilter={item.searchAble ? onSearch : undefined}
+        placeholder={placeholder ? placeholder : "Choose Here"}></Select>
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea></textarea>
+      <textarea value={inputValue} disabled={props.disabled} style={{ width: "100%" }} onChange={(e: any) => SetValue(e.target.value)} placeholder="Enter Here"></textarea>
     );
   } else if (type === "datePicker") {
+
+    const { minDate, maxDate, dateType, format } = item;
     inputControl = (
-
-      <DatePicker onChange={(e: any) => SetValue(e)}></DatePicker>
-      // <Input
-      //   type={"date"}
-      //   id={`dc${item.value}`}
-      //   maxLength={item.maxLength}
-      //   // autoCompleteType={"off"
-      //   placeholder={item.placeholder ? item.placeholder : "Enter Here"}
-      //   onChange={(e: any) => SetValue(e)}
-      //   value={inputValue}
-      // />
-
+      <DatePicker
+        absolute={props.absolute === false ? false : true}
+        format={format || 'MM/dd/yyyy'}
+        // value={inputValue}
+        value={minDate ? (inputValue ? inputValue : minDate) : inputValue}
+        disabled={props.disabled}
+        onChange={(e: any) => SetValue(e)}
+        min={minDate}
+        max={maxDate}
+        type={dateType || 'date'}
+        placeholder={placeholder || " Choose Date"} ></DatePicker>
     );
   }
   useEffect(() => {
     if (validateFields != undefined) {
-      // console.log('set>>>>>22222', GetValue, validateFields, inputValue)
       if (props.onChange) {
-        props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
+        if (item.linkage === 0 || item.linkage) {
 
+          if (item.linkage === 0) {
+            let inputNumber: number = Number(inputValue)
+            let idToString = inputNumber >= 10 ? inputNumber + "" : inputNumber > 0 ? '0' + inputNumber : inputNumber
+            props.onChange({ [item.value]: idToString ? idToString + '' : '' })
+            // Object.keys(linkStore).forEach((key: any) => {
+            //   linkStore[key] = null
+            // })
+            linkStore[item.value] = idToString ? idToString + '' : null
+          } else {
+            let inputString = inputValue + ''
+            console.log(inputString.length % 2, Number(linkStore.Province) >= 10)
+            if (Number(inputString[0]) > 0 && Number(linkStore.Province) < 10) {
+              // if (inputString.length % 2 || Number(linkStore.Province) < 10) {
+              inputString = '0' + inputValue
+            }
+            // Object.keys(linkStore).forEach((key: any) => {
+            //   if (key !== item.linkage)
+            //     linkStore[key] = null
+            // })
+            linkStore[item.value] = inputString
+            props.onChange({ [item.value]: inputString })
+          }
+        } else {
+          props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
+        }
       }
     }
   }, [validateFields, inputValue])
   const onValidateChange = (e: any) => {
-    // console.log('onValidateChange', e)
     seValidateFields(e)
   }
 
   return (
-    <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={props.style}>
+    <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={{ ...props.style, ...{ width: props.width } }}>
       {layOut === 'column' && <div className={'chamInputLabel'} ><span className="require">{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
       {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
       <Edit {...props} validateValue={inputValue} onValidateChange={(e: boolean) => onValidateChange(e)}>{inputControl}</Edit>
     </div>
   );
-};
+});

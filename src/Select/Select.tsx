@@ -87,6 +87,7 @@ export interface SelectProps extends AbstractSelectProps {
   removeIcon?: React.ReactNode;
   clearIcon?: React.ReactNode;
   menuItemSelectedIcon?: React.ReactNode;
+  [keyName: string]: any
 }
 
 export interface OptionProps {
@@ -96,6 +97,7 @@ export interface OptionProps {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+
 }
 
 export interface OptGroupProps {
@@ -114,17 +116,49 @@ export const Select = (props: SelectProps): any => {
   useEffect(() => {
 
   })
-  const [value, setValue] = useState(props.value)
-  const { renderResult, data } = props;
-  const renderItem = props.renderItem || 'Name';
+  // const [value, setValue] = useState(props.value)
+  const { data, renderResult, renderItem } = props;
+  const optionLabel = props.optionLabel || 'Name';
   const optionValue = props.optionValue || 'Id';
+
   const onChange = (e: any) => {
-    setValue(e[renderItem])
+    console.warn(e, "select onchange")
+    // setValue(e[renderItem])
+    // setValue(e)
     if (props.onChange && typeof props.onChange === 'function') {
-      props.onChange(e[optionValue])
+      // props.onChange(e[optionValue])
+      props.onChange(e)
     }
   }
   const pre = 'laxton'
+
+  const customRenderResult = (item: any, i?: number) => {
+    // console.log('Result', item, renderResult, renderItem)
+    if (renderItem && !renderResult) {
+      return customRenderItem(item)
+    } else if (renderResult) {
+      return formatStr(renderResult, item)
+    }
+    return `${item[optionLabel]}`
+  }
+  const customRenderItem = (item: any, i?: number) => {
+    if (renderItem) {
+      return formatStr(renderItem, item)
+    }
+    return `${item[optionLabel]}`
+  }
+
+
+  const formatStr = (str: string, item: any): string => {
+    let renderStr = str;
+    let regex = /[^\{][a-zA-Z0-9]+(?=\})/g;
+    // let regex = /\{(.+?)\}/g;
+    const arr: any = str.match(regex);
+    arr.forEach((el: any) => {
+      renderStr = renderStr.replace(/\{(.+?)\}/, item[el])
+    })
+    return renderStr
+  }
   const renderSelect = () => {
 
 
@@ -141,7 +175,12 @@ export const Select = (props: SelectProps): any => {
     //     ))}
     // </select>
 
-    return <SOSelect data={data} keygen={renderItem} value={value} onChange={(e: any) => onChange(e)} renderItem={renderItem} renderResult={(d: any) => 'abc'}></SOSelect>
+    return <SOSelect {...props} data={data} keygen={optionValue} onChange={(e: any) => onChange(e)}
+      value={props.value}
+      // renderItem={renderItem}
+      renderResult={(item: any) => customRenderResult(item)}
+      renderItem={(item: any, i: number) => customRenderItem(item, i)}
+    ></SOSelect>
 
   }
   return (renderSelect());

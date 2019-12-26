@@ -1,17 +1,18 @@
 
-export { Search, ChamInput, ChamInputItem } from "./components";
+export { Search, ChamInput, ChamInputItem, ChamItem } from "./components";
 export { Rt, RTable } from './Table';
 export { Pagination } from './Pagination/Pagination';
 export { Button } from './Button/Button';
 export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
-export { ChamPopup } from './ChamPopup/ChamPopup';
+export { Modal } from './Modal/Modal';
+export { NewPortal } from './Modal/newPortal/newPortal';
+export { Transition } from './Modal/Transition/Transition';
 export { Select } from './Select/index';
 export { DatePicker } from './DatePicker/index';
-export { NewPortal } from './ChamPopup/newPortal/newPortal';
-export { Transition } from './ChamPopup/Transition/Transition';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
+export { Grid } from './Grid/Grid';
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'

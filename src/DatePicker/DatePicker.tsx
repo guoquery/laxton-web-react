@@ -25,9 +25,11 @@ export interface SelectLocale {
 }
 
 export const DatePicker = (props: any): any => {
-  const dropdownData = props.data
   const onChange = (e: any) => {
-    console.log(e)
+    if (e) {
+      const year = new Date(e).getFullYear();
+      if (year < 1900) { return }
+    }
     if (props.onChange && typeof props.onChange === 'function') {
       props.onChange(e)
     }
@@ -35,7 +37,7 @@ export const DatePicker = (props: any): any => {
   const pre = 'laxton'
   const renderPicker = () => {
 
-    return <SODatePicker type="date" onChange={onChange} style={{ width: '100%' }}></SODatePicker>
+    return <SODatePicker {...props} onChange={onChange} style={{ width: '100%' }}></SODatePicker>
 
   }
   return (renderPicker());
