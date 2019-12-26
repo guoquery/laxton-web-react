@@ -20,7 +20,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { LastName: '1988-08-06' },
+    Filters: { TestNumber: '123456' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -171,29 +171,15 @@ export const TableDemo = (props: any) => {
   }
 
   const searchConfig: ChamInputItem[] = [
-    // {
-    //   label: "Position",
-    //   value: "Position",
-    //   type: "dropDown",
-    //   typeCode: "Position"
-    // },
-    // {
-    //   label: "Employment Date",
-    //   value: "EmploymentDate",
-    //   type: "datePicker"
-    // },
-    // {
-    //   label: "Date of Revocation",
-    //   value: "DateOfRevocation",
-    //   type: "datePicker"
-    // },
-    // {
-    //   label: "Status",
-    //   value: "Status",
-    //   type: "dropDown",
-    //   typeCode: "Status",
-    //   // optionValue: "Id"
-    // },
+    {
+      label: "test Number",
+      value: "TestNumber",
+      // require: true,
+      // inputType: 'number'
+      formatCode: '$',
+      // maxLength: 5,
+      // error: 'The input is not valid Name'
+    },
     {
       label: "First Name",
       value: "FirstName",
