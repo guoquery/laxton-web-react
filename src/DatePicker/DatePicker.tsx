@@ -27,8 +27,10 @@ export interface SelectLocale {
 export const DatePicker = (props: any): any => {
   const onChange = (e: any) => {
     if (e) {
-      const year = new Date(e).getFullYear();
-      if (year < 1900) { return }
+      // const year = new Date(e).getFullYear();
+      const arr = e.split('/')
+      const year = arr[arr.length - 1]
+      if (Number(year) < 1900) { return }
     }
     if (props.onChange && typeof props.onChange === 'function') {
       props.onChange(e)

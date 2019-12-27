@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
-import { ChamInputItem } from "../index";
+import { ChamInputType } from "../index";
 
 type EditTypes = 'primary' | 'default' | 'dashed' | 'danger' | 'link';
 type sizeTypes = 'small' | 'large';
@@ -16,7 +16,7 @@ interface EditProps {
   value?: string;
   validateValue: string;
   pattern?: string;
-  item: ChamInputItem;
+  item: ChamInputType;
   onValidateChange: (e: boolean) => void
 }
 export const Edit = (props: EditProps) => {

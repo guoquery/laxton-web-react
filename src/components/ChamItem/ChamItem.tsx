@@ -14,7 +14,7 @@ interface ChamItemProps {
   width?: string | number;
   gutter?: number;
   [key: string]: any;
-  // item: ChamInputItem;
+  // item: ChamInputType;
   style?: any;
   disabled?: boolean;
 

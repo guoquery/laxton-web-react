@@ -74,7 +74,7 @@ export const Modal = (props: ModalProps) => {
                   > */}
         {
           props.visible &&
-          <div className='Modal'>
+          <div className={`${prefixCls}-modal-wrapper`}>
             <div className={ClassStet ? `${prefixCls}-modal` : `${prefixCls}-onModal`} style={styleSet}>
               <button className={`${prefixCls}-modal-expand`}>
                 <span className={`${prefixCls}-modal-expand-x`}>
