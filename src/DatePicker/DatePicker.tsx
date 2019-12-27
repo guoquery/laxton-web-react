@@ -33,13 +33,16 @@ export const DatePicker = (props: any): any => {
       if (Number(year) < 1900) { return }
     }
     if (props.onChange && typeof props.onChange === 'function') {
-      props.onChange(e)
+      console.error(e, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', e === '01/01/1980')
+      if (e !== '01/01/1980') {
+        props.onChange(e)
+      }
     }
   }
   const pre = 'laxton'
   const renderPicker = () => {
 
-    return <SODatePicker {...props} onChange={onChange} style={{ width: '100%' }}></SODatePicker>
+    return <SODatePicker {...props} onChange={onChange} style={{ width: '100%' }} formatResult=""></SODatePicker>
 
   }
   return (renderPicker());

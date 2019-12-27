@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import "../dist/index";
-// import { Rt, Search, Message, ChamInputType, Modal, ChamItem ,Button} from "../lib/index";
-import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
+import "../dist/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../lib/index";
+// import "../src/assets/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
 import { api } from "./api.service";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 
 export const TableDemo = (props: any) => {
@@ -20,7 +21,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { TestNumber: '123456', LastName: '1901-01-01T00:00:00' },
+    Filters: { TestNumber: '123456' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -202,16 +203,17 @@ export const TableDemo = (props: any) => {
       // iif: () => true
       // error: 'The input is not valid Name'
     },
-    // {
-    //   label: "Last Name",
-    //   value: "LastName",
-    //   require: true,
-    //   type: 'datePicker',
-    //   // minDate: '1/1/1980',
-    //   // maxDate: '1/1/1990',
-    //   // disabled: true,
-    //   // error: 'The input is not valid Name'
-    // },
+    {
+      label: "Last Name",
+      value: "LastName",
+      // require: true,
+      type: 'datePicker',
+      minDate: '1/1/1980',
+      maxDate: '1/1/1990',
+      // dateType: 'year',
+      // disabled: true,
+      error: 'The input is not valid Name'
+    },
     // {
     //   label: "test Name",
     //   value: "TestName",
@@ -313,6 +315,29 @@ export const TableDemo = (props: any) => {
   const OnChamItemChange = (e: any) => {
     console.log('OnChamItemChange', e)
   }
+  const DropdownList = [
+    {
+      content: 'Submenu',
+      children: [
+        {
+          content: 'Link to Google',
+          target: '_blank',
+          url: 'https://google.com',
+        },
+        {
+          content: 'Disabled',
+          disabled: true,
+        },
+      ],
+    },
+    <a href="/">Home</a>,
+    {
+      content: 'Message',
+      onClick: () => {
+        Message.info('Some message.')
+      },
+    },
+  ]
 
   return (
     <div
@@ -322,7 +347,7 @@ export const TableDemo = (props: any) => {
       <Button shape="circle" type='primary' loading />
       {/* <Button icon={faAngleDown} shape="circle" type='primary' /> */}
       <Button type='primary' disabled={true}>Disabled</Button>
-      <Dropdown isSub={true} />
+      <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       <Modal
         title='Basic Modal'
