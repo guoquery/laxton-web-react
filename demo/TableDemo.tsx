@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -345,7 +345,7 @@ export const TableDemo = (props: any) => {
       data-testid="scrollMain"
     >
       <Button shape="circle" type='primary' loading />
-      {/* <Button icon={faAngleDown} shape="circle" type='primary' /> */}
+      <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
@@ -363,7 +363,7 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
       </Modal>
       <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
-
+ 
       <Rt
         columns={columns}
         dataSource={data}
