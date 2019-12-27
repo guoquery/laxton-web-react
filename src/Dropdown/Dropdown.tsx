@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Dropdown as SODropdown } from 'shineout';
 
 type position = 'left-top' | 'left-bottom' | 'right-top' | 'top-left' | 'bottom-right' | 'bottom-left';
+type type = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'link'
 type OverlayFunc = () => React.ReactNode;
 type Align = {
     data?: [];
@@ -36,15 +37,14 @@ export interface DropDownProps {
     children?: any;
     isSub?: any;
     size?: any;
+    outline?: any;
+    type?: type;
 }
 
 export const Dropdown = (props: any): any => {
     return (
         <SODropdown {...props}>
-            {props.children}
         </SODropdown>
-        // 11111
-
     )
 }
 
