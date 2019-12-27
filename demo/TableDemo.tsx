@@ -21,7 +21,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: { TestNumber: '123456', LastName: '1901-01-01T00:00:00' },
+    Filters: { TestNumber: '123456' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -216,8 +216,8 @@ export const TableDemo = (props: any) => {
       value: "LastName",
       // require: true,
       type: 'datePicker',
-      // minDate: '1/1/1980',
-      // maxDate: '1/1/1990',
+      minDate: '1/1/1980',
+      maxDate: '1/1/1990',
       // dateType: 'year',
       // disabled: true,
       error: 'The input is not valid Name'
