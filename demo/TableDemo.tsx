@@ -319,6 +319,29 @@ export const TableDemo = (props: any) => {
     console.log('OnChamItemChange', e)
     setChamItemValues({ ...chamItemValues, ...e })
   }
+  const DropdownList = [
+    {
+      content: 'Submenu',
+      children: [
+        {
+          content: 'Link to Google',
+          target: '_blank',
+          url: 'https://google.com',
+        },
+        {
+          content: 'Disabled',
+          disabled: true,
+        },
+      ],
+    },
+    <a href="/">Home</a>,
+    {
+      content: 'Message',
+      onClick: () => {
+        Message.info('Some message.')
+      },
+    },
+  ]
 
   return (
     <div
@@ -328,7 +351,7 @@ export const TableDemo = (props: any) => {
       <Button shape="circle" type='primary' loading />
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
-      <Dropdown isSub={true}/>
+      <Dropdown  data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       {/* <Modal
         title='Basic Modal'
