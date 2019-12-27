@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../lib/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem ,Button} from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem, Modal, ChamItem } from "../src/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
 import { api } from "./api.service";
 
 
@@ -20,7 +20,7 @@ export const TableDemo = (props: any) => {
   });
   const [q, setQ] = useState({
     CurrentPage: 1,
-    Filters: {},
+    Filters: { TestNumber: '123456', LastName: '1901-01-01T00:00:00' },
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
@@ -169,7 +169,7 @@ export const TableDemo = (props: any) => {
     setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
-  const searchConfig: ChamInputItem[] = [
+  const searchConfig: ChamInputType[] = [
     {
       label: "Position",
       value: "Position",
@@ -266,6 +266,37 @@ export const TableDemo = (props: any) => {
     //   value: "PostalAddress"
     // }
   ]
+  const userAddress: ChamInputType[] = [{
+    label: "Province",
+    value: "Province",
+    type: "dropDown",
+    typeCode: "Province",
+    linkage: 0,
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "District",
+    type: "dropDown",
+    value: "District",
+    linkage: "Province",
+    optionValue: "AreaId",
+    useFormat: false,
+  },
+  {
+    label: "Constituency",
+    type: "dropDown",
+    value: "Constituency",
+    linkage: "District",
+    optionValue: "AreaId"
+  },
+  {
+    label: "Polling Station",
+    type: "dropDown",
+    value: "PollingStation",
+    linkage: "Constituency",
+    optionValue: "AreaId"
+  }]
 
   const customizeFooter = () => {
     return (
@@ -283,6 +314,10 @@ export const TableDemo = (props: any) => {
       style={{ height: "100%", overflowY: "scroll" }}
       data-testid="scrollMain"
     >
+      <Button shape="circle" type='primary' loading />
+      <Button icon={faAngleDown} shape="circle" type='primary' />
+      <Button type='primary' disabled={true}>Disabled</Button>
+      <Dropdown isSub={true} />
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       <Modal
         title='Basic Modal'

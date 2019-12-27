@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import "../dist/index";
-// import { Rt, Search, Message, ChamInputItem } from "../lib/index";
+// import { Rt, Search, Message, ChamInputType } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputItem } from "../src/index";
+import { Rt, Search, Message, ChamInputType } from "../src/index";
 import { api } from "./api.service";
 
 

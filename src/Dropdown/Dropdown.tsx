@@ -3,9 +3,10 @@ import classNames from 'classnames';
 //@ts-ignore
 import { Dropdown as SODropdown } from 'shineout';
 
-type Placement = 'left-top' | 'left-bottom' | 'right-top' | 'top-left' | 'bottom-right' | 'bottom-left';
+type position = 'left-top' | 'left-bottom' | 'right-top' | 'top-left' | 'bottom-right' | 'bottom-left';
 type OverlayFunc = () => React.ReactNode;
 type Align = {
+    data?: [];
     points?: [string, string];
     offset?: [number, number];
     targetOffset?: [number, number];
@@ -18,6 +19,7 @@ type Align = {
     useCssTransform?: boolean;
 };
 export interface DropDownProps {
+    data: [];
     trigger?: ('click' | 'hover' | 'contextMenu')[];
     overlay: React.ReactNode | OverlayFunc;
     onVisibleChange?: (visible: boolean) => void;
@@ -28,26 +30,21 @@ export interface DropDownProps {
     prefixCls?: string;
     className?: string;
     transitionName?: string;
-    placement?: Placement;
+    position?: position;
     overlayClassName?: string;
     overlayStyle?: React.CSSProperties;
+    children?: any;
+    isSub?: any;
+    size?: any;
 }
 
-export const Dropdown = (props: DropDownProps): any => {
-    const {
-        trigger,
-        overlay,
-        visible,
-        disabled,
-        align,
-        prefixCls,
-        className,
-        ...rest
-    } = props;
+export const Dropdown = (props: any): any => {
     return (
-        <SODropdown style={{ width: '100%' }} trigger={props.trigger} disabled={props.disabled}>
-
+        <SODropdown {...props}>
+            {props.children}
         </SODropdown>
+        // 11111
+
     )
 }
 
