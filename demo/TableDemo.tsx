@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "../src/assets/index";
 import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
 import { api } from "./api.service";
-import { faAngleDown, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 
 export const TableDemo = (props: any) => {
@@ -13,7 +13,7 @@ export const TableDemo = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
-  const [chamItemValues, setChamItemValues] = useState({});
+  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01" });
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
@@ -39,7 +39,7 @@ export const TableDemo = (props: any) => {
         // });
         break;
       case "edit":
-        // showModal();
+        showModal();
         // console.log(visible);
         // setVisible(true);
         console.log(visible);
@@ -89,26 +89,12 @@ export const TableDemo = (props: any) => {
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
         {
-          icon: faPlusSquare,
-          // popTitle: this.api.translate('toolTips.delete?'),
-          click: (item: any) => { Action('edit', item) },
-          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
-        },
-        {
-          type: 'assign',
-          click: (item: any) => { Action('delete', item) },
-          // popTitle: this.api.translate('toolTips.delete?'),
-          // click: (item: any) => { this.listPage.deleteList(item); },
-          // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
-        },
-        {
           type: 'delete',
           click: (item: any) => { Action('delete', item) },
           // popTitle: this.api.translate('toolTips.delete?'),
           // click: (item: any) => { this.listPage.deleteList(item); },
           // iif: (item) => (item.ElectionStatus === 1 && this.api.canView('Function_Elections_Elections_Delete')),
         },
-
       ]
     }
   ];
@@ -186,27 +172,33 @@ export const TableDemo = (props: any) => {
 
   const searchConfig: ChamInputType[] = [
     {
-      label: "test Number",
-      value: "TestNumber",
-      // require: true,
-      // inputType: 'number'
-      formatCode: '$',
-      // maxLength: 5,
-      // error: 'The input is not valid Name'
+      label: "Position",
+      value: "Position",
+      type: "dropDown",
+      typeCode: "Position"
+    },
+    {
+      label: "Employment Date",
+      value: "EmploymentDate",
+      type: "datePicker"
+    },
+    {
+      label: "Date of Revocation",
+      value: "DateOfRevocation",
+      type: "datePicker"
+    },
+    {
+      label: "Status",
+      value: "Status",
+      type: "dropDown",
+      typeCode: "Status",
+      optionValue: "Id"
     },
     {
       label: "First Name",
       value: "FirstName",
       require: true,
-      type: 'dropDown',
-      // pattern: '[A-Za-z]{3}',
-      searchAble: true,
-      apiMethod: 'get',
-      apiUrl: 'api/Elections/GetElectionsByKeyWord?keyWord=',
-      optionValue: "MasterId",
-      // optionLabel: "ElectionName1",
-      renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
-      renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
+      pattern: '[A-Za-z]{3}',
       // disabled: true,
       // iif: () => true
       // error: 'The input is not valid Name'
@@ -265,11 +257,11 @@ export const TableDemo = (props: any) => {
     //   value: "PollingStation",
     //   linkage: "Constituency"
     // },
-    {
-      label: "Residential Address",
-      type: "textArea",
-      value: "ResidentialAddress"
-    },
+    // {
+    //   label: "Residential Address",
+    //   type: "textArea",
+    //   value: "ResidentialAddress"
+    // },
     // {
     //   label: "Postal Address",
     //   type: 'datePicker',
@@ -317,7 +309,6 @@ export const TableDemo = (props: any) => {
   }
   const OnChamItemChange = (e: any) => {
     console.log('OnChamItemChange', e)
-    setChamItemValues({ ...chamItemValues, ...e })
   }
 
   return (
@@ -330,7 +321,7 @@ export const TableDemo = (props: any) => {
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown isSub={true} />
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
-      {/* <Modal
+      <Modal
         title='Basic Modal'
         prefixCls='laxton'
         // footer={null}
@@ -342,9 +333,8 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </Modal> */}
-      {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem> */}
-      <ChamItem chamItemConfig={userAddress} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
+      </Modal>
+      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
 
       <Rt
         columns={columns}
