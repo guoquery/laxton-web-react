@@ -249,22 +249,27 @@ export const TableDemo = (props: any) => {
     //   value: "Constituency",
     //   linkage: "District"
     // },
-    // {
-    //   label: "Polling Station",
-    //   type: "dropDown",
-    //   value: "PollingStation",
-    //   linkage: "Constituency"
-    // },
-    // {
-    //   label: "Residential Address",
-    //   type: "textArea",
-    //   value: "ResidentialAddress"
-    // },
+    {
+      label: "Polling Station",
+      type: "dropDown",
+      value: "PollingStation",
+      linkage: "Constituency"
+    },
+    {
+      label: "Residential Address",
+      type: "textArea",
+      value: "ResidentialAddress"
+    },
     // {
     //   label: "Postal Address",
     //   type: 'datePicker',
     //   value: "PostalAddress"
-    // }
+    // },
+    {
+      label: "Residential Address",
+      type: "text",
+      value: "ResidentialAddress"
+    },
   ]
   const userAddress: ChamInputType[] = [{
     label: "Province",
@@ -315,7 +320,7 @@ export const TableDemo = (props: any) => {
       data-testid="scrollMain"
     >
       <Button shape="circle" type='primary' loading />
-      <Button icon={faAngleDown} shape="circle" type='primary' />
+      {/* <Button icon={faAngleDown} shape="circle" type='primary' /> */}
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown isSub={true} />
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>

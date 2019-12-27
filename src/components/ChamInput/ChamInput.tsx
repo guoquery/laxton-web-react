@@ -209,7 +209,12 @@ export const ChamInput = observer((props: ChamInputProps) => {
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea value={inputValue} disabled={props.disabled} style={{ width: "100%" }} onChange={(e: any) => SetValue(e.target.value)} placeholder="Enter Here"></textarea>
+      <textarea 
+      value={inputValue} 
+      disabled={props.disabled} 
+      style={{ width: "100%" }} 
+      onChange={(e: any) => SetValue(e.target.value)} 
+      placeholder={placeholder ? placeholder:"Enter Here"}></textarea>
     );
   } else if (type === "datePicker") {
 
