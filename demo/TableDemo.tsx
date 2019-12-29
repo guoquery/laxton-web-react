@@ -253,22 +253,27 @@ export const TableDemo = (props: any) => {
     //   value: "Constituency",
     //   linkage: "District"
     // },
-    // {
-    //   label: "Polling Station",
-    //   type: "dropDown",
-    //   value: "PollingStation",
-    //   linkage: "Constituency"
-    // },
-    // {
-    //   label: "Residential Address",
-    //   type: "textArea",
-    //   value: "ResidentialAddress"
-    // },
+    {
+      label: "Polling Station",
+      type: "dropDown",
+      value: "PollingStation",
+      linkage: "Constituency"
+    },
+    {
+      label: "Residential Address",
+      type: "textArea",
+      value: "ResidentialAddress"
+    },
     // {
     //   label: "Postal Address",
     //   type: 'datePicker',
     //   value: "PostalAddress"
-    // }
+    // },
+    {
+      label: "Residential Address",
+      type: "text",
+      value: "ResidentialAddress"
+    },
   ]
   const userAddress: ChamInputType[] = [{
     label: "Province",
