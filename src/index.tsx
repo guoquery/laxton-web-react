@@ -14,6 +14,7 @@ export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
 export { Grid } from './Grid/Grid';
 export { Dropdown } from './Dropdown/Dropdown'
+export { Spin } from './Spin/index'
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
