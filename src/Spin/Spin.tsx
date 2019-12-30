@@ -35,26 +35,7 @@ const spins: any = {
   // 'three-bounce': ThreeBounce,
 }
 
-function renderContainer(Loading: any, props: any) {
-  const { loading, children, size = 40, color = defaultColor } = props
-  const containerClassName = classNames(`${prefixCls}-container`, {
-    [`${prefixCls}-show`]: loading,
-  });
-  // eslint-disable-next-line react/prop-types
 
-  return (
-    // <div>
-    <div className={containerClassName}>
-      {/* {!loading && <div className={'content'}>{children}</div>} */}
-      <div className={`${prefixCls}-content`}>{children}</div>
-      {loading && (
-        <div className={`${prefixCls}-loading`}>
-          <Loading {...props} size={props.size || 40} color={color} />
-        </div>
-      )}
-    </div>
-  )
-}
 type NameType = 'default' | 'chasing-ring' | 'chasing-dots' | 'cube-grid' | 'double-bounce' | 'fading-circle' | 'four-dots' | 'plane' | 'pulse' | 'ring' | 'scale-circle' | 'three-bounce' | 'wave';
 interface SpinProps {
   name?: NameType;
@@ -73,7 +54,30 @@ export const Spin = (props: SpinProps) => {
     return null
   }
   // return <div>spin</div>
-  if (children) return renderContainer(Component, props)
+  const renderContainer = (Loading: any) => {
+    const { loading, children, size = 40, color = defaultColor } = props
+    const containerClassName = classNames(`${prefixCls}-container`, {
+      [`${prefixCls}-show`]: loading,
+    });
+    // eslint-disable-next-line react/prop-types
+    return (
+
+      // <div>
+      <div className={containerClassName}>
+        {children}
+        {/* {!loading && <div className={'content'}>{children}</div>} */}
+        {/* <div className={`${prefixCls}-content`} onClick={(e: any) => { console.log(e, 'e>>>>>>>>>>>') }}>{children}</div> */}
+        {/* <div className={`${prefixCls}-content`}>{children}</div> */}
+        {loading && (
+          <div className={`${prefixCls}-loading`}>
+            <Loading {...props} size={props.size || 40} color={color} />
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  if (children) { return renderContainer(Component) }
   return <Component {...props} size={size} color={color} />
 }
 
