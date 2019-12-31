@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { Input, Select, Edit, DatePicker } from "../../index";
+import { Input, Select, Edit, DatePicker, TextArea } from "../../index";
 import { render } from 'react-dom';
 import { Search } from './../Search/Search';
 import { useLinkage } from './../customHooks/useLinkage';
@@ -209,12 +209,15 @@ export const ChamInput = observer((props: ChamInputProps) => {
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea 
-      value={inputValue} 
-      disabled={props.disabled} 
-      style={{ width: "100%" }} 
-      onChange={(e: any) => SetValue(e.target.value)} 
-      placeholder={placeholder ? placeholder:"Enter Here"}></textarea>
+      <TextArea 
+      // value={inputValue} 
+      // disabled={props.disabled} 
+      // style={{ width: "100%", }} 
+      onChange={(e: any) => SetValue(e.target.value)}
+      // placeholder={placeholder ? placeholder:"Enter Here"}
+      >
+
+      </TextArea>
     );
   } else if (type === "datePicker") {
 

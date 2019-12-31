@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import "../dist/index";
-// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../lib/index";
-import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown } from "../src/index";
+import "../dist/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown,TextArea } from "../lib/index";
+// import "../src/assets/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, TextArea } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+// import { TextArea } from '../src/textArea/textArea';
 
 
 export const TableDemo = (props: any) => {
@@ -347,7 +348,8 @@ export const TableDemo = (props: any) => {
       <Button shape="circle" type='primary' loading />
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
-      <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
+      <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'></Dropdown>
+      <TextArea onChange={(e:any) => OnChange(e)}></TextArea>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       <Modal
         title='Basic Modal'
