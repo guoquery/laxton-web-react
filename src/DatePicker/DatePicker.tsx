@@ -41,7 +41,13 @@ export const DatePicker = (props: any): any => {
   }
   const pre = 'laxton'
   const renderPicker = () => {
-
+    // if (true) {
+    //   setTimeout(() => {
+    //     let span: any = document.getElementsByClassName('so-datepicker-ym')[0]
+    //     console.log(span, ">>>>>>>>>>>")
+    //     // span.onclick()
+    //   }, 100);
+    // }
     return <SODatePicker {...props} onChange={onChange} style={{ width: '100%' }} formatResult=""></SODatePicker>
 
   }

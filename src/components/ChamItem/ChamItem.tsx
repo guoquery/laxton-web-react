@@ -41,7 +41,7 @@ export const ChamItem = (props: ChamItemProps) => {
     if (typeof props.onValidateChange === 'function') {
       props.onValidateChange(finallyResult)
     }
-    console.error(finallyResult, 'finallyResult', validateResult)
+    // console.error(finallyResult, 'finallyResult', validateResult)
   }, [validateResult])
   const expandIndex = props.expandIndex
 
@@ -50,7 +50,7 @@ export const ChamItem = (props: ChamItemProps) => {
     props.onChange(e)
   }
   const onValidateChange = (e: any) => {
-    console.log(e, 'onValidateChange chamitem', chamItemConfig);
+    // console.log(e, 'onValidateChange chamitem', chamItemConfig);
     if (!e) { return }
     const { value, result } = e;
     setValidateResult({ ...validateResult, ...{ [value]: result } })

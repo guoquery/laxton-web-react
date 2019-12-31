@@ -234,6 +234,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
         min={minDate}
         max={maxDate}
         type={dateType || 'date'}
+        clearable={minDate ? false : true}
         placeholder={placeholder || " Choose Date"} ></DatePicker>
     );
   }

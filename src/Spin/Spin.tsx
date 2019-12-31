@@ -47,7 +47,6 @@ interface SpinProps {
 
 export const Spin = (props: SpinProps) => {
   const { name = 'default', size = 40, children, color = defaultColor } = props
-  console.error(props)
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)

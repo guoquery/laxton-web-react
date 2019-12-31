@@ -39,7 +39,7 @@ export const Edit = (props: EditProps) => {
   } = props;
   useEffect(() => {
     if (validateValue) {
-      console.log('validateValue', validateValue)
+      // console.log('validateValue', validateValue)
       if (!ediActive) {
         setEdiActive(true)
         setError(props.item.error || `The input is not valid ${item.label}.`)

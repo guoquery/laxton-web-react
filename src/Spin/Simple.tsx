@@ -17,7 +17,7 @@ export function formatSize(size: string) {
 
 export function Ring(obj: any) {
   const { value, unit } = formatSize(obj.size)
-  console.log(value, unit, 'ring>>>>>>>>', obj)
+  // console.log(value, unit, 'ring>>>>>>>>', obj)
   const style = {
     borderWidth: (value / 10) + unit,
     borderTopColor: obj.color,
