@@ -199,6 +199,7 @@ export const Input = (props: InputProps) => {
       {!formatCode && <input
         {...otherProps}
         // allowClear
+        autoComplete={props.autoComplete || 'off'}
         value={props.value}
         // onChange={handleChange}
         onChange={(e: any) => handleChange(e.target.value)}

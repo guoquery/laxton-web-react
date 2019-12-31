@@ -10,5 +10,7 @@ import "../Edit/style/index.less"
 import "../Checkbox/style/index.less"
 import "../Modal/style/index.less"
 import "../textArea/style/index.less"
+import "../Spin/style/index.less"
+
 import "./common.less"
 

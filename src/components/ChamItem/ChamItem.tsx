@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ChamInput, Button } from "../../index";
+import React, { useState, useEffect } from "react";
+import { ChamInput, Button, ChamInputType } from "../../index";
 //@ts-ignore
 import { Grid } from 'shineout'
 
@@ -8,6 +8,7 @@ interface ChamItemProps {
   expandIndex?: number,
   chamItemConfig: any;
   onChange: (action: any) => any;
+  onValidateChange?: (action: any) => any;
   children?: any;
   api?: any;
   layOut?: 'row' | 'column';
@@ -21,14 +22,40 @@ interface ChamItemProps {
 }
 export const ChamItem = (props: ChamItemProps) => {
   const FilterType: any = {}
-  const { values } = props;
+  const { values, chamItemConfig } = props;
+
+
   // console.log(values, 'ChamItem>>>>>>>>>>>>>>>>')
-  // const [Filters, setFilters] = useState(FilterType)
+  const [validateResult, setValidateResult] = useState({} as any)
+
+  useEffect(() => {
+    // let finallyResult = true;
+    let finallyResult = !chamItemConfig.some((item: ChamInputType, i: number) => {
+      if (item.require) {
+        // console.log('validateResult8888', validateResult)
+        if (!validateResult[item.value]) {
+          return true
+        }
+      }
+    });
+    if (typeof props.onValidateChange === 'function') {
+      props.onValidateChange(finallyResult)
+    }
+    console.error(finallyResult, 'finallyResult', validateResult)
+  }, [validateResult])
   const expandIndex = props.expandIndex
 
   const OnTextChange = (e: any) => {
-    console.log(e, 'OnTextChange');
+    // console.log(e, 'OnTextChange');
     props.onChange(e)
+  }
+  const onValidateChange = (e: any) => {
+    console.log(e, 'onValidateChange chamitem', chamItemConfig);
+    if (!e) { return }
+    const { value, result } = e;
+    setValidateResult({ ...validateResult, ...{ [value]: result } })
+
+    // props.onChange(e)
   }
   const IfDisabled = (item: any) => {
     if (item.iif && typeof item.iif === 'function') {
@@ -38,7 +65,7 @@ export const ChamItem = (props: ChamItemProps) => {
   }
   const renderChamItemItem = () => {
     let ChamItemItem: any = [];
-    props.chamItemConfig.map((item: any, index: number) => {
+    chamItemConfig.map((item: ChamInputType, index: number) => {
       if (!expandIndex || (index < expandIndex)) {
         if (item.linkage) {
           // console.log(item, item.linkage, '>>>>>>><<<<<<<<<<<<')
@@ -53,6 +80,7 @@ export const ChamItem = (props: ChamItemProps) => {
               value={values[item.value]}
               values={values}
               onChange={OnTextChange}
+              onValidateChange={onValidateChange}
               layOut={props.layOut}
               api={props.api}
               // width={props.width}

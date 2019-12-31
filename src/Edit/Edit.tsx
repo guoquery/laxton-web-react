@@ -117,9 +117,10 @@ export const Edit = (props: EditProps) => {
 
   return (
 
-    <div className={classes}>
-      <div>{props.children}</div>
-      <div className={`${prefixCls}-has-error`}>{hasError && error}</div>
+    <div className={classes} id={`edit-${props.id || prefixCls}`}>
+      {/* <div>{props.children}</div> */}
+      {props.children}
+      <div className={`${prefixCls}-has-error`} id={`${props.id || prefixCls}-error`}>{hasError && error}</div>
     </div>
 
   );

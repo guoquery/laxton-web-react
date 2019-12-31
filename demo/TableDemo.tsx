@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../dist/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown,TextArea } from "../lib/index";
-// import "../src/assets/index";
-// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, TextArea } from "../src/index";
+// import "../dist/index";
+// import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin } from "../lib/index";
+import "../src/assets/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 // import { TextArea } from '../src/textArea/textArea';
@@ -26,6 +26,8 @@ export const TableDemo = (props: any) => {
     // Filters: {FirstName:'77777'},
     PageSize: 10
   });
+  const [loading, setLoading] = useState(true)
+  const [disabled, setDisabled] = useState(true)
   const Action = (action: string, data: any) => {
     console.log(action, "edit", data.Id);
     switch (action) {
@@ -129,6 +131,7 @@ export const TableDemo = (props: any) => {
       } else {
         setData([...data, ...Data]);
       }
+      setLoading(false)
       setPagination({ total: res.Data.TotalRecord, pageSize: q.PageSize, current: q.CurrentPage });
     }
   };
@@ -175,17 +178,20 @@ export const TableDemo = (props: any) => {
     {
       label: "Position",
       value: "Position",
-      type: "dropDown",
-      typeCode: "Position"
+      require: true,
+      // type: "dropDown",
+      // typeCode: "Position"
     },
     {
       label: "Employment Date",
       value: "EmploymentDate",
+      require: true,
       type: "datePicker"
     },
     {
       label: "Date of Revocation",
       value: "DateOfRevocation",
+      require: true,
       type: "datePicker"
     },
     {
@@ -193,6 +199,7 @@ export const TableDemo = (props: any) => {
       value: "Status",
       type: "dropDown",
       typeCode: "Status",
+      require: true,
       optionValue: "Id"
     },
     {
@@ -314,7 +321,7 @@ export const TableDemo = (props: any) => {
     )
   }
   const OnChamItemChange = (e: any) => {
-    console.log('OnChamItemChange', e)
+    // console.log('OnChamItemChange', e)
   }
   const DropdownList = [
     {
@@ -345,12 +352,26 @@ export const TableDemo = (props: any) => {
       style={{ height: "100%", overflowY: "scroll" }}
       data-testid="scrollMain"
     >
+      <div style={{ display: 'flex', }}>
+        <Spin name="ring" />
+        <Spin name="plane" />
+        <Spin name="pulse" />
+        <Spin />
+      </div>
+
       <Button shape="circle" type='primary' loading />
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'></Dropdown>
-      <TextArea onChange={(e:any) => OnChange(e)}></TextArea>
+      <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+      <Button type='primary' disabled={disabled}>Disabled</Button>
+      <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
+      <Spin loading={loading}>
+        {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
+      </Spin>
+      {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
+
       <Modal
         title='Basic Modal'
         prefixCls='laxton'
@@ -364,8 +385,8 @@ export const TableDemo = (props: any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api}></ChamItem>
- 
+      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+
       <Rt
         columns={columns}
         dataSource={data}
