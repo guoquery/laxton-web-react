@@ -6,9 +6,10 @@ import { useState } from "react";
 import { RTable } from ".";
 import { Pagination } from "../Pagination/Pagination";
 import { render } from "react-dom";
-import { Checkbox } from "../index";
+import { Checkbox, CheckboxGroup } from "../index";
 // import { TableProps } from './interface';
 import { useEffect } from 'react';
+
 
 function noop() { }
 
@@ -277,6 +278,7 @@ const Table = (props: TableProps) => {
               <Checkbox key={item.title + index} checked={item.checked} onChange={(e) => onCustomColumnChange(e, item)}>{item.title}</Checkbox>
             )}
           </div>
+          {/* <CheckboxGroup data={customColumn}></CheckboxGroup> */}
         </div>
       )
     }
