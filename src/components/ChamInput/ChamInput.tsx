@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { Input, Select, Edit, DatePicker } from "../../index";
+import { Input, Select, Edit, DatePicker, TextArea } from "../../index";
 import { render } from 'react-dom';
 import { Search } from './../Search/Search';
 import { useLinkage } from './../customHooks/useLinkage';
@@ -56,6 +56,7 @@ interface ChamInputProps {
   clearValue?: boolean;
   disabled?: boolean;
   onChange?: (value: any) => void;
+  onValidateChange?: (value: any) => void;
   layOut?: 'row' | 'column',
   api?: any,
   width?: string | number;
@@ -168,7 +169,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
     return disabled;
   };
   const SetValue = (value: any): void => {
-    console.log(value, 'e>>>>>>>>>>')
+    // console.log(value, 'set date e>>>>>>>>>>')
     SetInputValue(value ? value : '')
   }
   const { placeholder } = item
@@ -192,6 +193,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
     // const useFormat = item.useFormat === false ? false : true;
     inputControl = (
       <Select
+        className={`txt${item.value}`}
         absolute={props.absolute === false ? false : true}
         disabled={props.disabled || DropdownEnabled()}
         data={dropdownData}
@@ -209,18 +211,29 @@ export const ChamInput = observer((props: ChamInputProps) => {
     );
   } else if (type === "textArea") {
     inputControl = (
-      <textarea 
-      value={inputValue} 
-      disabled={props.disabled} 
-      style={{ width: "100%" }} 
-      onChange={(e: any) => SetValue(e.target.value)} 
-      placeholder={placeholder ? placeholder:"Enter Here"}></textarea>
+      <TextArea 
+      // value={inputValue} 
+      // disabled={props.disabled} 
+      // style={{ width: "100%", }} 
+      onChange={(e: any) => SetValue(e.target.value)}
+      // placeholder={placeholder ? placeholder:"Enter Here"}
+      >
+
+      </TextArea>
+      // <textarea
+      //   id={`txt${item.value}`}
+      //   value={inputValue}
+      //   disabled={props.disabled}
+      //   style={{ width: "100%" }}
+      //   onChange={(e: any) => SetValue(e.target.value)}
+      //   placeholder={placeholder ? placeholder : "Enter Here"}></textarea>
     );
   } else if (type === "datePicker") {
 
     const { minDate, maxDate, dateType, format } = item;
     inputControl = (
       <DatePicker
+        className={`txt${item.value}`}
         absolute={props.absolute === false ? false : true}
         format={format || 'MM/dd/yyyy'}
         // value={inputValue}
@@ -268,13 +281,20 @@ export const ChamInput = observer((props: ChamInputProps) => {
   }, [validateFields, inputValue])
   const onValidateChange = (e: any) => {
     seValidateFields(e)
+    if (item.require) {
+      // console.log(e, item, 'seee6668888666688')
+      if (typeof props.onValidateChange === 'function') {
+        props.onValidateChange({ value: item.value, result: e })
+      }
+    }
+
   }
 
   return (
     <div className={layOut === 'row' ? 'chamInput' : "chamInputColumn"} style={{ ...props.style, ...{ width: props.width } }}>
       {layOut === 'column' && <div className={'chamInputLabel'} ><span className="require">{item.require ? "*" : ""}</span><span id={`lbl${item.value}`}>{item.label}</span></div>}
       {layOut === 'row' && <div className={'chamInputLabel'} id={`lbl${item.value}`}><span className="require">{item.require ? "*" : ""}</span>{item.label} :  </div>}
-      <Edit {...props} validateValue={inputValue} onValidateChange={(e: boolean) => onValidateChange(e)}>{inputControl}</Edit>
+      <Edit id={`${item.value}`} {...props} validateValue={inputValue} onValidateChange={(e: boolean) => onValidateChange(e)}>{inputControl}</Edit>
     </div>
   );
 });

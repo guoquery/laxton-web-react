@@ -14,12 +14,14 @@ export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
 export { Grid } from './Grid/Grid';
 export { Dropdown } from './Dropdown/Dropdown'
+export { TextArea } from './textArea/textArea';
 export { Spin } from './Spin/index'
 export {CheckboxGroup} from './Checkbox/Group'
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'
 // import { Checkbox } from './Checkbox/Checkbox';
+
 
 // export default { utils, version: '1.4.3' }
 // export { utils }
