@@ -1,6 +1,6 @@
 {
   "name": "laxton-web-react",
-  "version": "0.1.52",
+  "version": "0.1.53",
   "description": "React front end component",
   "main": "lib/index.js",
   "module": "es/index.js",
