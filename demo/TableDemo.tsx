@@ -191,6 +191,8 @@ export const TableDemo = (props: any) => {
     {
       label: "Date of Revocation",
       value: "DateOfRevocation",
+      minDate: '1/1/1990',
+      maxDate: '1/1/2000',
       require: true,
       type: "datePicker"
     },
@@ -216,8 +218,8 @@ export const TableDemo = (props: any) => {
       value: "LastName",
       // require: true,
       type: 'datePicker',
-      minDate: '1/1/1980',
-      maxDate: '1/1/1990',
+      minDate: '1/1/1990',
+      maxDate: '1/1/2000',
       // dateType: 'year',
       // disabled: true,
       error: 'The input is not valid Name'
@@ -364,7 +366,7 @@ export const TableDemo = (props: any) => {
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'></Dropdown>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+      {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       <Button type='primary' disabled={disabled}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Spin loading={loading}>

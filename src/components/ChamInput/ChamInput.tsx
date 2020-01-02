@@ -211,11 +211,11 @@ export const ChamInput = observer((props: ChamInputProps) => {
     );
   } else if (type === "textArea") {
     inputControl = (
-      <TextArea 
-      // value={inputValue} 
-      // disabled={props.disabled} 
-      // style={{ width: "100%", }} 
-      onChange={(e: any) => SetValue(e.target.value)}
+      <TextArea
+        // value={inputValue}
+        // disabled={props.disabled}
+        // style={{ width: "100%", }}
+        onChange={(e: any) => SetValue(e.target.value)}
       // placeholder={placeholder ? placeholder:"Enter Here"}
       >
 
@@ -243,7 +243,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
         min={minDate}
         max={maxDate}
         type={dateType || 'date'}
-        clearable={minDate ? false : true}
+        // clearable={minDate ? false : true}
         placeholder={placeholder || " Choose Date"} ></DatePicker>
     );
   }

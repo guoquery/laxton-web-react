@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 //@ts-ignore
 import { DatePicker as SODatePicker } from 'shineout'
+import { useState } from 'react';
 
 
 
@@ -25,6 +26,12 @@ export interface SelectLocale {
 }
 
 export const DatePicker = (props: any): any => {
+  const [openYearPicker, setCloseYearPicker] = useState(true)
+  const [yearPickerDate, setYearPickerDate] = useState()
+  const { min } = props;
+  // setTimeout(() => {
+  //   setYearPickerDate(props.min)
+  // }, 20);
   const onChange = (e: any) => {
     if (e) {
       // const year = new Date(e).getFullYear();
@@ -33,22 +40,35 @@ export const DatePicker = (props: any): any => {
       if (Number(year) < 1900) { return }
     }
     if (props.onChange && typeof props.onChange === 'function') {
-      console.error(e, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', e === '01/01/1980')
-      if (e !== '01/01/1980') {
-        props.onChange(e)
-      }
+      // console.error(e, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', min, new Date(e).getTime() === new Date(min).getTime())
+      // if (new Date(e).getTime() !== new Date(min).getTime()) {
+      // }
+      props.onChange(e)
     }
   }
-  const pre = 'laxton'
+
+  const handelYearPicker = (e: any) => {
+    // console.log(e.target.className, e, 'click>>>>>')
+
+    // setYearPickerDate(props.min)
+    if (props.min && openYearPicker && e.target.className) {
+      setTimeout(() => {
+        let span: any = document.getElementsByClassName('so-datepicker-ym')[0].getElementsByTagName('span')[0]
+        // console.log(span, ">>>>>>>>>>>"
+        if (span) {
+          span.addEventListener(('click'), (event: any) => {
+            setCloseYearPicker(false)
+          }, false)
+          span.click();
+        }
+      }, 20);
+    }
+    e.preventDefault();
+
+  }
   const renderPicker = () => {
-    // if (true) {
-    //   setTimeout(() => {
-    //     let span: any = document.getElementsByClassName('so-datepicker-ym')[0]
-    //     console.log(span, ">>>>>>>>>>>")
-    //     // span.onclick()
-    //   }, 100);
-    // }
-    return <SODatePicker {...props} onChange={onChange} style={{ width: '100%' }} formatResult=""></SODatePicker>
+
+    return <div onClick={(e: any) => handelYearPicker(e)}><SODatePicker {...props} value={props.value || yearPickerDate} onChange={onChange} style={{ width: '100%' }} formatResult=""></SODatePicker></div>
 
   }
   return (renderPicker());
