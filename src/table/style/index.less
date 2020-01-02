@@ -259,7 +259,17 @@
 
         .customColumn {
             width: 100%;
-            .flex(row, flex-end, center)
+            // .flex(column, flex-end, center);
+            padding: 10px;
+
+            >.checkbox-wrapper {
+                .flex(row, flex-start, center);
+                margin-bottom: 6px;
+
+                >span {
+                    white-space: nowrap;
+                }
+            }
         }
     }
 }

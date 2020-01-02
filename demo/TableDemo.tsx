@@ -117,6 +117,40 @@ export const TableDemo = (props: any) => {
       checked: true
     }
   ];
+  // const customColumn = [
+  //   {
+  //     title: "Full name",
+  //     dataIndex: "FullName",
+  //     checked: true,
+  //   },
+  //   {
+  //     title: "Position",
+  //     dataIndex: "PositionName",
+  //     checked: true,
+
+  //   },
+  //   {
+  //     title: "Status",
+  //     dataIndex: "StatusName",
+  //     checked: true,
+  //   },
+  //   {
+  //     title: "Delimitation Area Of Operation",
+  //     dataIndex: "DelimitationArea",
+  //     checked: true,
+  //   },
+  //   {
+  //     title: "E-Mail Address",
+  //     dataIndex: "Email",
+  //     width: '300',
+  //     checked: true,
+  //   },
+  //   {
+  //     title: "Action",
+  //     checked: true,
+  //   }
+
+  // ]
   const getPageList = async (action: "concat" | "replace" = "replace") => {
     // console.log("qqqqq>>>>>>>>>", q.CurrentPage);
     const res = await api.post(`api/Role/GetPageList`, q);
@@ -364,7 +398,7 @@ export const TableDemo = (props: any) => {
       <Button shape="circle" type='primary' loading />
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
-      <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'></Dropdown>
+      <Dropdown data={DropdownList} placeholder="Dropdown" type='primary'></Dropdown>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
       {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       <Button type='primary' disabled={disabled}>Disabled</Button>

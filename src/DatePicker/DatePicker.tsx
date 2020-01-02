@@ -43,7 +43,14 @@ export const DatePicker = (props: any): any => {
       // console.error(e, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', min, new Date(e).getTime() === new Date(min).getTime())
       // if (new Date(e).getTime() !== new Date(min).getTime()) {
       // }
-      props.onChange(e)
+      if (min) {
+        if (e) {
+          props.onChange(e)
+        }
+      } else {
+        props.onChange(e)
+
+      }
     }
   }
 

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { RTable } from ".";
 import { Pagination } from "../Pagination/Pagination";
 import { render } from "react-dom";
-import { Checkbox, CheckboxGroup } from "../index";
+import { Checkbox, CheckboxGroup, Dropdown } from "../index";
 // import { TableProps } from './interface';
 import { useEffect } from 'react';
 
@@ -268,16 +268,22 @@ const Table = (props: TableProps) => {
       // if(props.showCustomColumn){
 
       // }
+      const DropdownList: any[] = [
+      ]
+      const content: any = <div className={`customColumn`}>
+        {customColumn.length > 2 && <Checkbox key={'checkAll'} checked={checkAll} onChange={(e) => onCustomColumnChange(e)}>{'CheckAll'}</Checkbox>}
+        {customColumn.length > 0 && customColumn.map((item: any, index: number) =>
+          <Checkbox key={item.title + index} checked={item.checked} onChange={(e) => onCustomColumnChange(e, item)}>{item.title}</Checkbox>
+        )}
+      </div>
+      DropdownList.push(content)
+
+
       return (
         <div className={`table-header`}>
           <span>{title}</span>
-
-          <div className={`customColumn`}>
-            {customColumn.length > 2 && <Checkbox key={'checkAll'} checked={checkAll} onChange={(e) => onCustomColumnChange(e)}>{'CheckAll'}</Checkbox>}
-            {customColumn.length > 0 && customColumn.map((item: any, index: number) =>
-              <Checkbox key={item.title + index} checked={item.checked} onChange={(e) => onCustomColumnChange(e, item)}>{item.title}</Checkbox>
-            )}
-          </div>
+          {/* trigger="hover" */}
+          <Dropdown data={DropdownList} trigger="hover" placeholder="Columns" type='primary' position="auto"></Dropdown>
           {/* <CheckboxGroup data={customColumn}></CheckboxGroup> */}
         </div>
       )
