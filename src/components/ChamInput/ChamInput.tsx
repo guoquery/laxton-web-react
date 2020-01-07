@@ -29,6 +29,7 @@ export interface DatePickerType {
   format?: string;
   minDate?: Date | string | number;
   maxDate?: Date | string | number;
+  birthDate?: Date | string | number;
   /**datePicker***/
 }
 export interface ChamInputType extends DropDownType, DatePickerType {
@@ -230,20 +231,22 @@ export const ChamInput = observer((props: ChamInputProps) => {
     );
   } else if (type === "datePicker") {
 
-    const { minDate, maxDate, dateType, format } = item;
+    const { minDate, maxDate, dateType, format, birthDate } = item;
     inputControl = (
       <DatePicker
         className={`txt${item.value}`}
         absolute={props.absolute === false ? false : true}
         format={format || 'MM/dd/yyyy'}
         // value={inputValue}
-        value={minDate ? (inputValue ? inputValue : minDate) : inputValue}
+        value={birthDate ? (inputValue ? inputValue : birthDate) : inputValue}
         disabled={props.disabled}
         onChange={(e: any) => SetValue(e)}
+        showYear
         min={minDate}
         max={maxDate}
+        birthDate={birthDate}
         type={dateType || 'date'}
-        // clearable={minDate ? false : true}
+        // clearable={birthDate ? false : true}
         placeholder={placeholder || " Choose Date"} ></DatePicker>
     );
   }

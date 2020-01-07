@@ -180,7 +180,6 @@ export const Select = (props: SelectProps): any => {
       // renderItem={renderItem}
       renderResult={(item: any) => customRenderResult(item)}
       renderItem={(item: any, i: number) => customRenderItem(item, i)}
-      id="1234455"
     ></SOSelect>
 
   }

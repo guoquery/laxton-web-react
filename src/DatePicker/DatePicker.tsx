@@ -28,7 +28,7 @@ export interface SelectLocale {
 export const DatePicker = (props: any): any => {
   const [openYearPicker, setCloseYearPicker] = useState(true)
   const [yearPickerDate, setYearPickerDate] = useState()
-  const { min } = props;
+  const { birthDate } = props;
   // setTimeout(() => {
   //   setYearPickerDate(props.min)
   // }, 20);
@@ -43,7 +43,7 @@ export const DatePicker = (props: any): any => {
       // console.error(e, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', min, new Date(e).getTime() === new Date(min).getTime())
       // if (new Date(e).getTime() !== new Date(min).getTime()) {
       // }
-      if (min) {
+      if (birthDate) {
         if (e) {
           props.onChange(e)
         }
@@ -58,7 +58,7 @@ export const DatePicker = (props: any): any => {
     // console.log(e.target.className, e, 'click>>>>>')
 
     // setYearPickerDate(props.min)
-    if (props.min && openYearPicker && e.target.className) {
+    if (birthDate && openYearPicker && e.target.className) {
       setTimeout(() => {
         let span: any = document.getElementsByClassName('so-datepicker-ym')[0].getElementsByTagName('span')[0]
         // console.log(span, ">>>>>>>>>>>"

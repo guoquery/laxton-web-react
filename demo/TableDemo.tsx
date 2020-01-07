@@ -225,8 +225,7 @@ export const TableDemo = (props: any) => {
     {
       label: "Date of Revocation",
       value: "DateOfRevocation",
-      minDate: '1/1/1990',
-      maxDate: '1/1/2000',
+      birthDate: '1/1/1990',
       require: true,
       type: "datePicker"
     },
@@ -246,6 +245,8 @@ export const TableDemo = (props: any) => {
       // disabled: true,
       // iif: () => true
       // error: 'The input is not valid Name'
+      renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
+      renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
     },
     {
       label: "Last Name",

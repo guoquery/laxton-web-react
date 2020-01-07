@@ -33,7 +33,7 @@ const RTable = (props: TableProps) => {
   const [sortOrder, setSortOrder] = useState()
   const [currentColumnsPage, setCurrentColumnsPage] = useState(0);
   // const [data, setData] = useState(props.data)
-  const data = props.data;
+  const data = props.data || [];
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const [columnsPageSize, setColumnsPageSize] = useState(5);
   const [indentSize] = useState(props.indentSize || 15);
