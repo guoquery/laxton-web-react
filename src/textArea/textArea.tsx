@@ -3,39 +3,39 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 
 
 export interface TextAreaProps {
-    placeholder?: string | React.ReactNode;
-    onChange: (value: any) => void,
-    value?: string,
-    children?: React.ReactNode;
+  placeholder?: string | React.ReactNode;
+  onChange: (value: any) => void,
+  value?: string,
+  children?: React.ReactNode;
 }
 
 export const TextArea = (props: TextAreaProps): any => {
 
-    // const [disabled,setDisabled] = useEffect(false)
+  // const [disabled,setDisabled] = useEffect(false)
 
-    const onChange = (e: any) => {
-        props.onChange(e)
-    }
-    const placeholder = () => {
-        // props.placeholder()
+  const onChange = (e: any) => {
+    props.onChange(e)
+  }
+  const placeholder = () => {
+    // props.placeholder()
 
-    }
-    const renderTextArea = () => {
+  }
+  const renderTextArea = () => {
 
-        return (
-            // <label className="so-input">
-            <textarea
-                className="so-input"
-                value={props.value}
-                // disabled={setDisabled()}
-                onChange={onChange}
-                placeholder="Enter Here"
-            ></textarea>
-            // </label>
+    return (
+      // <label className="so-input">
+      <textarea
+        className="laxton-input"
+        value={props.value}
+        // disabled={setDisabled()}
+        onChange={onChange}
+        placeholder="Enter Here"
+      ></textarea>
+      // </label>
 
-        )
+    )
 
-    }
-    return (renderTextArea());
+  }
+  return (renderTextArea());
 
 }

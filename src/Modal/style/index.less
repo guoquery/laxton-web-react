@@ -1,34 +1,141 @@
 @import '../../style/core/index.less';
 
 .@{laxton-prefix}-modal-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  // z-index: 100;
-  overflow: auto;
-  outline: 0;
-  .@{laxton-prefix}-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    // z-index: 100;
+    overflow: auto;
+    outline: 0;
+
+
+
+    .@{laxton-prefix}-modal-close,
+    .@{laxton-prefix}-modal-expand {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        padding: 0;
+        color: rgba(0, 0, 0, 0.45);
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+
+        .@{laxton-prefix}-modal-close-x {
+            display: block;
+            // width: 56px;
+            // height: 56px;
+            margin-right: 15px;
+            font-size: 16px;
+            font-style: normal;
+            line-height: 56px;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+        }
+
+        .@{laxton-prefix}-modal-expand-x {
+            display: block;
+            // width: 56px;
+            // height: 56px;
+            margin-right: 40px;
+            font-size: 16px;
+            font-style: normal;
+            line-height: 56px;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+        }
+    }
+
+    .@{laxton-prefix}-modal-header {
+        padding: 16px 24px;
+        color: rgba(0, 0, 0, 0.65);
+        background: #fff;
+        border-bottom: 1px solid #e8e8e8;
+        border-radius: 4px 4px 0 0;
+
+        .@{laxton-prefix}-modal-title {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.85);
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            word-wrap: break-word;
+            position: relative;
+
+            .@{laxton-prefix}-modal-title-x {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+            }
+        }
+    }
+
+    .@{laxton-prefix}-modal-body {
+        padding: 24px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    .@{laxton-prefix}-modal-footer {
+        padding: 10px 16px;
+        text-align: right;
+        background: transparent;
+        border-top: 1px solid #e8e8e8;
+        border-radius: 0 0 4px 4px;
+
+        button {
+            margin: auto;
+        }
+
+        button+button {
+            margin-bottom: 0;
+            margin-left: 8px;
+        }
+    }
+
+    .@{laxton-prefix}-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        opacity: .6;
+        z-index: 99;
+    }
+}
+
+.@{laxton-prefix}-modal {
     color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     line-height: 1.5;
     position: relative;
     top: 150px;
     margin: 0 auto;
-    width:30%;
+    width: 30%;
     position: relative;
     background-color: #fff;
     background-clip: padding-box;
     border-radius: 4px;
     z-index: 100;
-  }
-  .@{laxton-prefix}-onModal {
+}
+
+.@{laxton-prefix}-onModal {
     color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     line-height: 1.5;
     position: relative;
-    // top: 100px;
+    top: 0px !important;
     margin: 0 auto;
     width: 100% !important;
     height: 100%;
@@ -37,121 +144,52 @@
     background-clip: padding-box;
     border-radius: 4px;
     z-index: 100;
-  }
-  .@{laxton-prefix}-modal-close,.@{laxton-prefix}-modal-expand {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10;
-    padding: 0;
-    color: rgba(0, 0, 0, 0.45);
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-    background: transparent;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    .@{laxton-prefix}-modal-close-x {
-      display: block;
-      // width: 56px;
-      // height: 56px;
-      margin-right: 15px;
-      font-size: 16px;
-      font-style: normal;
-      line-height: 56px;
-      text-align: center;
-      text-transform: none;
-      text-rendering: auto;
-    }
-    .@{laxton-prefix}-modal-expand-x {
-      display: block;
-      // width: 56px;
-      // height: 56px;
-      margin-right: 40px;
-      font-size: 16px;
-      font-style: normal;
-      line-height: 56px;
-      text-align: center;
-      text-transform: none;
-      text-rendering: auto;
-    }
-  }
-  .@{laxton-prefix}-modal-header {
-    padding: 16px 24px;
-    color: rgba(0, 0, 0, 0.65);
-    background: #fff;
-    border-bottom: 1px solid #e8e8e8;
-    border-radius: 4px 4px 0 0;
-    .@{laxton-prefix}-modal-title {
-      margin: 0;
-      color: rgba(0, 0, 0, 0.85);
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 22px;
-      word-wrap: break-word;
-    }
-  }
-  .@{laxton-prefix}-modal-body {
-    padding: 24px;
-    font-size: 14px;
-    line-height: 1.5;
-    word-wrap: break-word;
-  }
-  .@{laxton-prefix}-modal-footer {
-    padding: 10px 16px;
-    text-align: right;
-    background: transparent;
-    border-top: 1px solid #e8e8e8;
-    border-radius: 0 0 4px 4px;
-    button{
-      margin: auto;
-    }
-    button+button {
-      margin-bottom: 0;
-      margin-left: 8px;
-    }
-  }
-  .@{laxton-prefix}-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #000;
-    opacity: .6;
-    z-index: 99;
-  }
 }
 
+.@{laxton-prefix}-modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    font-size: 16px;
+    // height: 20px;
+    line-height: 22px;
+    word-wrap: break-word;
+    position: relative;
 
-
+    .@{laxton-prefix}-modal-title-x {
+        margin: 0 8px;
+        cursor: pointer;
+    }
+}
 
 
 .modal-enter {
-  transform: scale(0);
+    transform: scale(0);
 }
 
 .modal-enter-active {
-  transform: scale(1.1);
-  transition: all .2s linear;
+    transform: scale(1.1);
+    transition: all .2s linear;
 }
 
 .modal-enter-end {
-  transform: scale(1);
-  transition: all .1s linear;
+    transform: scale(1);
+    transition: all .1s linear;
 }
 
 .modal-leave {
-  transform: scale(1);
+    transform: scale(1);
 }
 
 .modal-leave-active {
-  transform: scale(1.1);
-  transition: all .1s linear;
+    transform: scale(1.1);
+    transition: all .1s linear;
 }
 
 .modal-leave-end {
-  transform: scale(0);
-  transition: all .2s linear;
+    transform: scale(0);
+    transition: all .2s linear;
 }

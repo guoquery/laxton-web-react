@@ -5,7 +5,7 @@ export { Pagination } from './Pagination/Pagination';
 export { Button } from './Button/Button';
 export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
-export { Modal } from './Modal/Modal';
+export { Modal } from './Modal/index';
 export { NewPortal } from './Modal/newPortal/newPortal';
 export { Transition } from './Modal/Transition/Transition';
 export { Select } from './Select/index';
@@ -14,9 +14,10 @@ export { Checkbox } from './Checkbox/Checkbox';
 export { Edit } from './Edit/Edit';
 export { Grid } from './Grid/Grid';
 export { Dropdown } from './Dropdown/Dropdown'
-export { TextArea } from './textArea/textArea';
+export { TextArea } from './textArea/TextArea';
 export { Spin } from './Spin/index'
 export { CheckboxGroup } from './Checkbox/Group'
+export { LImage as Image } from './Image/Image'
 // // Created by scripts/src-index.js.
 // import './styles/normalize.less'
 // import * as utils from './utils'

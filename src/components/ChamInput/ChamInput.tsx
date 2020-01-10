@@ -278,7 +278,12 @@ export const ChamInput = observer((props: ChamInputProps) => {
             props.onChange({ [item.value]: inputString })
           }
         } else {
-          props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
+          // console.log(props.value, inputValue, props.value == inputValue)
+          if (props.value == inputValue) {
+
+          } else {
+            props.onChange({ [item.value]: validateFields ? inputValue : inputValue })
+          }
         }
       }
     }

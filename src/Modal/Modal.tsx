@@ -60,7 +60,7 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <div>
-      <NewPortal>
+      <NewPortal visible={props.visible}>
         {/* <Transition
                   visible={props.visible}
                   animate={true}

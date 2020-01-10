@@ -102,6 +102,7 @@ export const Input = (props: InputProps) => {
       newValue = null;
       setFormatValue(``)
     } else {
+      newValue = newValue + ''
       newValue = newValue.replace(/,/g, '');
       let reg = /^[0-9]*$/;
       switch (formatCode) {

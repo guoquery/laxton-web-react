@@ -46,8 +46,18 @@ export const ChamItem = (props: ChamItemProps) => {
   const expandIndex = props.expandIndex
 
   const OnTextChange = (e: any) => {
-    // console.log(e, 'OnTextChange');
+    if (e && typeof e === 'object') {
+
+
+      // if (values[Object.keys(e)[0]] == Object.values(e)[0]) {
+      // console.error(e, 'OnTextChange888888', values);
+      //   return
+      // } else {
+      // }
+    }
     props.onChange(e)
+
+
   }
   const onValidateChange = (e: any) => {
     // console.log(e, 'onValidateChange chamitem', chamItemConfig);

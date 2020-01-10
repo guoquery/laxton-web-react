@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
+//@ts-ignore
+import { Modal as SOModal } from 'shineout';
 // import "../dist/index";
 // import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea } from "../src/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 // import { TextArea } from '../src/textArea/textArea';
 
 
 export const TableDemo = (props: any) => {
-  let dataType: any[] = [];
-  const [data, setData] = useState(dataType);
+
+  const [data, setData] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
-  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01" });
+  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20 });
+  const [chamItemValues2, setChamItemValues2] = useState({});
   const [pagination, setPagination] = useState({
     total: 0,
     current: 1,
     pageSize: 10
   });
+  console.warn('>>>>>>>>>>>>>>>>>>')
   const [q, setQ] = useState({
     CurrentPage: 1,
     Filters: { TestNumber: '123456' },
@@ -213,22 +217,23 @@ export const TableDemo = (props: any) => {
       label: "Position",
       value: "Position",
       require: true,
+      formatCode: 'tel'
       // type: "dropDown",
       // typeCode: "Position"
     },
-    {
-      label: "Employment Date",
-      value: "EmploymentDate",
-      require: true,
-      type: "datePicker"
-    },
-    {
-      label: "Date of Revocation",
-      value: "DateOfRevocation",
-      birthDate: '1/1/1990',
-      require: true,
-      type: "datePicker"
-    },
+    // {
+    //   label: "Employment Date",
+    //   value: "EmploymentDate",
+    //   require: true,
+    //   type: "datePicker"
+    // },
+    // {
+    //   label: "Date of Revocation",
+    //   value: "DateOfRevocation",
+    //   birthDate: '1/1/1990',
+    //   require: true,
+    //   type: "datePicker"
+    // },
     {
       label: "Status",
       value: "Status",
@@ -248,17 +253,17 @@ export const TableDemo = (props: any) => {
       renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
       renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
     },
-    {
-      label: "Last Name",
-      value: "LastName",
-      // require: true,
-      type: 'datePicker',
-      minDate: '1/1/1990',
-      maxDate: '1/1/2000',
-      // dateType: 'year',
-      // disabled: true,
-      error: 'The input is not valid Name'
-    },
+    // {
+    //   label: "Last Name",
+    //   value: "LastName",
+    //   // require: true,
+    //   type: 'datePicker',
+    //   minDate: '1/1/1990',
+    //   maxDate: '1/1/2000',
+    //   // dateType: 'year',
+    //   // disabled: true,
+    //   error: 'The input is not valid Name'
+    // },
     // {
     //   label: "test Name",
     //   value: "TestName",
@@ -358,7 +363,9 @@ export const TableDemo = (props: any) => {
     )
   }
   const OnChamItemChange = (e: any) => {
-    // console.log('OnChamItemChange', e)
+    console.warn('OnChamItemChange', e)
+
+    setChamItemValues({ ...chamItemValues, ...e })
   }
   const DropdownList = [
     {
@@ -384,6 +391,21 @@ export const TableDemo = (props: any) => {
     },
   ]
 
+  const item = searchConfig[0]
+
+  const onModalChange = (e: any) => {
+    console.log(e, 'onModalChange')
+    switch (e.type) {
+      case 'ok':
+        confirm()
+
+        break;
+      case 'cancel':
+        closeModal();
+        break;
+    }
+  }
+
   return (
     <div
       style={{ height: "100%", overflowY: "scroll" }}
@@ -395,34 +417,71 @@ export const TableDemo = (props: any) => {
         <Spin name="pulse" />
         <Spin />
       </div>
-
+      <Image href={true} ></Image>
+      <Image width={200} height={125} src={'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fc7c5cc595e12203796678eedd9c4250.jpg?w=2452&h=920'} />
       <Button shape="circle" type='primary' loading />
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" type='primary'></Dropdown>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
-      {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
+      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       <Button type='primary' disabled={disabled}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Spin loading={loading}>
-        <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+        {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       </Spin>
       {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
 
+
+      {/* <SOModal
+        visible={visible}
+        width={500}
+        title="Modal Title"
+        onClose={closeModal}
+        footer={[
+          <Button key="cancel" onClick={closeModal}>
+            Cancel
+         </Button>,
+          <Button key="ok" type="primary" onClick={confirm}>
+            Ok
+         </Button>,
+        ]}
+      >
+        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+      </SOModal> */}
       <Modal
-        title='Basic Modal'
+        // title='Basic Modal'
         prefixCls='laxton'
-        // footer={null}
+        footer={null}
         onOk={confirm}
         onCancel={closeModal}
-        okText='Determine'
-        cancelText='Cancel'
+        onChange={(e: any) => onModalChange(e)}
         visible={visible} >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+
+        {/* <Input
+          // className={validateFields === false ? 'has-error' : ''}
+          type={item.inputType}
+          id={`txt${item.value}`}
+          maxLength={item.maxLength}
+          disabled={props.disabled}
+          // autoCompleteType={"off"
+          placeholder={"Enter Here"}
+          onChange={OnChamItemChange}
+          value={chamItemValues.Position}
+          formatCode={item.formatCode}
+        /> */}
+        {/* <ChamInput
+          item={searchConfig[0]}
+          value={chamItemValues.Position}
+          values={chamItemValues}
+          onChange={OnChamItemChange}
+          layOut={props.layOut}
+          api={props.api}
+        ></ChamInput> */}
+        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+
       </Modal>
-      {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem> */}
 
       <Rt
         columns={columns}

@@ -11,6 +11,7 @@ import "../Checkbox/style/index.less"
 import "../Modal/style/index.less"
 import "../textArea/style/index.less"
 import "../Spin/style/index.less"
+import "../Image/style/index.less"
 
 import "./common.less"
 
