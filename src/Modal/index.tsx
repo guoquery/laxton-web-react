@@ -11,6 +11,7 @@ import { Button } from "../index";
 interface ModalProps {
   mask?: any,
   visible: Boolean,
+  usePortal?: Boolean,
   title?: any,
   children: any,
   footer?: any,
@@ -27,7 +28,7 @@ interface ModalProps {
 }
 export const Modal = (props: ModalProps) => {
   const [fullScreen, setFullScreen] = useState(false);
-  const { title, children, cancelText = "Cancel", okText = "Confirm", width, zIndex, footer, okType = 'primary' } = props;
+  const { title, children, usePortal = true, cancelText = "Cancel", okText = "Confirm", width, zIndex, footer, okType = 'primary' } = props;
   const prefixCls = props.prefixCls === undefined ? 'laxton' : props.prefixCls;
 
 
@@ -35,10 +36,12 @@ export const Modal = (props: ModalProps) => {
 
     switch (type) {
       case 'ok':
-
+        const { onOk } = props
+        onOk && onOk();
         break;
       case 'cancel':
-
+        const { onCancel } = props
+        onCancel && onCancel();
         break;
     }
     console.log('ok', type)
@@ -89,6 +92,7 @@ export const Modal = (props: ModalProps) => {
       visible={props.visible}
       // maskCloseAble={false}
       // width={500}
+      usePortal={usePortal}
       title={renderTitle()}
       onClose={() => onChange('cancel')}
       footer={renderFooter()}
