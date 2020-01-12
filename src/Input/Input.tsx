@@ -87,7 +87,7 @@ export const Input = (props: InputProps) => {
   });
 
   const handleChange = (value: any) => {
-
+    // console.error(value, 'pasete.........')
     let newValue: any = value;
     if (formatCode) {
       newValue = handleFormatValue(value)
@@ -97,7 +97,7 @@ export const Input = (props: InputProps) => {
       const length = propsValue.length
       // console.log(value, 'value.......', length, value.length)
       if (length < value.length) {
-        newValue = props.value + [...value].pop().replace('*', '');
+        newValue = props.value + value.replace(/\*/g, '');
       } else if (length > value.length) {
         newValue = propsValue.substring(0, value.length)
       }
@@ -198,6 +198,12 @@ export const Input = (props: InputProps) => {
     'defaultValue',
     'size',
   ]
+  const onpaste = (e: any) => {
+    console.log('onpaste', onpaste)
+    if (type === 'password') {
+      return false;
+    }
+  }
   let otherProps = omit(props, removeProps);
   const renderFormatInput = () => {
     // if (!formatCode) { return null }
@@ -209,11 +215,13 @@ export const Input = (props: InputProps) => {
     if (type === 'password') {
       otherProps = omit(props, [...removeProps, ...['type']]);
       if (showValue) {
+        console.error(showValue, 'showvalue')
         showValue = Array.from({ length: showValue.toString().length }, () => '*').join('')
       }
     }
     return <input
       {...otherProps}
+      onpaste={(e: any) => onpaste(e)}
       autoComplete={props.autoComplete || 'off'}
       value={formatCode ? formatValue : showValue}
       onChange={(e: any) => handleChange(e.target.value)}
@@ -226,7 +234,7 @@ export const Input = (props: InputProps) => {
   const renderInput = () => {
 
     return <div>
-      {!formatCode && false && <input
+      {/* {!formatCode && false && <input
         {...otherProps}
         autoComplete={props.autoComplete || 'off'}
         value={props.value}
@@ -234,7 +242,7 @@ export const Input = (props: InputProps) => {
         className={classes}
         onKeyDown={handleKeyDown}
         onBlur={handleOnBlur}
-      />}
+      />} */}
       {renderFormatInput()}
     </div>
   }
