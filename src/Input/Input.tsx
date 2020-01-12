@@ -41,15 +41,17 @@ export const Input = (props: InputProps) => {
   const {
     // shape,
     className,
-    size,
+    size = 'default',
     formatCode,
+    value,
+    type,
     // icon,
     // ghost,
     // block,
     ...rest
   } = props;
 
-  const type = props.size || 'default';
+  // const size = props.size || 'default';
   const prefixCls = props.prefixCls || 'laxton-input';
 
   // large => lg
@@ -74,7 +76,7 @@ export const Input = (props: InputProps) => {
   }
 
   const classes = classNames(prefixCls, className, {
-    [`${prefixCls}-${type}`]: type,
+    [`${prefixCls}-${size}`]: size,
     // [`${prefixCls}-${shape}`]: shape,
     [`${prefixCls}-${sizeCls}`]: sizeCls,
     // [`${prefixCls}-icon-only`]: !children && children !== 0 && iconType,
@@ -85,10 +87,20 @@ export const Input = (props: InputProps) => {
   });
 
   const handleChange = (value: any) => {
-    // console.log(value, 'value.......')
+
     let newValue: any = value;
     if (formatCode) {
       newValue = handleFormatValue(value)
+    }
+    if (type === 'password') {
+      const propsValue = props.value + ''
+      const length = propsValue.length
+      // console.log(value, 'value.......', length, value.length)
+      if (length < value.length) {
+        newValue = props.value + [...value].pop().replace('*', '');
+      } else if (length > value.length) {
+        newValue = propsValue.substring(0, value.length)
+      }
     }
     if (props.onChange) {
       // props.onChange(value)
@@ -171,51 +183,7 @@ export const Input = (props: InputProps) => {
     handleOnBlur();
   }, [initFormat])
 
-  const renderFormatInput = () => {
-    if (!formatCode) { return null }
-    if (props.value && !formatValue) {
-      handleChange(props.value);
-      setInitFormat(true)
-    }
-    return <input
-      {...otherProps}
-      // id='1234'
-      // id={props.id + '2'}
-      // allowClear
-      value={formatValue}
-      // onChange={handleChange}
-      onChange={(e: any) => handleChange(e.target.value)}
-      className={classes}
-      // className={classNames(this.getInputClassName(prefixCls), {
-      //   [className!]: className && !addonBefore && !addonAfter,
-      // })}
-      onKeyDown={handleKeyDown}
-      onBlur={handleOnBlur}
-    // ref={this.saveInput}
-    />
-  }
-  const renderInput = () => {
-
-    return <div>
-      {!formatCode && <input
-        {...otherProps}
-        // allowClear
-        autoComplete={props.autoComplete || 'off'}
-        value={props.value}
-        // onChange={handleChange}
-        onChange={(e: any) => handleChange(e.target.value)}
-        className={classes}
-        // className={classNames(this.getInputClassName(prefixCls), {
-        //   [className!]: className && !addonBefore && !addonAfter,
-        // })}
-        onKeyDown={handleKeyDown}
-        onBlur={handleOnBlur}
-      // ref={this.saveInput}
-      />}
-      {renderFormatInput()}
-    </div>
-  }
-  const otherProps = omit(props, [
+  const removeProps = [
     'prefixCls',
     'onPressEnter',
     'addonBefore',
@@ -229,7 +197,48 @@ export const Input = (props: InputProps) => {
     // specify either the value prop, or the defaultValue prop, but not both.
     'defaultValue',
     'size',
-  ]);
+  ]
+  let otherProps = omit(props, removeProps);
+  const renderFormatInput = () => {
+    // if (!formatCode) { return null }
+    if (formatCode && props.value && !formatValue) {
+      handleChange(props.value);
+      setInitFormat(true)
+    }
+    let showValue = value;
+    if (type === 'password') {
+      otherProps = omit(props, [...removeProps, ...['type']]);
+      if (showValue) {
+        showValue = Array.from({ length: showValue.toString().length }, () => '*').join('')
+      }
+    }
+    return <input
+      {...otherProps}
+      autoComplete={props.autoComplete || 'off'}
+      value={formatCode ? formatValue : showValue}
+      onChange={(e: any) => handleChange(e.target.value)}
+      className={classes}
+      onKeyDown={handleKeyDown}
+      onBlur={handleOnBlur}
+    // ref={this.saveInput}
+    />
+  }
+  const renderInput = () => {
+
+    return <div>
+      {!formatCode && false && <input
+        {...otherProps}
+        autoComplete={props.autoComplete || 'off'}
+        value={props.value}
+        onChange={(e: any) => handleChange(e.target.value)}
+        className={classes}
+        onKeyDown={handleKeyDown}
+        onBlur={handleOnBlur}
+      />}
+      {renderFormatInput()}
+    </div>
+  }
+
   // console.log(props, otherProps, 'other>>>>>>>>>')
   return (renderInput());
 };

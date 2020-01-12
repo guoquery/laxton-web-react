@@ -23,7 +23,6 @@ export const TableDemo = (props: any) => {
     current: 1,
     pageSize: 10
   });
-  console.warn('>>>>>>>>>>>>>>>>>>')
   const [q, setQ] = useState({
     CurrentPage: 1,
     Filters: { TestNumber: '123456' },
@@ -227,13 +226,13 @@ export const TableDemo = (props: any) => {
     //   require: true,
     //   type: "datePicker"
     // },
-    // {
-    //   label: "Date of Revocation",
-    //   value: "DateOfRevocation",
-    //   birthDate: '1/1/1990',
-    //   require: true,
-    //   type: "datePicker"
-    // },
+    {
+      label: "Date of Revocation",
+      value: "DateOfRevocation",
+      birthDate: '1/1/1990',
+      require: true,
+      type: "datePicker"
+    },
     {
       label: "Status",
       value: "Status",
@@ -253,17 +252,6 @@ export const TableDemo = (props: any) => {
       renderItem: '我是{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
       renderResult: 'hello{ElectionName1},你好{ElectionTypeName},time:{ElectionDate}',
     },
-    // {
-    //   label: "Last Name",
-    //   value: "LastName",
-    //   // require: true,
-    //   type: 'datePicker',
-    //   minDate: '1/1/1990',
-    //   maxDate: '1/1/2000',
-    //   // dateType: 'year',
-    //   // disabled: true,
-    //   error: 'The input is not valid Name'
-    // },
     // {
     //   label: "test Name",
     //   value: "TestName",
@@ -301,12 +289,12 @@ export const TableDemo = (props: any) => {
     //   value: "Constituency",
     //   linkage: "District"
     // },
-    {
-      label: "Polling Station",
-      type: "dropDown",
-      value: "PollingStation",
-      linkage: "Constituency"
-    },
+    // {
+    //   label: "Polling Station",
+    //   type: "dropDown",
+    //   value: "PollingStation",
+    //   linkage: "Constituency"
+    // },
     {
       label: "Residential Address",
       type: "textArea",
@@ -363,7 +351,7 @@ export const TableDemo = (props: any) => {
     )
   }
   const OnChamItemChange = (e: any) => {
-    console.warn('OnChamItemChange', e)
+    console.log('OnChamItemChange', e)
 
     setChamItemValues({ ...chamItemValues, ...e })
   }
@@ -393,6 +381,39 @@ export const TableDemo = (props: any) => {
 
   const item = searchConfig[0]
 
+  const showCaseNewUserConfig = [
+    {
+      label: 'Email',
+      value: 'Email',
+      require: true,
+      pattern: '^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$',
+    },
+    {
+      label: "User Name",
+      value: "UserName",
+      // require: true
+    },
+    {
+      label: "Password",
+      value: "Password",
+      inputType: "password",
+      require: true
+    },
+    {
+      label: "Confirm Password",
+      // label: 'National Registration Number',
+      value: "ComfirmPassword",
+      inputType: "password",
+      require: true
+    },
+    {
+      label: "User Role",
+      type: "dropDown",
+      value: "RoleId",
+      apiUrl: "api/Role/GetPageList"
+    }
+  ]
+
   const onModalChange = (e: any) => {
     console.log(e, 'onModalChange')
     switch (e.type) {
@@ -404,6 +425,11 @@ export const TableDemo = (props: any) => {
         closeModal();
         break;
     }
+  }
+
+  const onValidateChange = (e: any) => {
+    console.log(e, 'onValidateChange')
+    setDisabled(!e)
   }
 
   return (
@@ -428,7 +454,7 @@ export const TableDemo = (props: any) => {
       <Button type='primary' disabled={disabled}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Spin loading={loading}>
-        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+        {/* <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem> */}
         {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       </Spin>
       {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
@@ -457,6 +483,7 @@ export const TableDemo = (props: any) => {
         onOk={confirm}
         onCancel={closeModal}
         onChange={(e: any) => onModalChange(e)}
+        okDisabled={disabled}
         visible={visible} >
 
         {/* <Input
@@ -479,7 +506,7 @@ export const TableDemo = (props: any) => {
           layOut={props.layOut}
           api={props.api}
         ></ChamInput> */}
-        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+        <ChamItem chamItemConfig={showCaseNewUserConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => onValidateChange(e)} width={1 / 2}></ChamItem>
 
       </Modal>
 

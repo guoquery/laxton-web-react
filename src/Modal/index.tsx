@@ -9,6 +9,7 @@ import { Modal as SOModal } from 'shineout'
 import { Button } from "../index";
 
 interface ModalProps {
+  okDisabled?: boolean,
   mask?: any,
   visible: Boolean,
   usePortal?: Boolean,
@@ -28,7 +29,7 @@ interface ModalProps {
 }
 export const Modal = (props: ModalProps) => {
   const [fullScreen, setFullScreen] = useState(false);
-  const { title, children, usePortal = true, cancelText = "Cancel", okText = "Confirm", width, zIndex, footer, okType = 'primary' } = props;
+  const { title, children, usePortal = true, cancelText = "Cancel", okText = "Confirm", width, zIndex, footer, okType = 'primary', okDisabled = false } = props;
   const prefixCls = props.prefixCls === undefined ? 'laxton' : props.prefixCls;
 
 
@@ -80,7 +81,7 @@ export const Modal = (props: ModalProps) => {
     return (
       <div className={`${prefixCls}-modal-footer`}>
         <Button onClick={() => onChange('cancel')} >{cancelText}</Button>
-        <Button type={okType} onClick={() => onChange('ok')}>{okText}</Button>
+        <Button disabled={okDisabled} type={okType} onClick={() => onChange('ok')}>{okText}</Button>
       </div>
     )
 
