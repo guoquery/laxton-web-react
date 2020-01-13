@@ -6,9 +6,8 @@ import { Modal as SOModal } from 'shineout';
 import "../src/assets/index";
 import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
 import { api } from "./api.service";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-// import { TextArea } from '../src/textArea/textArea';
-
+import { faAngleDown, faFingerprint } from "@fortawesome/free-solid-svg-icons";
+import { FingerLogin } from "../src/components";
 
 export const TableDemo = (props: any) => {
 
@@ -443,6 +442,7 @@ export const TableDemo = (props: any) => {
         <Spin name="pulse" />
         <Spin />
       </div>
+      <FingerLogin></FingerLogin>
       <Image href={true} ></Image>
       <Image width={200} height={125} src={'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fc7c5cc595e12203796678eedd9c4250.jpg?w=2452&h=920'} />
       <Button shape="circle" type='primary' loading />

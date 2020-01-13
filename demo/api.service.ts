@@ -6,7 +6,8 @@ class ApiService {
   // ApiUrl = "https://192.168.101.32:30002/";
   // ApiUrl = "http://192.168.100.252:30002/";
   // ApiUrl = "http://192.168.101.32:32250/";
-  ApiUrl = "http://localhost:30002/";
+  ApiUrl = "http://192.168.101.32:20716/";
+  // ApiUrl = "http://localhost:30002/";
   // DeviceServiceUrl = Config.DeviceServiceUrl;
   authorityArr: any[] = [];
   // token = "iObLoLKRyJbOtzX6pGsK2emCSYmwHilBMfdYm35LCQGFct1jRZS-77DUtu9AqwtsTuombOtUaJ8sFGGSRxMV2Ihi8iu9rLjtL7fhMr1z8wEI9zCwZDqwJnBlPurNw5p3LWTVEm6U826vIQd4_sl3POC5UdJMzj93dpAs2TqMMirkhzLzCP6_cYVCsKCk0HyAPp759DPBCd2WLxoeFoW_lrM93Sz9mXXNmzlstUvbyYqU8UcIW1hUr4LpD2ueidFGMLvQ8dZgDQ7LEoubF5fjx2GviP-0MCpvPOsV3vQzzO7EfQmHyZKESRR2oU9v-LJxSNnf8zQ6Sy5XhrBU3-CmsK03RQYwD6eOvJgnpsI4MQCCn9C9c9LTvYONcuoNbkwzY1LhvAQ_4tjHD50t7NsuCExCzqVUnDoU0CrPtENoGDLbrXBBV-RSfqL1CiPY1y33IU3TUHjRloPwGOHVALINOFLbus-oDUqzQJO73bHzSUKl3A6mlxmiypKKeJ_w1RqL63aope8fAe2a7k8vU5W6tQ"
