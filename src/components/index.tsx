@@ -1,5 +1,5 @@
 export { Search } from './Search/Search';
-export { ChamItem } from './ChamItem/ChamItem';
+export { ChamItem, chamItemConfig } from './ChamItem/ChamItem';
 export { FingerLogin } from './FingerLogin/';
-export { ChamInput, ChamInputType } from './ChamInput/ChamInput';
+export { ChamInput, ChamInputType, } from './ChamInput/ChamInput';
 

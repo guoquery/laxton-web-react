@@ -4,7 +4,7 @@ import { Modal as SOModal } from 'shineout';
 // import "../dist/index";
 // import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
+import { Rt, Search, Message, ChamInputType, chamItemConfig, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown, faFingerprint } from "@fortawesome/free-solid-svg-icons";
 import { FingerLogin } from "../src/components";
@@ -15,7 +15,7 @@ export const TableDemo = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
-  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20 });
+  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20, Status: 1 });
   const [chamItemValues2, setChamItemValues2] = useState({});
   const [pagination, setPagination] = useState({
     total: 0,
@@ -210,7 +210,7 @@ export const TableDemo = (props: any) => {
     setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
-  const searchConfig: ChamInputType[] = [
+  const searchConfig: chamItemConfig[] = [
     {
       label: "Position",
       value: "Position",
@@ -238,7 +238,8 @@ export const TableDemo = (props: any) => {
       type: "dropDown",
       typeCode: "Status",
       require: true,
-      optionValue: "Id"
+      optionValue: "Id",
+      useOriginalData: true,
     },
     {
       label: "First Name",
@@ -475,7 +476,7 @@ export const TableDemo = (props: any) => {
         ]}
       >
     </SOModal> */}
-      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
+      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} getSelectOriginalData={(e: any, data: any) => { console.error(e, data) }} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
       <Modal
         // title='Basic Modal'
         prefixCls='laxton'

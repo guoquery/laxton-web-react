@@ -87,7 +87,8 @@ export interface SelectProps extends AbstractSelectProps {
   removeIcon?: React.ReactNode;
   clearIcon?: React.ReactNode;
   menuItemSelectedIcon?: React.ReactNode;
-  [keyName: string]: any
+  [keyName: string]: any;
+  getOriginalData?: (value: any) => any
 }
 
 export interface OptionProps {
@@ -121,10 +122,14 @@ export const Select = (props: SelectProps): any => {
   const optionLabel = props.optionLabel || 'Name';
   const optionValue = props.optionValue || 'Id';
 
-  const onChange = (e: any) => {
-    console.warn(e, "select onchange")
+  const onChange = (e: any, original: any) => {
+    // console.warn(e, "select onchange", original)
+    const { getOriginalData } = props;
     // setValue(e[renderItem])
     // setValue(e)
+    if (getOriginalData) {
+      getOriginalData(original)
+    }
     if (props.onChange && typeof props.onChange === 'function') {
       // props.onChange(e[optionValue])
       props.onChange(e)
@@ -175,7 +180,7 @@ export const Select = (props: SelectProps): any => {
     //     ))}
     // </select>
 
-    return <SOSelect {...props} data={data} keygen={optionValue} onChange={(e: any) => onChange(e)}
+    return <SOSelect {...props} data={data} keygen={optionValue} onChange={onChange}
       value={props.value}
       datum={{ format: optionValue || 'Id' }}
       // format={optionValue}

@@ -5,8 +5,8 @@ class ApiService {
   // Message = Message;
   // ApiUrl = "https://192.168.101.32:30002/";
   // ApiUrl = "http://192.168.100.252:30002/";
-  // ApiUrl = "http://192.168.101.32:32250/";
-  ApiUrl = "http://192.168.101.32:20716/";
+  ApiUrl = "http://192.168.101.32:32250/";
+  // ApiUrl = "http://192.168.101.32:20716/";
   // ApiUrl = "http://localhost:30002/";
   // DeviceServiceUrl = Config.DeviceServiceUrl;
   authorityArr: any[] = [];
