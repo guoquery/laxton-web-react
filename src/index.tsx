@@ -1,5 +1,5 @@
 
-export { Search, ChamInput, ChamInputType, ChamItem } from "./components";
+export { Search, ChamInput, ChamInputType, ChamItem, FingerLogin } from "./components";
 export { Rt, RTable } from './Table';
 export { Pagination } from './Pagination/Pagination';
 export { Button } from './Button/Button';

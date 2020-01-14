@@ -199,10 +199,10 @@ export const Input = (props: InputProps) => {
     'size',
   ]
   const onpaste = (e: any) => {
-    console.log('onpaste', onpaste)
-    if (type === 'password') {
-      return false;
-    }
+    // console.log('onpaste', onpaste)
+    // if (type === 'password') {
+    //   return false;
+    // }
   }
   let otherProps = omit(props, removeProps);
   const renderFormatInput = () => {
@@ -221,7 +221,7 @@ export const Input = (props: InputProps) => {
     }
     return <input
       {...otherProps}
-      onpaste={(e: any) => onpaste(e)}
+      onPaste={(e: any) => onpaste(e)}
       autoComplete={props.autoComplete || 'off'}
       value={formatCode ? formatValue : showValue}
       onChange={(e: any) => handleChange(e.target.value)}

@@ -450,7 +450,7 @@ export const TableDemo = (props: any) => {
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" type='primary'></Dropdown>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+      {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       <Button type='primary' disabled={disabled}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Spin loading={loading}>
@@ -474,8 +474,8 @@ export const TableDemo = (props: any) => {
          </Button>,
         ]}
       >
-        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
-      </SOModal> */}
+    </SOModal> */}
+      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
       <Modal
         // title='Basic Modal'
         prefixCls='laxton'

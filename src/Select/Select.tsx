@@ -177,6 +177,8 @@ export const Select = (props: SelectProps): any => {
 
     return <SOSelect {...props} data={data} keygen={optionValue} onChange={(e: any) => onChange(e)}
       value={props.value}
+      datum={{ format: optionValue || 'Id' }}
+      // format={optionValue}
       // renderItem={renderItem}
       renderResult={(item: any) => customRenderResult(item)}
       renderItem={(item: any, i: number) => customRenderItem(item, i)}

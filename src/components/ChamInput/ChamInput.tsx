@@ -200,7 +200,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
         data={dropdownData}
         value={inputValue ? Number(inputValue) : undefined}
         defaultValue={inputValue ? Number(inputValue) : undefined}
-        datum={{ format: item.optionValue || 'Id' }}
+
         onChange={(e: any) => SetValue(e)}
         optionLabel={item.optionLabel}
         optionValue={item.optionValue}
@@ -213,6 +213,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
   } else if (type === "textArea") {
     inputControl = (
       <TextArea
+        value={inputValue}
         // value={inputValue}
         // disabled={props.disabled}
         // style={{ width: "100%", }}
