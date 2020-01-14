@@ -11,6 +11,7 @@ interface FingerLoginProps {
   iconColor?: string;
   borderColor?: string;
   size?: string;
+  iconSize?: any;
   // expendIndex?: number,
   // searchConfig: any;
   // onChange: (action: any) => any;
@@ -24,12 +25,12 @@ interface FingerLoginProps {
   // defaultValues?: any;
 }
 export const FingerLogin = (props: FingerLoginProps) => {
-  const { iconColor = 'black', borderColor = '#b0f9e4', size = "50" } = props
+  const { iconColor = 'black', borderColor = '#b0f9e4', size = "50", iconSize = '3x' } = props
 
   return (
     <div className="fingerLogin" style={{ width: size + 'px', height: size + "px", borderColor: borderColor }}>
-      <img src={'https://buzzlightyears.github.io/css-exercise/saoyisao/images/2.png'}></img>
-      <FontAwesomeIcon icon={faFingerprint} size={'2x'} color={'black'} />
+      {/* <img src={'https://buzzlightyears.github.io/css-exercise/saoyisao/images/2.png'}></img> */}
+      <FontAwesomeIcon icon={faFingerprint} size={props.iconSize || iconSize} color={props.iconColor || iconColor} />
       <div className="pane">
         <img src="https://buzzlightyears.github.io/css-exercise/saoyisao/images/4.png"></img>
       </div>
