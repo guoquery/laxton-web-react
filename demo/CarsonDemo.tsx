@@ -4,16 +4,17 @@ import { Modal as SOModal } from 'shineout';
 // import "../dist/index";
 // import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
+import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input, Switch } from "../src/index";
 import { api } from "./api.service";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 // import { TextArea } from '../src/textArea/textArea';
 
 
-export const TableDemo = (props: any) => {
+export const CarsonDemo = (props: any) => {
 
   const [data, setData] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
+  const [checked, setChecked] = useState(true)
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
   const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20 });
@@ -442,6 +443,17 @@ export const TableDemo = (props: any) => {
       <Button icon={faAngleDown} shape="circle" type='primary' />
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" type='primary'></Dropdown>
+      <span style={{marginLeft:'10px'}}>
+        <Switch
+          onChange={()=>{setChecked(!checked)}}
+          // size='small'
+          // disabled={true}
+          // unCheckedChildren={'turndappx'}
+          // checkedChildren={'openxiaoppx'}
+          onClick={()=>{console.log(11)}}
+          checked={checked}
+        ></Switch>
+      </span>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
       <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
       <Button type='primary' disabled={disabled}>Disabled</Button>
