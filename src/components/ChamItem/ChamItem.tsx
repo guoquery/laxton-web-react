@@ -3,12 +3,17 @@ import { ChamInput, Button, ChamInputType } from "../../index";
 //@ts-ignore
 import { Grid } from 'shineout'
 
+export interface chamItemConfig extends ChamInputType {
+  useOriginalData?: boolean | string
+}
+
 interface ChamItemProps {
   values: any;
   expandIndex?: number,
   chamItemConfig: any;
   onChange: (action: any) => any;
   onValidateChange?: (action: any) => any;
+  getSelectOriginalData?: (action: any, data?: any) => any;
   children?: any;
   api?: any;
   layOut?: 'row' | 'column';
@@ -18,7 +23,6 @@ interface ChamItemProps {
   // item: ChamInputType;
   style?: any;
   disabled?: boolean;
-
 }
 export const ChamItem = (props: ChamItemProps) => {
   const FilterType: any = {}
@@ -73,9 +77,17 @@ export const ChamItem = (props: ChamItemProps) => {
     }
     return item.disabled
   }
+  const getSelectOriginalData = (e: any, item: chamItemConfig) => {
+    console.log(item)
+    if (props.getSelectOriginalData) {
+      if (item.useOriginalData) {
+        props.getSelectOriginalData({ [item.value]: e[typeof item.useOriginalData === 'boolean' ? 'Name' : item.useOriginalData + ''] }, e)
+      }
+    }
+  }
   const renderChamItemItem = () => {
     let ChamItemItem: any = [];
-    chamItemConfig.map((item: ChamInputType, index: number) => {
+    chamItemConfig.map((item: chamItemConfig, index: number) => {
       if (!expandIndex || (index < expandIndex)) {
         if (item.linkage) {
           // console.log(item, item.linkage, '>>>>>>><<<<<<<<<<<<')
@@ -95,6 +107,7 @@ export const ChamItem = (props: ChamItemProps) => {
               api={props.api}
               // width={props.width}
               disabled={IfDisabled(item)}
+              getSelectOriginalData={(e: any) => item.type === 'dropDown' && item.useOriginalData ? getSelectOriginalData(e, item) : undefined}
             ></ChamInput>
           </Grid>
         )

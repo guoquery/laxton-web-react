@@ -4,11 +4,10 @@ import { Modal as SOModal } from 'shineout';
 // import "../dist/index";
 // import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin } from "../lib/index";
 import "../src/assets/index";
-import { Rt, Search, Message, ChamInputType, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
+import { Rt, Search, Message, ChamInputType, chamItemConfig, Modal, ChamItem, Button, Dropdown, Spin, TextArea, Image, ChamInput, Input } from "../src/index";
 import { api } from "./api.service";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-// import { TextArea } from '../src/textArea/textArea';
-
+import { faAngleDown, faFingerprint } from "@fortawesome/free-solid-svg-icons";
+import { FingerLogin } from "../src/components";
 
 export const TableDemo = (props: any) => {
 
@@ -16,7 +15,7 @@ export const TableDemo = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [loadMoreType, setLoadMoreType] = useState('replace');
   const [ClassStet, setClassStet] = useState(true);
-  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20 });
+  const [chamItemValues, setChamItemValues] = useState({ EmploymentDate: "1900-01-01", Position: 20, Status: 1 });
   const [chamItemValues2, setChamItemValues2] = useState({});
   const [pagination, setPagination] = useState({
     total: 0,
@@ -211,7 +210,7 @@ export const TableDemo = (props: any) => {
     setQ({ ...q, ...{ CurrentPage: 1, Filters: { ...q.Filters, ...e.data } } })
   }
 
-  const searchConfig: ChamInputType[] = [
+  const searchConfig: chamItemConfig[] = [
     {
       label: "Position",
       value: "Position",
@@ -239,7 +238,8 @@ export const TableDemo = (props: any) => {
       type: "dropDown",
       typeCode: "Status",
       require: true,
-      optionValue: "Id"
+      optionValue: "Id",
+      useOriginalData: true,
     },
     {
       label: "First Name",
@@ -436,6 +436,7 @@ export const TableDemo = (props: any) => {
         <Spin name="pulse" />
         <Spin />
       </div>
+      <FingerLogin></FingerLogin>
       <Image href={true} ></Image>
       <Image width={200} height={125} src={'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fc7c5cc595e12203796678eedd9c4250.jpg?w=2452&h=920'} />
       <Button shape="circle" type='primary' loading />
@@ -443,7 +444,7 @@ export const TableDemo = (props: any) => {
       <Button type='primary' disabled={true}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" type='primary'></Dropdown>
       <TextArea onChange={(e: any) => OnChange(e)}></TextArea>
-      <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search>
+      {/* <Search onChange={(e: any) => OnChange(e)} searchConfig={searchConfig} api={api} gutter={20} width={1 / 3} filters={q.Filters}></Search> */}
       <Button type='primary' disabled={disabled}>Disabled</Button>
       <Dropdown data={DropdownList} placeholder="Dropdown" outline={false} type='primary'>11111</Dropdown>
       <Spin loading={loading}>
@@ -467,8 +468,8 @@ export const TableDemo = (props: any) => {
          </Button>,
         ]}
       >
-        <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
-      </SOModal> */}
+    </SOModal> */}
+      <ChamItem chamItemConfig={searchConfig} onChange={OnChamItemChange} values={chamItemValues} api={api} getSelectOriginalData={(e: any, data: any) => { console.error(e, data) }} onValidateChange={(e: any) => setDisabled(!e)}></ChamItem>
       <Modal
         // title='Basic Modal'
         prefixCls='laxton'

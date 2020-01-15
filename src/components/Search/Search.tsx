@@ -20,7 +20,7 @@ interface SearchProps {
 }
 export const Search = (props: SearchProps) => {
   const FilterType: any = {}
-  const [Filters, setFilters] = useState(props.filters || { FirstName: '888' })
+  const [Filters, setFilters] = useState(props.filters || {})
   const [expandIndex, setExpendIndex] = useState(props.expendIndex || 3)
   const OnTextChange = (e: any) => {
     console.log(e, 'OnTextChange1111111');

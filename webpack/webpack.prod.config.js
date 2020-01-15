@@ -36,18 +36,21 @@ module.exports = {
         },
         {
           loader: "less-loader"
-        }
+        },
+        // {
+        //   loader: "url-loader"
+        // }
         ]
       },
-      // {
-      //   test: /\.png/,
-      //   use: [{
-      //     loader: "url-loader",
-      //     options: {
-      //       limit: 1024 * 20
-      //     }
-      //   }]
-      // }
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [{
+          loader: "url-loader",
+          options: {
+            limit: 1024 * 20
+          }
+        }]
+      }
     ]
   },
   // resolve: {

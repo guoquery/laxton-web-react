@@ -1,0 +1,45 @@
+.fingerLogin {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    // border: 1px solid #b0f9e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background: #eee;
+    // background: url(https://buzzlightyears.github.io/css-exercise/saoyisao/images/2.png) center center no-repeat;
+
+    &>img {
+        position: absolute;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .pane {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+
+        position: absolute;
+        z-index: -1;
+        // background: url(https://buzzlightyears.github.io/css-exercise/saoyisao/images/4.png) center center no-repeat;
+        animation: move 1.5s ease-in-out infinite;
+
+    }
+}
+
+@keyframes move {
+    from {
+        top: -100%
+    }
+
+    to {
+        top: 0
+    }
+}

@@ -58,6 +58,7 @@ interface ChamInputProps {
   disabled?: boolean;
   onChange?: (value: any) => void;
   onValidateChange?: (value: any) => void;
+  getSelectOriginalData?: (value: any) => any;
   layOut?: 'row' | 'column',
   api?: any,
   width?: string | number;
@@ -174,6 +175,12 @@ export const ChamInput = observer((props: ChamInputProps) => {
     SetInputValue(value ? value : '')
   }
   const { placeholder } = item
+
+  const getSelectOriginalData = (e: any) => {
+    if (props.getSelectOriginalData) {
+      props.getSelectOriginalData(e)
+    }
+  }
   if (type === undefined || type === "text") {
     inputControl = (
 
@@ -200,7 +207,8 @@ export const ChamInput = observer((props: ChamInputProps) => {
         data={dropdownData}
         value={inputValue ? Number(inputValue) : undefined}
         defaultValue={inputValue ? Number(inputValue) : undefined}
-        datum={{ format: item.optionValue || 'Id' }}
+        getOriginalData={getSelectOriginalData}
+
         onChange={(e: any) => SetValue(e)}
         optionLabel={item.optionLabel}
         optionValue={item.optionValue}
@@ -213,6 +221,7 @@ export const ChamInput = observer((props: ChamInputProps) => {
   } else if (type === "textArea") {
     inputControl = (
       <TextArea
+        value={inputValue}
         // value={inputValue}
         // disabled={props.disabled}
         // style={{ width: "100%", }}
