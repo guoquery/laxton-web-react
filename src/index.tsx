@@ -2,6 +2,7 @@
 export { Search, ChamInput, ChamInputType, ChamItem, FingerLogin, chamItemConfig } from "./components";
 export { Rt, RTable } from './Table';
 export { Pagination } from './Pagination/Pagination';
+export { Switch } from './Switch/Switch';
 export { Button } from './Button/Button';
 export { default as Input } from './Input/index';
 export { default as Message } from './Message/index';
